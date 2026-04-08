@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PolicyNest Secure | Professional Insurance Services</title>
+    <title>PolicyNest Secure | Premier Insurance Advisory Services</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script>
@@ -25,16 +25,14 @@
         .hero-gradient {
             background: linear-gradient(135deg, #008037 0%, #1D4ED8 100%);
         }
-        /* Partners section grid styling */
         .partner-card {
             transition: all 0.3s ease;
-            filter: grayscale(100%);
-            opacity: 0.7;
+            border: 1px solid #f3f4f6;
         }
         .partner-card:hover {
-            filter: grayscale(0%);
-            opacity: 1;
-            transform: scale(1.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: #008037;
         }
     </style>
 </head>
@@ -51,7 +49,7 @@
             </div>
             <div class="hidden md:flex space-x-8 font-medium">
                 <a href="#" class="hover:text-logoGreen transition">Home</a>
-                <a href="#insurance" class="hover:text-logoGreen transition">Insurances</a>
+                <a href="#insurance" class="hover:text-logoGreen transition">Services</a>
                 <a href="#partners" class="hover:text-logoGreen transition">Partners</a>
                 <a href="#contact" class="bg-logoGold text-white px-5 py-2 rounded-full hover:bg-yellow-700 transition shadow-md">Contact Us</a>
             </div>
@@ -60,99 +58,146 @@
 
     <header class="hero-gradient text-white py-24 px-6 text-center shadow-lg">
         <div class="container mx-auto">
-            <h1 class="text-4xl md:text-6xl font-extrabold mb-6">Aapka Bhavishya, Hamari Suraksha</h1>
-            <p class="text-xl mb-10 opacity-90 max-w-2xl mx-auto">India ki sabse bharosemand insurance advisory service. Hum dilaate hain aapko sahi policy, sahi daam par.</p>
-            <a href="#contact" class="bg-white text-logoGreen font-bold py-3 px-10 rounded-lg shadow-xl hover:bg-gray-100 transition inline-block transform hover:scale-105">Get a Quote</a>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 uppercase tracking-tight leading-tight">
+                Protecting Your Future, <br>Securing Your World
+            </h1>
+            <p class="text-xl mb-10 opacity-90 max-w-2xl mx-auto font-light">
+                India's most trusted insurance advisory service. We find you the best coverage with the fastest claim processing at the right price.
+            </p>
+            <a href="#contact" class="bg-white text-logoGreen font-bold py-3 px-10 rounded-lg shadow-xl hover:bg-gray-100 transition inline-block transform hover:scale-105">Request a Quote</a>
         </div>
     </header>
 
     <section id="insurance" class="py-20 container mx-auto px-6">
         <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold text-logoGreen uppercase tracking-widest">Hamari Services</h2>
+            <h2 class="text-3xl font-bold text-logoGreen uppercase tracking-widest">Our Insurance Services</h2>
             <div class="h-1 w-20 bg-logoGreen mx-auto mt-2"></div>
         </div>
         <div class="grid md:grid-cols-3 gap-10">
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition hover:-translate-y-1 text-center border-b-4 border-b-logoGreen">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border-b-4 border-logoGreen text-center">
                 <i class="fas fa-heartbeat text-logoGreen text-4xl mb-5"></i>
                 <h3 class="text-2xl font-bold mb-3 text-logoBlue">Health Insurance</h3>
-                <p class="text-gray-600">Beemariyon ke kharche se azadi aur behtar ilaaj ki guarantee.</p>
+                <p class="text-gray-600">Secure your finances against medical emergencies with cashless hospital networks and premium care.</p>
             </div>
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition hover:-translate-y-1 text-center border-b-4 border-b-logoBlue">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border-b-4 border-logoBlue text-center scale-105 border-x-2 border-t-2 border-gray-100 shadow-md">
                 <i class="fas fa-car text-logoBlue text-4xl mb-5"></i>
                 <h3 class="text-2xl font-bold mb-3 text-logoBlue">Motor Insurance</h3>
-                <p class="text-gray-600 font-bold text-logoBlue italic text-sm mb-2">Focused Specialist</p>
-                <p class="text-gray-600">Aapki gaadi ki suraksha ke liye sabse sasta aur behtar plan.</p>
+                <p class="text-logoBlue font-bold italic text-sm mb-2 uppercase tracking-tighter">Specialist Choice</p>
+                <p class="text-gray-600">Comprehensive protection for your car or bike against accidents, theft, and natural disasters.</p>
             </div>
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition hover:-translate-y-1 text-center border-b-4 border-b-logoGold">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border-b-4 border-logoGold text-center">
                 <i class="fas fa-piggy-bank text-logoGold text-4xl mb-5"></i>
                 <h3 class="text-2xl font-bold mb-3 text-logoBlue">Life Insurance</h3>
-                <p class="text-gray-600">Aapke baad bhi aapke parivar ki muskurahat barkrar rahe.</p>
+                <p class="text-gray-600">Guarantee your family's future and dreams even in your absence with high-coverage term plans.</p>
             </div>
         </div>
     </section>
 
     <section id="partners" class="py-20 bg-gray-100 border-y border-gray-200">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-logoBlue">Hum In Sabhi Top Companies Ki Policy Source Karte Hain</h2>
-                <p class="text-logoGreen font-semibold mt-2">India's Most Trusted Motor Insurance Providers</p>
-                <div class="h-1 w-24 bg-logoGold mx-auto mt-4"></div>
-            </div>
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold text-logoBlue mb-4">India's Leading Insurance Partners</h2>
+            <p class="text-logoGreen font-semibold mb-12 uppercase text-sm tracking-widest">Authorized to Source Policies From 15+ Top Carriers</p>
             
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-center justify-items-center">
-                <img src="https://www.google.com/s2/favicons?sz=128&domain=hdfcergo.com" class="h-12 partner-card" alt="HDFC ERGO">
-                <img src="https://www.google.com/s2/favicons?sz=128&domain=icicilombard.com" class="h-12 partner-card" alt="ICICI Lombard">
-                <img src="https://www.google.com/s2/favicons?sz=128&domain=bajajallianz.com" class="h-12 partner-card" alt="Bajaj Allianz">
-                <img src="https://www.google.com/s2/favicons?sz=128&domain=tataaig.com" class="h-12 partner-card" alt="TATA AIG">
-                <img src="https://www.google.com/s2/favicons?sz=128&domain=reliancegeneral.co.in" class="h-12 partner-card" alt="Reliance General">
-                
-                <img src="https://www.google.com/s2/favicons?sz=128&domain=digitinsurance.com" class="h-12 partner-card" alt="Digit">
-                <img src="https://www.google.com/s2/favicons?sz=128&domain=iffcotokio.co.in" class="h-12 partner-card" alt="IFFCO Tokio">
-                <img src="https://www.google.com/s2/favicons?sz=128&domain=sbiinsurance.com" class="h-12 partner-card" alt="SBI General">
-                <img src="https://www.google.com/s2/favicons?sz=128&domain=newindia.co.in" class="h-12 partner-card" alt="New India Assurance">
-                <img src="https://www.google.com/s2/favicons?sz=128&domain=unitedindia.co.in" class="h-12 partner-card" alt="United India">
-                
-                <img src="https://www.google.com/s2/favicons?sz=128&domain=nationalinsurance.nic.co.in" class="h-12 partner-card" alt="National Insurance">
-                <img src="https://www.google.com/s2/favicons?sz=128&domain=cholainsurance.com" class="h-12 partner-card" alt="Chola MS">
-                <img src="https://www.google.com/s2/favicons?sz=128&domain=magma-hdi.com" class="h-12 partner-card" alt="Magma HDI">
-                <img src="https://www.google.com/s2/favicons?sz=128&domain=royal-sundaram.in" class="h-12 partner-card" alt="Royal Sundaram">
-                <img src="https://www.google.com/s2/favicons?sz=128&domain=acko.com" class="h-12 partner-card" alt="Acko">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
+                    <img src="https://www.google.com/s2/favicons?sz=128&domain=hdfcergo.com" class="h-10 mb-2" alt="HDFC ERGO">
+                    <span class="text-xs font-extrabold text-gray-700">HDFC ERGO</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
+                    <img src="https://www.google.com/s2/favicons?sz=128&domain=icicilombard.com" class="h-10 mb-2" alt="ICICI Lombard">
+                    <span class="text-xs font-extrabold text-gray-700">ICICI Lombard</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
+                    <img src="https://www.google.com/s2/favicons?sz=128&domain=bajajallianz.com" class="h-10 mb-2" alt="Bajaj Allianz">
+                    <span class="text-xs font-extrabold text-gray-700">Bajaj Allianz</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
+                    <img src="https://www.google.com/s2/favicons?sz=128&domain=tataaig.com" class="h-10 mb-2" alt="TATA AIG">
+                    <span class="text-xs font-extrabold text-gray-700">TATA AIG</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
+                    <img src="https://www.google.com/s2/favicons?sz=128&domain=reliancegeneral.co.in" class="h-10 mb-2" alt="Reliance General">
+                    <span class="text-xs font-extrabold text-gray-700">Reliance Gen</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
+                    <img src="https://www.google.com/s2/favicons?sz=128&domain=digitinsurance.com" class="h-10 mb-2" alt="Digit">
+                    <span class="text-xs font-extrabold text-gray-700">Go Digit</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
+                    <img src="https://www.google.com/s2/favicons?sz=128&domain=iffcotokio.co.in" class="h-10 mb-2" alt="IFFCO Tokio">
+                    <span class="text-xs font-extrabold text-gray-700">IFFCO Tokio</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
+                    <img src="https://www.google.com/s2/favicons?sz=128&domain=sbigeneral.in" class="h-10 mb-2" alt="SBI General">
+                    <span class="text-xs font-extrabold text-gray-700">SBI General</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
+                    <img src="https://www.google.com/s2/favicons?sz=128&domain=newindia.co.in" class="h-10 mb-2" alt="New India">
+                    <span class="text-xs font-extrabold text-gray-700">New India</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
+                    <img src="https://www.google.com/s2/favicons?sz=128&domain=unitedindia.co.in" class="h-10 mb-2" alt="United India">
+                    <span class="text-xs font-extrabold text-gray-700">United India</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
+                    <img src="https://www.google.com/s2/favicons?sz=128&domain=nationalinsurance.nic.co.in" class="h-10 mb-2" alt="National Ins">
+                    <span class="text-xs font-extrabold text-gray-700">National Ins</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
+                    <img src="https://www.google.com/s2/favicons?sz=128&domain=cholainsurance.com" class="h-10 mb-2" alt="Chola MS">
+                    <span class="text-xs font-extrabold text-gray-700">Chola MS</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
+                    <img src="https://www.google.com/s2/favicons?sz=128&domain=magma-hdi.com" class="h-10 mb-2" alt="Magma HDI">
+                    <span class="text-xs font-extrabold text-gray-700">Magma HDI</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
+                    <img src="https://www.google.com/s2/favicons?sz=128&domain=royal-sundaram.in" class="h-10 mb-2" alt="Royal Sundaram">
+                    <span class="text-xs font-extrabold text-gray-700">Royal Sundaram</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
+                    <img src="https://www.google.com/s2/favicons?sz=128&domain=acko.com" class="h-10 mb-2" alt="Acko">
+                    <span class="text-xs font-extrabold text-gray-700">Acko General</span>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="py-12 bg-white">
         <div class="container mx-auto px-6 text-center">
-            <p class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-6 text-center">Official Information Sources</p>
+            <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-8">Official Regulatory Compliance</p>
             <div class="flex flex-wrap justify-center items-center gap-12">
-                <a href="https://www.irdai.gov.in" target="_blank" class="flex items-center space-x-3 grayscale hover:grayscale-0 transition opacity-80 hover:opacity-100">
-                    <img src="https://www.google.com/s2/favicons?sz=64&domain=irdai.gov.in" class="w-8 h-8" alt="IRDAI">
-                    <span class="font-bold text-gray-700">IRDAI Official</span>
+                <a href="https://www.irdai.gov.in" target="_blank" class="flex flex-col items-center group">
+                    <div class="p-4 bg-gray-50 rounded-full group-hover:bg-logoLightGreen transition border border-gray-100 shadow-sm">
+                        <img src="https://www.google.com/s2/favicons?sz=64&domain=irdai.gov.in" class="w-10 h-10" alt="IRDAI">
+                    </div>
+                    <span class="mt-2 font-bold text-gray-600 group-hover:text-logoGreen">IRDAI Official Portal</span>
                 </a>
-                <a href="https://policyholder.gov.in" target="_blank" class="flex items-center space-x-3 grayscale hover:grayscale-0 transition opacity-80 hover:opacity-100">
-                    <img src="https://www.google.com/s2/favicons?sz=64&domain=policyholder.gov.in" class="w-8 h-8" alt="Policyholder">
-                    <span class="font-bold text-gray-700">Policyholder.gov.in</span>
+                <a href="https://policyholder.gov.in" target="_blank" class="flex flex-col items-center group">
+                    <div class="p-4 bg-gray-50 rounded-full group-hover:bg-logoLightGreen transition border border-gray-100 shadow-sm">
+                        <img src="https://www.google.com/s2/favicons?sz=64&domain=policyholder.gov.in" class="w-10 h-10" alt="Policyholder">
+                    </div>
+                    <span class="mt-2 font-bold text-gray-600 group-hover:text-logoGreen">Policyholder Awareness</span>
                 </a>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-20 bg-logoLightGreen text-center container mx-auto px-6 rounded-3xl shadow-md my-10">
-        <h2 class="text-3xl font-bold mb-4 text-logoGreen">Humse Sampark Karein</h2>
-        <p class="text-gray-500 mb-12">Hum aapki madad ke liye hamesha taiyar hain.</p>
-        
+    <section id="contact" class="py-20 bg-logoLightGreen text-center container mx-auto px-6 rounded-3xl shadow-md my-10 border border-logoGreen/20">
+        <h2 class="text-3xl font-bold mb-4 text-logoGreen">Consult Our Experts Today</h2>
+        <p class="text-gray-500 mb-12">Professional insurance advice is just a click away.</p>
         <div class="flex flex-col md:flex-row justify-center items-center gap-6">
-            <a href="https://wa.me/919152058250" target="_blank" class="w-64 flex items-center justify-center space-x-3 bg-green-500 text-white px-8 py-4 rounded-xl hover:bg-green-600 shadow-xl transition-all hover:scale-105">
+            <a href="https://wa.me/919152058250" target="_blank" class="w-64 flex items-center justify-center space-x-3 bg-green-500 text-white px-8 py-4 rounded-xl hover:bg-green-600 shadow-xl transition transform hover:scale-105">
                 <i class="fab fa-whatsapp text-2xl"></i>
-                <span class="font-bold">WhatsApp Karein</span>
+                <span class="font-bold">WhatsApp Now</span>
             </a>
-            <a href="https://instagram.com/policynestsecure" target="_blank" class="w-64 flex items-center justify-center space-x-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white px-8 py-4 rounded-xl hover:opacity-90 shadow-xl transition-all hover:scale-105">
+            <a href="https://instagram.com/policynestsecure" target="_blank" class="w-64 flex items-center justify-center space-x-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white px-8 py-4 rounded-xl hover:opacity-90 shadow-xl transition transform hover:scale-105">
                 <i class="fab fa-instagram text-2xl"></i>
-                <span class="font-bold">Instagram</span>
+                <span class="font-bold">Follow Instagram</span>
             </a>
-            <a href="tel:+919152058250" class="w-64 flex items-center justify-center space-x-3 bg-logoBlue text-white px-8 py-4 rounded-xl hover:bg-blue-800 shadow-xl transition-all hover:scale-105">
+            <a href="tel:+919152058250" class="w-64 flex items-center justify-center space-x-3 bg-logoBlue text-white px-8 py-4 rounded-xl hover:bg-blue-800 shadow-xl transition transform hover:scale-105">
                 <i class="fas fa-phone-alt text-2xl"></i>
-                <span class="font-bold">+91 9152058250</span>
+                <span class="font-bold">Call Support</span>
             </a>
         </div>
     </section>
@@ -161,33 +206,36 @@
         <div class="container mx-auto">
             <div class="grid md:grid-cols-3 gap-12 mb-10 text-sm">
                 <div>
-                    <div class="bg-white p-2 rounded-lg inline-block mb-5">
+                    <div class="bg-white p-2 rounded-lg inline-block mb-5 shadow-inner">
                         <img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-" alt="PolicyNest Secure" class="h-12">
                     </div>
-                    <p class="leading-relaxed opacity-90">
-                        Authorized Insurance Agency providing comprehensive protection plans across India.
+                    <p class="leading-relaxed opacity-90 text-justify">
+                        PolicyNest Secure is a premier insurance advisory firm dedicated to delivering transparent, reliable, and high-quality protection plans across India.
                     </p>
                 </div>
                 <div>
                     <h3 class="text-white text-xl font-bold mb-5">Leadership</h3>
-                    <p class="text-yellow-300 font-semibold mb-1">MD & CEO:</p>
-                    <p class="text-lg text-white font-semibold">Md Sarphe Alam</p>
+                    <p class="text-yellow-300 font-semibold mb-1 uppercase tracking-widest text-xs">Founder & CEO:</p>
+                    <p class="text-lg text-white font-bold">Md Sarphe Alam</p>
                 </div>
                 <div>
-                    <h3 class="text-white text-xl font-bold mb-5">Licensing</h3>
-                    <p class="text-xs opacity-80 leading-relaxed">
+                    <h3 class="text-white text-xl font-bold mb-5">Office & Compliance</h3>
+                    <p class="opacity-80 leading-relaxed">
                         Registered Office: Mumbai, Maharashtra, India. <br>
-                        IRDAI Registered Agency. <br>
-                        <span class="text-gray-200 mt-2 block">*Insurance is the subject matter of solicitation.</span>
+                        IRDAI Registered Agency. <br><br>
+                        <span class="text-gray-300 italic text-[10px] block border-l-2 border-logoGold pl-2">
+                            *Insurance is the subject matter of solicitation. Please read the policy document carefully before investing.
+                        </span>
                     </p>
                 </div>
             </div>
-            <hr class="border-green-800 mb-10">
-            <div class="text-center text-sm opacity-80">
-                © 2026 policynestsecure.in | Made with ❤️ in India
+            <hr class="border-green-800 mb-10 opacity-30">
+            <div class="text-center text-sm opacity-60">
+                © 2026 policynestsecure.in | Delivering Trust & Security Since 2022
             </div>
         </div>
     </footer>
 
 </body>
 </html>
+
