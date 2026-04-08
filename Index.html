@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolicyNest Secure | Professional Insurance Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        // Customizing Tailwind themes to match the logo colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        logoGreen: '#008037', // The prominent green from the logo nest
+                        logoBlue: '#1D4ED8',  // The deep blue from the shield and text
+                        logoGold: '#B58900',  // The gold/yellow from the shield star
+                        logoLightGreen: '#E6F4EA' // Very pale green for backgrounds
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        /* Professional Gradient using Green and Blue from the logo */
+        .hero-gradient {
+            background: linear-gradient(135deg, #008037 0%, #1D4ED8 100%);
+        }
+        /* Gradient for text highlights */
+        .text-gradient {
+            background: linear-gradient(to right, #008037, #1D4ED8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-900">
+
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="bg-logoGreen p-2 rounded-full shadow-inner">
+                    <i class="fas fa-shield-alt text-white text-2xl"></i>
+                </div>
+                <span class="text-2xl font-bold text-logoBlue">PolicyNest <span class="text-logoGreen">Secure</span></span>
+            </div>
+            <div class="hidden md:flex space-x-8 font-medium">
+                <a href="#" class="hover:text-logoGreen transition">Home</a>
+                <a href="#insurance" class="hover:text-logoGreen transition">Insurances</a>
+                <a href="#news" class="hover:text-logoGreen transition">Latest News</a>
+                <a href="#contact" class="bg-logoGold text-white px-5 py-2 rounded-full hover:bg-yellow-700 transition shadow-md">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-gradient text-white py-24 px-6 text-center shadow-lg">
+        <div class="container mx-auto">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6">Aapka Bhavishya, Hamari Suraksha</h1>
+            <p class="text-xl mb-10 opacity-90 max-w-2xl mx-auto">India ki sabse bharosemand insurance advisory service. Hum dilaate hain aapko sahi policy, sahi daam par.</p>
+            <button class="bg-white text-logoGreen font-bold py-3 px-10 rounded-lg shadow-xl hover:bg-gray-100 transition transform hover:scale-105">Get a Quote</button>
+        </div>
+    </header>
+
+    <section id="insurance" class="py-20 container mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-logoGreen uppercase tracking-widest">Hamari Services</h2>
+            <div class="h-1 w-20 bg-logoGreen mx-auto mt-2"></div>
+        </div>
+        <div class="grid md:grid-cols-3 gap-10">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition hover:-translate-y-1">
+                <i class="fas fa-heartbeat text-logoGreen text-4xl mb-5"></i>
+                <h3 class="text-2xl font-bold mb-3">Health Insurance</h3>
+                <p class="text-gray-600">Beemariyon ke kharche se azadi aur behtar ilaaj ki guarantee.</p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition hover:-translate-y-1">
+                <i class="fas fa-car text-logoBlue text-4xl mb-5"></i>
+                <h3 class="text-2xl font-bold mb-3">Motor Insurance</h3>
+                <p class="text-gray-600">Aapki gaadi ki suraksha ke liye sabse sasta aur behtar plan.</p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition hover:-translate-y-1">
+                <i class="fas fa-piggy-bank text-logoGold text-4xl mb-5"></i>
+                <h3 class="text-2xl font-bold mb-3">Life Insurance</h3>
+                <p class="text-gray-600">Aapke baad bhi aapke parivar ki muskurahat barkrar rahe.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="news" class="bg-logoLightGreen py-20 px-6 border-y border-gray-100">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-16 text-logoGreen">Latest Insurance News (India)</h2>
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="bg-white p-8 rounded-xl shadow-md flex items-center space-x-6 border border-gray-200 hover:border-logoGreen transition">
+                    <img src="https://www.google.com/s2/favicons?sz=64&domain=economictimes.indiatimes.com" class="w-14 h-14" alt="ET Logo">
+                    <div>
+                        <h3 class="font-bold text-xl text-logoBlue">The Economic Times</h3>
+                        <p class="text-sm text-gray-500 mb-4">Latest updates on IRDAI regulations and market trends.</p>
+                        <a href="https://economictimes.indiatimes.com/industry/insurance" target="_blank" class="text-logoGreen font-bold hover:underline">Read Today's News →</a>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md flex items-center space-x-6 border border-gray-200 hover:border-logoGreen transition">
+                    <img src="https://www.google.com/s2/favicons?sz=64&domain=moneycontrol.com" class="w-14 h-14" alt="MoneyControl Logo">
+                    <div>
+                        <h3 class="font-bold text-xl text-logoBlue">MoneyControl</h3>
+                        <p class="text-sm text-gray-500 mb-4">Daily news on policy changes and new insurance launches.</p>
+                        <a href="https://www.moneycontrol.com/news/business/personal-finance/insurance/" target="_blank" class="text-logoGreen font-bold hover:underline">View Latest Reports →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 text-center container mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-12 text-logoGreen">Humse Sampark Karein</h2>
+        <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+            <a href="https://wa.me/919152058250" target="_blank" class="w-64 flex items-center justify-center space-x-3 bg-green-500 text-white px-8 py-4 rounded-xl hover:bg-green-600 shadow-xl transition-all hover:scale-105">
+                <i class="fab fa-whatsapp text-2xl"></i>
+                <span class="font-bold">WhatsApp Karein</span>
+            </a>
+            <a href="https://instagram.com/policynestsecure" target="_blank" class="w-64 flex items-center justify-center space-x-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white px-8 py-4 rounded-xl hover:opacity-90 shadow-xl transition-all hover:scale-105">
+                <i class="fab fa-instagram text-2xl"></i>
+                <span class="font-bold">Instagram</span>
+            </a>
+            <a href="tel:+919152058250" class="w-64 flex items-center justify-center space-x-3 bg-logoBlue text-white px-8 py-4 rounded-xl hover:bg-blue-800 shadow-xl transition-all hover:scale-105">
+                <i class="fas fa-phone-alt text-2xl"></i>
+                <span class="font-bold">+91 9152058250</span>
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-logoGreen text-gray-100 py-16 px-6 border-t-4 border-logoGold">
+        <div class="container mx-auto">
+            <div class="grid md:grid-cols-3 gap-12 mb-10 text-sm">
+                <div>
+                    <h3 class="text-white text-xl font-bold mb-5 italic">PolicyNest Secure</h3>
+                    <p class="leading-relaxed opacity-90">
+                        Authorized Insurance Agency providing comprehensive protection plans across India. We ensure transparency, trust, and fast claim settlements. Customer ki suraksha hi hamara maksad hai.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-white text-xl font-bold mb-5">Leadership</h3>
+                    <p class="text-yellow-300 font-semibold mb-1">MD & CEO:</p>
+                    <p class="text-lg text-white font-semibold">Md Sarphe Alam</p>
+                </div>
+                <div>
+                    <h3 class="text-white text-xl font-bold mb-5">Licensing & Compliance</h3>
+                    <p class="text-xs opacity-80 leading-relaxed">
+                        Registered Office: Mumbai, Maharashtra, India. <br>
+                        IRDAI Registered Agency. License No: 00. <br>
+                        <span class="text-gray-200 mt-2 block">*Insurance is the subject matter of solicitation. All rights reserved. Licensing details can be verified on the IRDAI portal.</span>
+                    </p>
+                </div>
+            </div>
+            <hr class="border-green-800 mb-10">
+            <div class="text-center text-sm opacity-80">
+                &copy; 2026 policynestsecure.in | Made with ❤️ in India
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
