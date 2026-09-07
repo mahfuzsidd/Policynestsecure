@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#0F172A">
-    <title>PolicyNest Secure | Motor App</title>
+    <title>PolicyNest Secure | Motor Enterprise Suite</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -35,7 +36,6 @@
         }
         html, body {
             height: 100%;
-            background-color: #F8FAFC;
         }
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
@@ -44,19 +44,67 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-        .active-tab {
-            color: #2563EB;
+        
+        /* TOUCH / ACTIVE FEEDBACK */
+        .btn-touch {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.15s ease;
         }
-        .active-tab i {
-            transform: scale(1.15);
+        .btn-touch:active {
+            transform: scale(0.96);
+            opacity: 0.88;
         }
+        
+        /* ACTIVE DOCK TAB HIGHLIGHT */
+        .dock-active {
+            color: #2563EB !important;
+            background-color: rgba(37, 99, 235, 0.12);
+            border-radius: 9999px;
+            padding: 4px 12px;
+            box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.25);
+        }
+        .dock-active i {
+            transform: scale(1.2);
+            transition: transform 0.2s ease;
+        }
+        
         .floating-footer {
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
         }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printableQuoteModal, #printableQuoteModal * {
+                visibility: visible;
+            }
+            #printableQuoteModal {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                display: block !important;
+                background: white !important;
+                color: black !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
     </style>
 </head>
-<body class="h-full text-slate-800 antialiased font-sans flex flex-col bg-slate-100">
+<body class="h-full text-slate-800 dark:text-slate-100 antialiased font-sans flex flex-col bg-slate-100 dark:bg-slate-950 transition-colors duration-200">
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toastBox" class="fixed top-4 right-4 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+    <!-- NETWORK STATUS PILL -->
+    <div id="networkStatusPill" class="hidden fixed top-2 left-1/2 -translate-x-1/2 z-50 bg-amber-500 text-white text-[10px] font-black px-3 py-1 rounded-full shadow-lg items-center space-x-1">
+        <i class="fas fa-wifi"></i>
+        <span data-lang-en="Offline Mode: Local Engine Active" data-lang-hi="ऑफ़लाइन मोड: लोकल इंजन सक्रिय">Offline Mode: Local Engine Active</span>
+    </div>
 
     <!-- ENTERPRISE SLIDE-OVER DRAWER MENU -->
     <div id="sideDrawer" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
@@ -69,34 +117,38 @@
                         </div>
                         <div>
                             <span class="font-black text-sm tracking-tight text-white block">PolicyNest Secure</span>
-                            <span class="text-[9px] text-emerald-400 font-bold uppercase tracking-wider">Govt / IRDAI Certified</span>
+                            <span class="text-[9px] text-emerald-400 font-bold uppercase tracking-wider" data-lang-en="Govt / IRDAI Certified" data-lang-hi="आईआरडीएआई मान्यता प्राप्त">Govt / IRDAI Certified</span>
                         </div>
                     </div>
-                    <button onclick="toggleDrawer()" class="text-slate-400 hover:text-white p-1.5">
+                    <button onclick="toggleDrawer()" class="text-slate-400 hover:text-white p-1.5 btn-touch">
                         <i class="fas fa-times text-base"></i>
                     </button>
                 </div>
 
                 <nav class="space-y-2 text-xs font-bold">
-                    <a href="javascript:void(0)" onclick="toggleDrawer(); navigateTab('home');" class="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 text-white transition">
+                    <a href="javascript:void(0)" onclick="toggleDrawer(); navigateTab('home');" class="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 text-white transition btn-touch">
                         <i class="fas fa-car text-blue-400 w-5"></i>
-                        <span>Motor Insurance Home</span>
+                        <span data-lang-en="Motor Insurance Home" data-lang-hi="मोटर बीमा होम">Motor Insurance Home</span>
                     </a>
-                    <a href="javascript:void(0)" onclick="toggleDrawer(); navigateTab('calc');" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition">
+                    <a href="javascript:void(0)" onclick="toggleDrawer(); navigateTab('calc');" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition btn-touch">
                         <i class="fas fa-calculator text-emerald-400 w-5"></i>
-                        <span>IDV & Rider Estimator</span>
+                        <span data-lang-en="IDV & Rider Estimator" data-lang-hi="आईडीवी और राइडर कैलकुलेटर">IDV & Rider Estimator</span>
                     </a>
-                    <a href="javascript:void(0)" onclick="toggleDrawer(); navigateTab('partner');" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition">
+                    <a href="javascript:void(0)" onclick="toggleDrawer(); navigateTab('partner');" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition btn-touch">
                         <i class="fas fa-briefcase text-amber-400 w-5"></i>
-                        <span>POSP Agent Onboarding</span>
+                        <span data-lang-en="POSP Agent Onboarding" data-lang-hi="पार्टनर (POSP) बनें">POSP Agent Onboarding</span>
                     </a>
-                    <a href="https://wa.me/919152058250?text=Hi%2C%20I%20need%20to%20locate%20cashless%20garages%20nearby." target="_blank" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition">
-                        <i class="fas fa-warehouse text-purple-400 w-5"></i>
-                        <span>Cashless Garages (7,500+)</span>
+                    <a href="javascript:void(0)" onclick="toggleDrawer(); detectUserLocation();" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition btn-touch">
+                        <i class="fas fa-location-crosshairs text-sky-400 w-5"></i>
+                        <span id="drawerLocText" data-lang-en="Detect Regional Desk" data-lang-hi="नज़दीकी डेस्क पहचानें">Detect Regional Desk</span>
                     </a>
-                    <a href="https://wa.me/919152058250?text=EMERGENCY%3A%20Need%20Claim%20Assistance%20Immediately." target="_blank" class="flex items-center space-x-3 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 transition">
+                    <a href="javascript:void(0)" onclick="toggleDrawer(); openPrintModal();" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition btn-touch">
+                        <i class="fas fa-file-pdf text-rose-400 w-5"></i>
+                        <span data-lang-en="Download Quotation Slip" data-lang-hi="कोटेशन स्लिप डाउनलोड करें">Download Quotation Slip</span>
+                    </a>
+                    <a href="https://wa.me/919152058250?text=EMERGENCY%3A%20Need%20Claim%20Assistance%20Immediately." target="_blank" class="flex items-center space-x-3 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 transition btn-touch">
                         <i class="fas fa-phone-volume text-red-400 w-5"></i>
-                        <span>24x7 Claim SOS Support</span>
+                        <span data-lang-en="24x7 Claim SOS Support" data-lang-hi="24x7 क्लेम आपातकालीन सहायता">24x7 Claim SOS Support</span>
                     </a>
                 </nav>
             </div>
@@ -115,22 +167,28 @@
             <div class="flex items-center space-x-2 text-slate-300">
                 <span class="flex items-center text-emerald-400 font-bold gap-1">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                    IRDAI Compliant
+                    <span data-lang-en="IRDAI Compliant" data-lang-hi="आईआरडीएआई अनुपालन">IRDAI Compliant</span>
                 </span>
                 <span class="text-slate-600">|</span>
-                <span class="text-slate-400 font-semibold truncate">30-Min Cashless Claim Desk</span>
+                <span class="text-slate-400 font-semibold truncate" id="locationBanner" data-lang-en="30-Min Cashless Claim Desk" data-lang-hi="30 मिनट कैशलेस क्लेम डेस्क">30-Min Cashless Claim Desk</span>
             </div>
             
-            <a href="https://wa.me/919152058250?text=Hi%2C%20I%20need%20help%20with%20Motor%20Insurance." target="_blank" class="text-emerald-400 hover:text-emerald-300 font-black flex items-center space-x-1">
-                <i class="fab fa-whatsapp text-xs"></i>
-                <span>Direct Support</span>
-            </a>
+            <div class="flex items-center space-x-3">
+                <button onclick="detectUserLocation()" class="text-slate-400 hover:text-white flex items-center space-x-1 btn-touch" title="Detect Location">
+                    <i class="fas fa-location-dot text-[10px] text-emerald-400"></i>
+                    <span class="hidden sm:inline" data-lang-en="GPS Sync" data-lang-hi="जीपीएस सिंक">GPS Sync</span>
+                </button>
+                <a href="https://wa.me/919152058250?text=Hi%2C%20I%20need%20help%20with%20Motor%20Insurance." target="_blank" class="text-emerald-400 hover:text-emerald-300 font-black flex items-center space-x-1 btn-touch">
+                    <i class="fab fa-whatsapp text-xs"></i>
+                    <span data-lang-en="Direct Desk" data-lang-hi="सीधी बात">Direct Desk</span>
+                </a>
+            </div>
         </div>
 
-        <!-- Main Bar (Full Width Responsive) -->
+        <!-- Main Header Bar -->
         <div class="max-w-7xl mx-auto px-4 md:px-8 py-3 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <button onclick="toggleDrawer()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition active:scale-95 shadow-xs">
+                <button onclick="toggleDrawer()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition btn-touch shadow-xs">
                     <i class="fas fa-bars-staggered text-sm"></i>
                 </button>
 
@@ -143,25 +201,45 @@
                             <span class="text-base md:text-lg font-black tracking-tight text-white">PolicyNest</span>
                             <i class="fas fa-certificate text-blue-500 text-[11px]"></i>
                         </div>
-                        <span class="text-[9px] font-extrabold tracking-widest text-emerald-400 uppercase">SECURE MOTOR DESK</span>
+                        <span class="text-[9px] font-extrabold tracking-widest text-emerald-400 uppercase" data-lang-en="SECURE MOTOR DESK" data-lang-hi="सुरक्षित मोटर डेस्क">SECURE MOTOR DESK</span>
                     </div>
                 </div>
             </div>
 
             <!-- Desktop Nav Links -->
             <div class="hidden md:flex items-center space-x-6 text-xs font-bold text-slate-300">
-                <a href="javascript:void(0)" onclick="navigateTab('home')" class="hover:text-white transition">Home</a>
-                <a href="javascript:void(0)" onclick="navigateTab('calc')" class="hover:text-white transition">Estimator</a>
-                <a href="javascript:void(0)" onclick="navigateTab('partner')" class="hover:text-white transition">Partner Program</a>
+                <a href="javascript:void(0)" onclick="navigateTab('home')" class="hover:text-white transition btn-touch" data-lang-en="Home" data-lang-hi="होम">Home</a>
+                <a href="javascript:void(0)" onclick="navigateTab('calc')" class="hover:text-white transition btn-touch" data-lang-en="Estimator" data-lang-hi="कैलकुलेटर">Estimator</a>
+                <a href="javascript:void(0)" onclick="navigateTab('partner')" class="hover:text-white transition btn-touch" data-lang-en="Partner Program" data-lang-hi="पार्टनर प्रोग्राम">Partner Program</a>
             </div>
 
+            <!-- Action Cluster -->
             <div class="flex items-center space-x-2">
-                <a href="tel:+919152058250" class="flex items-center space-x-1.5 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl border border-slate-700/80 active:scale-95 transition shadow-xs">
+                <!-- LANGUAGE TOGGLE BUTTON (HINDI / ENGLISH) -->
+                <button onclick="toggleLanguage()" id="langToggleBtn" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-black flex items-center space-x-1 btn-touch" title="Translate Website">
+                    <i class="fas fa-language text-emerald-400 text-sm"></i>
+                    <span id="langLabel" class="tracking-wide">हिन्दी</span>
+                </button>
+
+                <!-- Theme Toggle -->
+                <button onclick="toggleDarkMode()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center btn-touch transition" title="Toggle Dark/Light Mode">
+                    <i class="fas fa-moon dark:hidden text-amber-400"></i>
+                    <i class="fas fa-sun hidden dark:inline text-amber-400"></i>
+                </button>
+
+                <!-- Native Share Button -->
+                <button onclick="shareQuotation()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center btn-touch transition" title="Share Quote">
+                    <i class="fas fa-share-nodes text-xs"></i>
+                </button>
+
+                <!-- SOS Dialer -->
+                <a href="tel:+919152058250" class="flex items-center space-x-1.5 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl border border-slate-700/80 btn-touch transition shadow-xs">
                     <i class="fas fa-phone-alt text-[11px] text-blue-400"></i>
-                    <span class="text-xs font-bold">SOS Desk</span>
+                    <span class="text-xs font-bold hidden sm:inline">SOS</span>
                 </a>
                 
-                <a href="https://wa.me/919152058250" target="_blank" class="h-9 px-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center space-x-1.5 shadow-lg active:scale-95 transition text-xs font-bold">
+                <!-- WhatsApp CTA -->
+                <a href="https://wa.me/919152058250" target="_blank" class="h-9 px-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center space-x-1.5 shadow-lg btn-touch transition text-xs font-bold">
                     <i class="fab fa-whatsapp text-sm"></i>
                     <span class="hidden sm:inline">WhatsApp</span>
                 </a>
@@ -177,105 +255,105 @@
             <div id="pwaBanner" class="bg-gradient-to-r from-slate-900 to-appBlue text-white p-3 rounded-2xl flex items-center justify-between text-xs border border-white/10 shadow-sm">
                 <div class="flex items-center space-x-2">
                     <i class="fas fa-mobile-screen-button text-emerald-400 text-sm"></i>
-                    <span class="font-bold text-[11px] md:text-xs">Install PolicyNest Web App on Phone for 1-Tap Access</span>
+                    <span class="font-bold text-[11px] md:text-xs" data-lang-en="Install PolicyNest Web App on Phone for 1-Tap Access" data-lang-hi="1-टैप आसान उपयोग के लिए PolicyNest ऍप इंस्टॉल करें">Install PolicyNest Web App on Phone for 1-Tap Access</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <button onclick="installAppPrompt()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-1 rounded-full font-black text-[10px] shadow-sm">
+                    <button onclick="installAppPrompt()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-1 rounded-full font-black text-[10px] shadow-sm btn-touch" data-lang-en="Install" data-lang-hi="इंस्टॉल">
                         Install
                     </button>
-                    <button onclick="dismissBanner()" class="text-slate-400 hover:text-white px-1">
+                    <button onclick="dismissBanner()" class="text-slate-400 hover:text-white px-1 btn-touch">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- VEHICLE SEGMENT TABS -->
+            <!-- VEHICLE SEGMENT TABS (WITH ACTIVE VISUAL HIGHLIGHT) -->
             <div class="flex space-x-3 overflow-x-auto hide-scrollbar">
-                <button onclick="setVehicleClass('car')" id="tabCar" class="type-btn flex-1 md:flex-none md:w-48 bg-appBlue text-white py-2.5 px-4 rounded-2xl text-xs font-bold flex items-center justify-center space-x-2 shadow-sm active:scale-95 transition">
+                <button onclick="setVehicleClass('car')" id="tabCar" class="type-btn flex-1 md:flex-none md:w-48 bg-appBrand text-white py-2.5 px-4 rounded-2xl text-xs font-bold flex items-center justify-center space-x-2 shadow-md ring-2 ring-blue-400 btn-touch transition">
                     <i class="fas fa-car"></i>
-                    <span>Car (4-Wheeler)</span>
+                    <span data-lang-en="Car (4-Wheeler)" data-lang-hi="कार (4-पहिया)">Car (4-Wheeler)</span>
                 </button>
-                <button onclick="setVehicleClass('bike')" id="tabBike" class="type-btn flex-1 md:flex-none md:w-48 bg-white text-slate-600 border border-slate-200 py-2.5 px-4 rounded-2xl text-xs font-bold flex items-center justify-center space-x-2 shadow-sm active:scale-95 transition">
+                <button onclick="setVehicleClass('bike')" id="tabBike" class="type-btn flex-1 md:flex-none md:w-48 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 py-2.5 px-4 rounded-2xl text-xs font-bold flex items-center justify-center space-x-2 shadow-sm btn-touch transition">
                     <i class="fas fa-motorcycle"></i>
-                    <span>Bike / Scooter</span>
+                    <span data-lang-en="Bike / Scooter" data-lang-hi="बाइक / स्कूटर">Bike / Scooter</span>
                 </button>
-                <button onclick="setVehicleClass('commercial')" id="tabComm" class="type-btn flex-1 md:flex-none md:w-48 bg-white text-slate-600 border border-slate-200 py-2.5 px-4 rounded-2xl text-xs font-bold flex items-center justify-center space-x-2 shadow-sm active:scale-95 transition">
+                <button onclick="setVehicleClass('commercial')" id="tabComm" class="type-btn flex-1 md:flex-none md:w-48 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 py-2.5 px-4 rounded-2xl text-xs font-bold flex items-center justify-center space-x-2 shadow-sm btn-touch transition">
                     <i class="fas fa-truck"></i>
-                    <span>Commercial Fleet</span>
+                    <span data-lang-en="Commercial Fleet" data-lang-hi="कमर्शियल गाड़ी">Commercial Fleet</span>
                 </button>
             </div>
 
-            <!-- TWO-COLUMN GRID (MOBILE SINGLE COL, DESKTOP DUAL COL) -->
+            <!-- TWO-COLUMN GRID -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                 
-                <!-- LEFT COLUMN: PRIMARY INPUT, ACCIDENTAL BILL & NCB -->
+                <!-- LEFT COLUMN -->
                 <div class="lg:col-span-6 space-y-6">
                     
                     <!-- PRIMARY FORM CARD -->
                     <div class="bg-gradient-to-br from-appBlue via-blue-900 to-slate-900 text-white rounded-3xl p-6 shadow-lg relative overflow-hidden space-y-4">
                         <div class="flex justify-between items-center">
-                            <span class="bg-emerald-400/20 text-emerald-300 px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wide">Instant Policy</span>
-                            <span class="text-xs text-blue-200 font-semibold"><i class="fas fa-shield-alt text-emerald-400 mr-1"></i>7,500+ Cashless Garages</span>
+                            <span class="bg-emerald-400/20 text-emerald-300 px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wide" data-lang-en="Instant Policy" data-lang-hi="तुरंत पॉलिसी">Instant Policy</span>
+                            <span class="text-xs text-blue-200 font-semibold"><i class="fas fa-shield-alt text-emerald-400 mr-1"></i><span data-lang-en="7,500+ Cashless Garages" data-lang-hi="7,500+ कैशलेस गैरेज">7,500+ Cashless Garages</span></span>
                         </div>
 
-                        <h2 class="text-xl md:text-2xl font-black leading-snug" id="heroHeadline">Instant Zero-Dep Car Policy Quotes</h2>
+                        <h2 class="text-xl md:text-2xl font-black leading-snug" id="heroHeadline" data-lang-en="Instant Zero-Dep Car Policy Quotes" data-lang-hi="सस्ती ज़ीरो-डेप कार बीमा कोटेशन">Instant Zero-Dep Car Policy Quotes</h2>
 
-                        <!-- Clean Inputs -->
+                        <!-- Inputs -->
                         <div class="space-y-3">
                             <div class="bg-white rounded-2xl p-1.5 flex items-center shadow-inner">
                                 <span class="px-3 text-slate-400 text-sm font-bold"><i class="fas fa-barcode text-appBrand"></i></span>
-                                <input type="text" id="regNo" placeholder="ENTER VEHICLE NUMBER" class="w-full uppercase p-2 text-slate-900 font-black text-xs md:text-sm tracking-wider focus:outline-none placeholder:text-slate-400 placeholder:font-normal">
+                                <input type="text" id="regNo" oninput="handleRegInput(this)" placeholder="ENTER RC (e.g. MH 01 AB 1234)" class="w-full uppercase p-2 text-slate-900 font-black text-xs md:text-sm tracking-wider focus:outline-none placeholder:text-slate-400 placeholder:font-normal">
                             </div>
 
                             <div class="bg-white rounded-2xl p-1.5 flex items-center shadow-inner">
                                 <span class="px-3 text-slate-400 text-sm font-bold"><i class="fas fa-car-side text-appBrand"></i></span>
-                                <input type="text" id="vehicleModel" placeholder="Vehicle Maker & Model" class="w-full p-2 text-slate-900 font-bold text-xs md:text-sm focus:outline-none placeholder:text-slate-400 placeholder:font-normal">
+                                <input type="text" id="vehicleModel" oninput="persistFormState()" placeholder="Vehicle Maker & Model" class="w-full p-2 text-slate-900 font-bold text-xs md:text-sm focus:outline-none placeholder:text-slate-400 placeholder:font-normal">
                             </div>
                         </div>
 
                         <!-- Direct Photo Upload -->
                         <div class="pt-1">
-                            <label class="w-full py-2.5 bg-white/10 hover:bg-white/20 border border-dashed border-white/40 rounded-2xl flex items-center justify-center space-x-2 text-xs font-bold text-emerald-300 cursor-pointer active:scale-95 transition">
+                            <label class="w-full py-2.5 bg-white/10 hover:bg-white/20 border border-dashed border-white/40 rounded-2xl flex items-center justify-center space-x-2 text-xs font-bold text-emerald-300 cursor-pointer btn-touch transition">
                                 <i class="fas fa-camera text-sm"></i>
-                                <span>Upload RC Photo Instead of Typing</span>
+                                <span data-lang-en="Upload RC Photo Instead of Typing" data-lang-hi="टाइप करने के बदले आरसी फोटो अपलोड करें">Upload RC Photo Instead of Typing</span>
                                 <input type="file" accept="image/*" class="hidden" onchange="handleDirectPhotoUpload(this)">
                             </label>
                         </div>
 
-                        <button onclick="requestQuoteWhatsApp()" class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-black text-sm rounded-2xl shadow-lg transition flex items-center justify-center space-x-2">
+                        <button onclick="requestQuoteWhatsApp()" class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-black text-sm rounded-2xl shadow-lg transition flex items-center justify-center space-x-2 btn-touch">
                             <i class="fab fa-whatsapp text-lg"></i>
-                            <span>Get Lowest Quote on WhatsApp</span>
+                            <span data-lang-en="Get Lowest Quote on WhatsApp" data-lang-hi="व्हाट्सएप पर सबसे कम रेट प्राप्त करें">Get Lowest Quote on WhatsApp</span>
                         </button>
                     </div>
 
                     <!-- ACCIDENTAL BILL COMPARISON -->
-                    <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/80 space-y-4">
-                        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 shadow-sm border border-slate-200/80 dark:border-slate-800 space-y-4">
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
                             <div class="flex items-center space-x-2.5">
-                                <div class="w-8 h-8 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-sm font-black">
+                                <div class="w-8 h-8 rounded-xl bg-red-50 dark:bg-red-950 text-red-600 flex items-center justify-center text-sm font-black">
                                     <i class="fas fa-file-invoice-dollar"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-xs md:text-sm font-black text-slate-900 uppercase tracking-wide">Accidental Bill Comparison</h3>
-                                    <p class="text-[10px] text-slate-400 font-medium">Claim payout difference on accidental repair</p>
+                                    <h3 class="text-xs md:text-sm font-black text-slate-900 dark:text-white uppercase tracking-wide" data-lang-en="Accidental Bill Comparison" data-lang-hi="एक्सीडेंटल बिल तुलना">Accidental Bill Comparison</h3>
+                                    <p class="text-[10px] text-slate-400 font-medium" data-lang-en="Claim payout difference on accidental repair" data-lang-hi="दुर्घटना में क्लेम भुगतान का सीधा फर्क">Claim payout difference on accidental repair</p>
                                 </div>
                             </div>
-                            <span class="text-[10px] font-bold bg-blue-50 text-appBrand px-2.5 py-1 rounded-full">Actual Scenario</span>
+                            <span class="text-[10px] font-bold bg-blue-50 dark:bg-blue-950 text-appBrand px-2.5 py-1 rounded-full" data-lang-en="Actual Scenario" data-lang-hi="वास्तविक बिल">Actual Scenario</span>
                         </div>
 
                         <div class="space-y-2 text-xs">
                             <div class="flex justify-between items-center text-[10px] text-slate-400 font-bold uppercase px-1">
-                                <span>Replaced Parts</span>
+                                <span data-lang-en="Replaced Parts" data-lang-hi="बदले गए पार्ट्स">Replaced Parts</span>
                                 <div class="flex space-x-8">
-                                    <span>Normal Policy</span>
-                                    <span class="text-emerald-600 font-bold">Zero-Dep</span>
+                                    <span data-lang-en="Normal Policy" data-lang-hi="सामान्य बीमा">Normal Policy</span>
+                                    <span class="text-emerald-600 font-bold" data-lang-en="Zero-Dep" data-lang-hi="ज़ीरो-डेप">Zero-Dep</span>
                                 </div>
                             </div>
 
-                            <div class="p-3 bg-slate-50 rounded-xl flex justify-between items-center">
+                            <div class="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl flex justify-between items-center">
                                 <div>
-                                    <span class="font-bold text-slate-800 text-xs block">Front Bumper (Plastic)</span>
-                                    <span class="text-[10px] text-slate-400">50% cut in standard policy</span>
+                                    <span class="font-bold text-slate-800 dark:text-slate-200 text-xs block" data-lang-en="Front Bumper (Plastic)" data-lang-hi="आगे का बम्पर (प्लास्टिक)">Front Bumper (Plastic)</span>
+                                    <span class="text-[10px] text-slate-400" data-lang-en="50% cut in standard policy" data-lang-hi="सामान्य पॉलिसी में 50% कटौती">50% cut in standard policy</span>
                                 </div>
                                 <div class="flex space-x-10 text-right font-bold">
                                     <span class="text-red-500">₹3,500</span>
@@ -283,10 +361,10 @@
                                 </div>
                             </div>
 
-                            <div class="p-3 bg-slate-50 rounded-xl flex justify-between items-center">
+                            <div class="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl flex justify-between items-center">
                                 <div>
-                                    <span class="font-bold text-slate-800 text-xs block">Headlight Assembly (Glass/Fiber)</span>
-                                    <span class="text-[10px] text-slate-400">30% fiber depreciation cut</span>
+                                    <span class="font-bold text-slate-800 dark:text-slate-200 text-xs block" data-lang-en="Headlight Assembly (Glass/Fiber)" data-lang-hi="हेडलाइट असेंबली (कांच/फाइबर)">Headlight Assembly (Glass/Fiber)</span>
+                                    <span class="text-[10px] text-slate-400" data-lang-en="30% fiber depreciation cut" data-lang-hi="30% फाइबर कटौती">30% fiber depreciation cut</span>
                                 </div>
                                 <div class="flex space-x-10 text-right font-bold">
                                     <span class="text-red-500">₹2,800</span>
@@ -294,10 +372,10 @@
                                 </div>
                             </div>
 
-                            <div class="p-3 bg-slate-50 rounded-xl flex justify-between items-center">
+                            <div class="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl flex justify-between items-center">
                                 <div>
-                                    <span class="font-bold text-slate-800 text-xs block">Side Fender & Painting (Metal)</span>
-                                    <span class="text-[10px] text-slate-400">Paint depreciation & deductibles</span>
+                                    <span class="font-bold text-slate-800 dark:text-slate-200 text-xs block" data-lang-en="Side Fender & Painting (Metal)" data-lang-hi="फेंडर और डेंटिंग-पेंटिंग">Side Fender & Painting (Metal)</span>
+                                    <span class="text-[10px] text-slate-400" data-lang-en="Paint depreciation & deductibles" data-lang-hi="पेंट घिसावट और कटौती">Paint depreciation & deductibles</span>
                                 </div>
                                 <div class="flex space-x-10 text-right font-bold">
                                     <span class="text-red-500">₹8,500</span>
@@ -306,77 +384,77 @@
                             </div>
                         </div>
 
-                        <div class="bg-gradient-to-r from-red-50 via-slate-50 to-emerald-50 p-3.5 rounded-2xl border border-slate-200/80 flex justify-between items-center">
+                        <div class="bg-gradient-to-r from-red-50 via-slate-50 to-emerald-50 dark:from-red-950/30 dark:via-slate-800 dark:to-emerald-950/30 p-3.5 rounded-2xl border border-slate-200/80 dark:border-slate-700 flex justify-between items-center">
                             <div>
-                                <span class="text-[11px] text-slate-500 font-bold block">Your Out-of-Pocket Expense</span>
-                                <span class="text-xs text-red-600 font-extrabold">Normal: You pay ₹14,800</span>
+                                <span class="text-[11px] text-slate-500 dark:text-slate-400 font-bold block" data-lang-en="Your Out-of-Pocket Expense" data-lang-hi="आपकी जेब से खर्च">Your Out-of-Pocket Expense</span>
+                                <span class="text-xs text-red-600 font-extrabold" data-lang-en="Normal: You pay ₹14,800" data-lang-hi="सामान्य: आपको ₹14,800 देने होंगे">Normal: You pay ₹14,800</span>
                             </div>
                             <div class="text-right">
                                 <span class="text-[10px] text-slate-400 uppercase font-bold block">With PolicyNest</span>
-                                <span class="text-lg font-black text-emerald-600">₹0 (100% Cashless)</span>
+                                <span class="text-lg font-black text-emerald-600" data-lang-en="₹0 (100% Cashless)" data-lang-hi="₹0 (पूरा कैशलेस)">₹0 (100% Cashless)</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- NCB DISCOUNT SAVER -->
-                    <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/80 space-y-3">
-                        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 shadow-sm border border-slate-200/80 dark:border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
                             <div class="flex items-center space-x-2.5">
-                                <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm font-black">
+                                <div class="w-8 h-8 rounded-xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 flex items-center justify-center text-sm font-black">
                                     <i class="fas fa-percent"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-xs md:text-sm font-black text-slate-900 uppercase tracking-wide">NCB Discount Saver</h3>
-                                    <p class="text-[10px] text-slate-400 font-medium">Claim-free year bonus on Own Damage</p>
+                                    <h3 class="text-xs md:text-sm font-black text-slate-900 dark:text-white uppercase tracking-wide" data-lang-en="NCB Discount Saver" data-lang-hi="एनसीबी डिस्काउंट सेवर">NCB Discount Saver</h3>
+                                    <p class="text-[10px] text-slate-400 font-medium" data-lang-en="Claim-free year bonus on Own Damage" data-lang-hi="बिना क्लेम वाले साल पर छूट">Claim-free year bonus on Own Damage</p>
                                 </div>
                             </div>
-                            <span class="text-xs font-black text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full" id="ncbDiscountTag">-₹0 Off</span>
+                            <span class="text-xs font-black text-emerald-600 bg-emerald-50 dark:bg-emerald-950 px-3 py-1 rounded-full" id="ncbDiscountTag">-₹0 Off</span>
                         </div>
 
                         <div class="space-y-2">
-                            <label class="text-[11px] font-extrabold uppercase text-slate-500 block">Select Past Year Claim Record</label>
+                            <label class="text-[11px] font-extrabold uppercase text-slate-500 block" data-lang-en="Select Past Year Claim Record" data-lang-hi="पिछले साल का क्लेम रिकॉर्ड चुनें">Select Past Year Claim Record</label>
                             <div class="grid grid-cols-4 gap-2">
-                                <button type="button" onclick="setNcb(0)" id="ncbBtn0" class="ncb-btn py-2.5 rounded-xl text-xs font-bold border border-slate-200 bg-appBrand text-white shadow-xs transition">
+                                <button type="button" onclick="setNcb(0)" id="ncbBtn0" class="ncb-btn py-2.5 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-700 bg-appBrand text-white shadow-md ring-2 ring-blue-400 btn-touch transition">
                                     0%
-                                    <span class="block text-[9px] font-normal">New / Claimed</span>
+                                    <span class="block text-[9px] font-normal" data-lang-en="New / Claimed" data-lang-hi="नया / क्लेम">New / Claimed</span>
                                 </button>
-                                <button type="button" onclick="setNcb(0.20)" id="ncbBtn20" class="ncb-btn py-2.5 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700 transition">
+                                <button type="button" onclick="setNcb(0.20)" id="ncbBtn20" class="ncb-btn py-2.5 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 btn-touch transition">
                                     20%
-                                    <span class="block text-[9px] font-normal">1 Year Clean</span>
+                                    <span class="block text-[9px] font-normal" data-lang-en="1 Year Clean" data-lang-hi="1 साल साफ">1 Year Clean</span>
                                 </button>
-                                <button type="button" onclick="setNcb(0.35)" id="ncbBtn35" class="ncb-btn py-2.5 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700 transition">
+                                <button type="button" onclick="setNcb(0.35)" id="ncbBtn35" class="ncb-btn py-2.5 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 btn-touch transition">
                                     35%
-                                    <span class="block text-[9px] font-normal">3 Yrs Clean</span>
+                                    <span class="block text-[9px] font-normal" data-lang-en="3 Yrs Clean" data-lang-hi="3 साल साफ">3 Yrs Clean</span>
                                 </button>
-                                <button type="button" onclick="setNcb(0.50)" id="ncbBtn50" class="ncb-btn py-2.5 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700 transition">
+                                <button type="button" onclick="setNcb(0.50)" id="ncbBtn50" class="ncb-btn py-2.5 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 btn-touch transition">
                                     50%
-                                    <span class="block text-[9px] font-normal">Max Bonus</span>
+                                    <span class="block text-[9px] font-normal" data-lang-en="Max Bonus" data-lang-hi="अधिकतम छूट">Max Bonus</span>
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- RIGHT COLUMN: ESTIMATOR, RIDERS & EXPIRY ALERT -->
+                <!-- RIGHT COLUMN -->
                 <div class="lg:col-span-6 space-y-6">
                     
                     <!-- COMPREHENSIVE MOTOR ESTIMATOR & ADD-ONS -->
-                    <div id="estimatorSection" class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200/80 space-y-5">
-                        <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+                    <div id="estimatorSection" class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm border border-slate-200/80 dark:border-slate-800 space-y-5">
+                        <div class="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-slate-800">
                             <div>
-                                <h3 class="text-sm font-black text-slate-900 uppercase tracking-wider">Premium Estimator</h3>
-                                <p class="text-[11px] text-slate-400 font-medium">Adjust IDV & pick customized riders</p>
+                                <h3 class="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider" data-lang-en="Premium Estimator" data-lang-hi="प्रीमियम कैलकुलेटर">Premium Estimator</h3>
+                                <p class="text-[11px] text-slate-400 font-medium" data-lang-en="Adjust IDV & pick customized riders" data-lang-hi="आईडीवी बदलें और राइडर चुनें">Adjust IDV & pick customized riders</p>
                             </div>
                             <div class="text-right">
-                                <span class="text-[10px] text-slate-400 font-bold uppercase block">Net Annual Premium</span>
+                                <span class="text-[10px] text-slate-400 font-bold uppercase block" data-lang-en="Net Annual Premium" data-lang-hi="सालाना प्रीमियम">Net Annual Premium</span>
                                 <span class="text-2xl font-black text-emerald-600" id="livePremiumDisplay">₹6,420 / yr</span>
                             </div>
                         </div>
 
                         <!-- IDV Slider -->
                         <div class="space-y-2">
-                            <div class="flex justify-between text-xs font-bold text-slate-700">
-                                <span>Insured Declared Value (IDV)</span>
+                            <div class="flex justify-between text-xs font-bold text-slate-700 dark:text-slate-300">
+                                <span data-lang-en="Insured Declared Value (IDV)" data-lang-hi="वाहन का घोषित मूल्य (IDV)">Insured Declared Value (IDV)</span>
                                 <span id="idvValDisplay" class="text-appBrand font-black text-sm">₹6,00,000</span>
                             </div>
                             <input type="range" id="idvInput" min="50000" max="3000000" step="25000" value="600000" class="w-full accent-appBrand cursor-pointer" oninput="calculatePolicyBreakup()">
@@ -384,59 +462,59 @@
 
                         <!-- ADD-ONS CHECKBOXES -->
                         <div class="pt-2 space-y-2.5">
-                            <span class="text-[11px] font-black uppercase tracking-wider text-slate-500 block">Select Policy Add-on Covers</span>
+                            <span class="text-[11px] font-black uppercase tracking-wider text-slate-500 block" data-lang-en="Select Policy Add-on Covers" data-lang-hi="पॉलिसी राइडर्स चुनें">Select Policy Add-on Covers</span>
                             
                             <div class="grid grid-cols-1 gap-2.5 text-xs">
-                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
+                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 hover:bg-blue-50/50 cursor-pointer btn-touch transition">
                                     <div class="flex items-center space-x-3">
                                         <input type="checkbox" id="chkZeroDep" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
                                         <div>
-                                            <div class="font-bold text-slate-800">Zero Depreciation</div>
-                                            <div class="text-[10px] text-slate-400">100% cashless replacement on parts</div>
+                                            <div class="font-bold text-slate-800 dark:text-white" data-lang-en="Zero Depreciation" data-lang-hi="ज़ीरो डेप्रिसिएशन">Zero Depreciation</div>
+                                            <div class="text-[10px] text-slate-400" data-lang-en="100% cashless replacement on parts" data-lang-hi="पार्ट्स पर 100% कैशलेस कवर">100% cashless replacement on parts</div>
                                         </div>
                                     </div>
-                                    <span class="text-[10px] font-bold text-emerald-600">Must Have</span>
+                                    <span class="text-[10px] font-bold text-emerald-600" data-lang-en="Must Have" data-lang-hi="ज़रूरी">Must Have</span>
                                 </label>
 
-                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
+                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 hover:bg-blue-50/50 cursor-pointer btn-touch transition">
                                     <div class="flex items-center space-x-3">
                                         <input type="checkbox" id="chkEngine" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
                                         <div>
-                                            <div class="font-bold text-slate-800">Engine & Gearbox Protection</div>
-                                            <div class="text-[10px] text-slate-400">Water ingression & hydro-lock repair</div>
+                                            <div class="font-bold text-slate-800 dark:text-white" data-lang-en="Engine & Gearbox Protection" data-lang-hi="इंजन और गियरबॉक्स सुरक्षा">Engine & Gearbox Protection</div>
+                                            <div class="text-[10px] text-slate-400" data-lang-en="Water ingression & hydro-lock repair" data-lang-hi="पानी भरने और ऑयल लीकेज कवर">Water ingression & hydro-lock repair</div>
                                         </div>
                                     </div>
-                                    <span class="text-[10px] font-bold text-blue-600">Recommended</span>
+                                    <span class="text-[10px] font-bold text-blue-600" data-lang-en="Recommended" data-lang-hi="सलाह दी गई">Recommended</span>
                                 </label>
 
-                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
+                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 hover:bg-blue-50/50 cursor-pointer btn-touch transition">
                                     <div class="flex items-center space-x-3">
                                         <input type="checkbox" id="chkConsumables" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
                                         <div>
-                                            <div class="font-bold text-slate-800">Consumables Protection</div>
-                                            <div class="text-[10px] text-slate-400">Nuts, bolts, AC gas & engine oil bills</div>
+                                            <div class="font-bold text-slate-800 dark:text-white" data-lang-en="Consumables Protection" data-lang-hi="कन्ज्यूमेबल्स कवर (नट-बोल्ट/तेल)">Consumables Protection</div>
+                                            <div class="text-[10px] text-slate-400" data-lang-en="Nuts, bolts, AC gas & engine oil bills" data-lang-hi="एसी गैस, इंजन तेल, नट-बोल्ट बिल">Nuts, bolts, AC gas & engine oil bills</div>
                                         </div>
                                     </div>
                                     <span class="text-[10px] font-bold text-slate-500">+₹550</span>
                                 </label>
 
-                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
+                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 hover:bg-blue-50/50 cursor-pointer btn-touch transition">
                                     <div class="flex items-center space-x-3">
                                         <input type="checkbox" id="chkRsa" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
                                         <div>
-                                            <div class="font-bold text-slate-800">24x7 Roadside Assistance (RSA)</div>
-                                            <div class="text-[10px] text-slate-400">Accident towing & flat tyre assist</div>
+                                            <div class="font-bold text-slate-800 dark:text-white" data-lang-en="24x7 Roadside Assistance (RSA)" data-lang-hi="24x7 रोडसाइड सहायता (टोइंग)">24x7 Roadside Assistance (RSA)</div>
+                                            <div class="text-[10px] text-slate-400" data-lang-en="Accident towing & flat tyre assist" data-lang-hi="दुर्घटना टोइंग और टायर बदलना">Accident towing & flat tyre assist</div>
                                         </div>
                                     </div>
                                     <span class="text-[10px] font-bold text-slate-500">+₹450</span>
                                 </label>
 
-                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
+                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 hover:bg-blue-50/50 cursor-pointer btn-touch transition">
                                     <div class="flex items-center space-x-3">
                                         <input type="checkbox" id="chkPassengerPa" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
                                         <div>
-                                            <div class="font-bold text-slate-800">Passenger PA Shield (₹5L / Seat)</div>
-                                            <div class="text-[10px] text-slate-400">Accident cover for co-passengers</div>
+                                            <div class="font-bold text-slate-800 dark:text-white" data-lang-en="Passenger PA Shield (₹5L / Seat)" data-lang-hi="सवारियों का बीमा (₹5 लाख/सीट)">Passenger PA Shield (₹5L / Seat)</div>
+                                            <div class="text-[10px] text-slate-400" data-lang-en="Accident cover for co-passengers" data-lang-hi="परिवार और दोस्तों के लिए कवर">Accident cover for co-passengers</div>
                                         </div>
                                     </div>
                                     <span class="text-[10px] font-bold text-slate-500">+₹500</span>
@@ -444,26 +522,38 @@
                             </div>
                         </div>
 
-                        <button onclick="requestQuoteWhatsApp()" class="w-full py-3.5 bg-appBlue hover:bg-blue-900 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition">
-                            Lock Custom IDV & Add-on Package →
-                        </button>
+                        <!-- Action Bar -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2">
+                            <button onclick="requestQuoteWhatsApp()" class="sm:col-span-1 py-3.5 bg-appBlue hover:bg-blue-900 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition flex items-center justify-center space-x-1.5 btn-touch">
+                                <i class="fab fa-whatsapp"></i>
+                                <span data-lang-en="Lock Plan" data-lang-hi="प्लान चुनें">Lock Plan</span>
+                            </button>
+                            <button onclick="openPrintModal()" class="py-3.5 bg-slate-800 hover:bg-slate-700 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition flex items-center justify-center space-x-1.5 btn-touch">
+                                <i class="fas fa-file-pdf text-red-400"></i>
+                                <span data-lang-en="PDF Slip" data-lang-hi="पीडीएफ स्लिप">PDF Slip</span>
+                            </button>
+                            <button onclick="copyQuoteSummary()" class="py-3.5 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition flex items-center justify-center space-x-1.5 btn-touch">
+                                <i class="fas fa-copy"></i>
+                                <span data-lang-en="Copy Text" data-lang-hi="कॉपी करें">Copy Text</span>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- EXPIRY ALERT SCHEDULER -->
-                    <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/80 space-y-3">
+                    <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 shadow-sm border border-slate-200/80 dark:border-slate-800 space-y-3">
                         <div class="flex items-center space-x-2.5">
-                            <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-sm font-black">
+                            <div class="w-8 h-8 rounded-xl bg-amber-50 dark:bg-amber-950 text-amber-600 flex items-center justify-center text-sm font-black">
                                 <i class="fas fa-bell"></i>
                             </div>
                             <div>
-                                <h3 class="text-xs font-black text-slate-900 uppercase tracking-wide">Expiry Reminder Setup</h3>
-                                <p class="text-[10px] text-slate-400">Get WhatsApp alert 7 days before your policy lapses</p>
+                                <h3 class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wide" data-lang-en="Expiry Reminder Setup" data-lang-hi="पॉलिसी समाप्ति रिमाइंडर">Expiry Reminder Setup</h3>
+                                <p class="text-[10px] text-slate-400" data-lang-en="Get WhatsApp alert 7 days before your policy lapses" data-lang-hi="पॉलिसी खत्म होने से 7 दिन पहले अलर्ट पाएं">Get WhatsApp alert 7 days before your policy lapses</p>
                             </div>
                         </div>
 
                         <div class="flex space-x-2">
-                            <input type="date" id="expiryDateInput" class="flex-1 bg-slate-50 border border-slate-200 p-3 rounded-xl text-xs font-bold text-slate-700 focus:outline-none">
-                            <button onclick="scheduleExpiryAlert()" class="bg-appBlue hover:bg-blue-900 active:scale-95 text-white text-xs font-bold px-5 rounded-xl shadow-xs whitespace-nowrap">
+                            <input type="date" id="expiryDateInput" onchange="persistFormState()" class="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none">
+                            <button onclick="scheduleExpiryAlert()" class="bg-appBlue hover:bg-blue-900 active:scale-95 text-white text-xs font-bold px-5 rounded-xl shadow-xs whitespace-nowrap btn-touch" data-lang-en="Set Alert" data-lang-hi="अलर्ट सेट करें">
                                 Set Alert
                             </button>
                         </div>
@@ -472,20 +562,20 @@
 
             </div>
 
-            <!-- PARTNER / POSP SECTION (FULL WIDTH) -->
+            <!-- PARTNER / POSP SECTION -->
             <section id="partnerSection" class="bg-gradient-to-br from-emerald-800 via-teal-900 to-slate-900 text-white rounded-3xl p-6 md:p-8 shadow-sm space-y-4 relative overflow-hidden">
                 <div class="relative z-10 space-y-3 max-w-3xl">
                     <div class="flex items-center space-x-3">
-                        <span class="bg-white/20 text-emerald-300 px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider">Join Partner Network</span>
-                        <span class="text-xs text-emerald-200 font-bold"><i class="fas fa-wallet mr-1"></i>Earn ₹50k - ₹1L+</span>
+                        <span class="bg-white/20 text-emerald-300 px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider" data-lang-en="Join Partner Network" data-lang-hi="पार्टनर नेटवर्क से जुड़ें">Join Partner Network</span>
+                        <span class="text-xs text-emerald-200 font-bold"><i class="fas fa-wallet mr-1"></i><span data-lang-en="Earn ₹50k - ₹1L+" data-lang-hi="कमाएं ₹50,000 - ₹1 लाख+">Earn ₹50k - ₹1L+</span></span>
                     </div>
 
-                    <h3 class="text-lg md:text-xl font-black leading-tight">Become an Authorized Motor POSP Partner</h3>
-                    <p class="text-xs md:text-sm text-slate-200 leading-relaxed">Issue instant car, bike & commercial policies across 15+ insurers with zero setup fee and prompt digital commission payouts.</p>
+                    <h3 class="text-lg md:text-xl font-black leading-tight" data-lang-en="Become an Authorized Motor POSP Partner" data-lang-hi="अधिकृत मोटर POSP पार्टनर बनें">Become an Authorized Motor POSP Partner</h3>
+                    <p class="text-xs md:text-sm text-slate-200 leading-relaxed" data-lang-en="Issue instant car, bike & commercial policies across 15+ insurers with zero setup fee and prompt digital commission payouts." data-lang-hi="15 से ज्यादा कंपनियों की कार, बाइक और कमर्शियल पॉलिसी जारी करें, जीरो फीस और तुरंत कमीशन भुगतान के साथ।">Issue instant car, bike & commercial policies across 15+ insurers with zero setup fee and prompt digital commission payouts.</p>
 
-                    <a href="https://wa.me/919152058250?text=Hi%20PolicyNest%2C%20I%20want%20to%20join%20as%20a%20Motor%20Insurance%20POSP%20Partner.%20Please%20share%20the%20onboarding%20details." target="_blank" class="w-full sm:w-auto inline-flex py-3.5 px-8 bg-white text-emerald-800 hover:bg-emerald-50 active:scale-95 font-black text-xs md:text-sm rounded-xl shadow-md transition items-center justify-center space-x-2">
+                    <a href="https://wa.me/919152058250?text=Hi%20PolicyNest%2C%20I%20want%20to%20join%20as%20a%20Motor%20Insurance%20POSP%20Partner.%20Please%20share%20the%20onboarding%20details." target="_blank" class="w-full sm:w-auto inline-flex py-3.5 px-8 bg-white text-emerald-800 hover:bg-emerald-50 active:scale-95 font-black text-xs md:text-sm rounded-xl shadow-md transition items-center justify-center space-x-2 btn-touch">
                         <i class="fab fa-whatsapp text-base text-green-600"></i>
-                        <span>Join Partner Network on WhatsApp</span>
+                        <span data-lang-en="Join Partner Network on WhatsApp" data-lang-hi="व्हाट्सएप पर पार्टनर बनें">Join Partner Network on WhatsApp</span>
                     </a>
                 </div>
             </section>
@@ -493,43 +583,356 @@
         </div>
     </div>
 
-    <!-- MOBILE-ONLY FLOATING LOCKED DOCK (DESKTOP ME HIDE RAHEGA) -->
+    <!-- PRINTABLE QUOTATION MODAL -->
+    <div id="printableQuoteModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white text-slate-900 w-full max-w-lg rounded-3xl p-6 shadow-2xl space-y-4 border border-slate-200">
+            <div class="flex justify-between items-start border-b border-slate-100 pb-3">
+                <div class="flex items-center space-x-2">
+                    <img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-" class="h-8 w-auto">
+                    <div>
+                        <h4 class="font-black text-sm text-appBlue" data-lang-en="PolicyNest Insurance Quotation" data-lang-hi="पॉलिसीनेस्ट बीमा कोटेशन">PolicyNest Insurance Quotation</h4>
+                        <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider" id="quoteRefId">REF: PN-2026-MTR</span>
+                    </div>
+                </div>
+                <button onclick="closePrintModal()" class="text-slate-400 hover:text-slate-700 font-bold no-print btn-touch">✕</button>
+            </div>
+
+            <div class="space-y-3 text-xs" id="printableContent">
+                <div class="grid grid-cols-2 gap-2 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                    <div>
+                        <span class="text-slate-400 text-[10px] block uppercase font-bold" data-lang-en="Vehicle Reg. Number" data-lang-hi="वाहन पंजीकरण नंबर">Vehicle Reg. Number</span>
+                        <span class="font-black text-slate-800 text-sm" id="printRc">-</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 text-[10px] block uppercase font-bold" data-lang-en="Vehicle Model" data-lang-hi="वाहन मॉडल">Vehicle Model</span>
+                        <span class="font-bold text-slate-800 text-sm" id="printModel">-</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 text-[10px] block uppercase font-bold" data-lang-en="Insured Declared Value (IDV)" data-lang-hi="घोषित मूल्य (IDV)">Insured Declared Value (IDV)</span>
+                        <span class="font-bold text-appBlue" id="printIdv">-</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 text-[10px] block uppercase font-bold" data-lang-en="Applied NCB Discount" data-lang-hi="लागू एनसीबी छूट">Applied NCB Discount</span>
+                        <span class="font-bold text-emerald-600" id="printNcb">-</span>
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <span class="text-[10px] text-slate-400 uppercase font-bold block" data-lang-en="Selected Protection Riders" data-lang-hi="चुने हुए सुरक्षा राइडर्स">Selected Protection Riders</span>
+                    <ul class="list-disc pl-4 text-slate-700 text-[11px] space-y-0.5" id="printAddonsList"></ul>
+                </div>
+
+                <div class="bg-blue-50 p-3 rounded-xl border border-blue-100 flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] text-slate-500 font-bold block uppercase" data-lang-en="Estimated Annual Premium" data-lang-hi="अनुमानित सालाना प्रीमियम">Estimated Annual Premium</span>
+                        <span class="text-[9px] text-slate-400" data-lang-en="Includes TP + OD + Selected Add-ons" data-lang-hi="थर्ड पार्टी + खुद का नुकसान + राइडर्स सहित">Includes TP + OD + Selected Add-ons</span>
+                    </div>
+                    <span class="text-xl font-black text-appBlue" id="printTotal">-</span>
+                </div>
+            </div>
+
+            <div class="flex gap-2 pt-2 no-print">
+                <button onclick="window.print()" class="flex-1 py-3 bg-appBlue hover:bg-blue-900 text-white font-bold rounded-xl text-xs transition flex items-center justify-center space-x-1.5 shadow btn-touch">
+                    <i class="fas fa-print"></i>
+                    <span data-lang-en="Print / Save as PDF" data-lang-hi="प्रिंट / पीडीएफ सेव करें">Print / Save as PDF</span>
+                </button>
+                <button onclick="closePrintModal()" class="px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition btn-touch" data-lang-en="Close" data-lang-hi="बंद करें">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOBILE-ONLY FLOATING LOCKED DOCK -->
     <div class="md:hidden fixed bottom-3 left-3 right-3 z-40 pointer-events-none">
-        <nav class="pointer-events-auto bg-white/95 floating-footer border border-slate-200/90 shadow-[0_12px_30px_-4px_rgba(0,0,0,0.25)] rounded-full px-5 py-2 flex justify-between items-center">
-            <button onclick="navigateTab('home')" id="navBtnHome" class="flex flex-col items-center active-tab">
+        <nav class="pointer-events-auto bg-white/95 dark:bg-slate-900/95 floating-footer border border-slate-200/90 dark:border-slate-800 shadow-[0_12px_30px_-4px_rgba(0,0,0,0.25)] rounded-full px-5 py-2 flex justify-between items-center">
+            <button onclick="navigateTab('home')" id="navBtnHome" class="flex flex-col items-center dock-active btn-touch">
                 <i class="fas fa-home text-base"></i>
-                <span class="text-[9px] font-bold mt-0.5">Home</span>
+                <span class="text-[9px] font-bold mt-0.5" data-lang-en="Home" data-lang-hi="होम">Home</span>
             </button>
             
-            <button onclick="navigateTab('calc')" id="navBtnCalc" class="flex flex-col items-center text-slate-400 hover:text-slate-600 transition">
+            <button onclick="navigateTab('calc')" id="navBtnCalc" class="flex flex-col items-center text-slate-400 hover:text-slate-600 transition btn-touch">
                 <i class="fas fa-calculator text-base"></i>
-                <span class="text-[9px] font-semibold mt-0.5">Add-ons</span>
+                <span class="text-[9px] font-semibold mt-0.5" data-lang-en="Add-ons" data-lang-hi="राइडर्स">Add-ons</span>
             </button>
             
-            <!-- Central Accent Button -->
-            <button onclick="requestQuoteWhatsApp()" class="-mt-5 w-11 h-11 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center text-lg shadow-lg border-2 border-white active:scale-90 transition">
+            <button onclick="requestQuoteWhatsApp()" class="-mt-5 w-11 h-11 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center text-lg shadow-lg border-2 border-white btn-touch transition">
                 <i class="fab fa-whatsapp"></i>
             </button>
 
-            <button onclick="navigateTab('partner')" id="navBtnPartner" class="flex flex-col items-center text-slate-400 hover:text-slate-600 transition">
+            <button onclick="navigateTab('partner')" id="navBtnPartner" class="flex flex-col items-center text-slate-400 hover:text-slate-600 transition btn-touch">
                 <i class="fas fa-briefcase text-base"></i>
-                <span class="text-[9px] font-semibold mt-0.5">Partner</span>
+                <span class="text-[9px] font-semibold mt-0.5" data-lang-en="Partner" data-lang-hi="पार्टनर">Partner</span>
             </button>
             
-            <a href="tel:+919152058250" class="flex flex-col items-center text-slate-400 hover:text-slate-600 transition">
+            <a href="tel:+919152058250" class="flex flex-col items-center text-slate-400 hover:text-slate-600 transition btn-touch">
                 <i class="fas fa-headset text-base"></i>
-                <span class="text-[9px] font-semibold mt-0.5">Help</span>
+                <span class="text-[9px] font-semibold mt-0.5" data-lang-en="Help" data-lang-hi="मदद">Help</span>
             </a>
         </nav>
     </div>
 
-    <!-- JAVASCRIPT LOGIC ENGINE -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         let currentVehicleType = 'car';
         let currentNcbRate = 0;
+        let currentLang = 'en';
 
-        // Slide-Over Drawer Toggle
+        // LANGUAGE ENGINE (HINDI / ENGLISH TRANSLATION)
+        function toggleLanguage() {
+            triggerHaptic();
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            localStorage.setItem('pn_lang', currentLang);
+            applyLanguage(currentLang);
+            showToast(currentLang === 'hi' ? "वेबसाइट हिन्दी में अनुवादित हुई" : "Website Translated to English", "info");
+        }
+
+        function applyLanguage(lang) {
+            document.querySelectorAll('[data-lang-en]').forEach(el => {
+                const text = el.getAttribute(`data-lang-${lang}`);
+                if (text) el.innerText = text;
+            });
+
+            // Update Placeholder texts
+            const regInput = document.getElementById('regNo');
+            const modelInput = document.getElementById('vehicleModel');
+            if (lang === 'hi') {
+                regInput.placeholder = "गाड़ी नंबर दर्ज करें (उदा. MH 01 AB 1234)";
+                modelInput.placeholder = "गाड़ी का नाम व मॉडल (उदा. स्विफ्ट, क्रेटा)";
+                document.getElementById('langLabel').innerText = "English";
+            } else {
+                regInput.placeholder = "ENTER RC (e.g. MH 01 AB 1234)";
+                modelInput.placeholder = "Vehicle Maker & Model";
+                document.getElementById('langLabel').innerText = "हिन्दी";
+            }
+        }
+
+        // HAPTIC FEEDBACK
+        function triggerHaptic(duration = 25) {
+            if ("vibrate" in navigator) {
+                try { navigator.vibrate(duration); } catch(e){}
+            }
+        }
+
+        // TOAST NOTIFICATIONS
+        function showToast(message, type = "success") {
+            triggerHaptic(30);
+            const box = document.getElementById('toastBox');
+            const toast = document.createElement('div');
+            const bgClass = type === "success" ? "bg-emerald-600" : (type === "info" ? "bg-blue-600" : "bg-red-600");
+            const icon = type === "success" ? "fa-circle-check" : (type === "info" ? "fa-circle-info" : "fa-triangle-exclamation");
+            
+            toast.className = `${bgClass} text-white px-4 py-2.5 rounded-2xl shadow-xl flex items-center space-x-2 text-xs font-bold pointer-events-auto transition-all duration-300 transform translate-y-2 opacity-0`;
+            toast.innerHTML = `<i class="fas ${icon}"></i><span>${message}</span>`;
+            
+            box.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // THEME TOGGLE
+        function initThemeEngine() {
+            const savedTheme = localStorage.getItem('pn_theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        function toggleDarkMode() {
+            triggerHaptic();
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('pn_theme', isDark ? 'dark' : 'light');
+            showToast(isDark ? "Dark Theme Activated" : "Light Theme Activated", "info");
+        }
+
+        // VEHICLE INPUT MASKING
+        function handleRegInput(input) {
+            let val = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+            if (val.length > 10) val = val.substring(0, 10);
+            
+            let formatted = '';
+            if (val.length > 0) formatted += val.substring(0, 2);
+            if (val.length > 2) formatted += ' ' + val.substring(2, 4);
+            if (val.length > 4) {
+                let rest = val.substring(4);
+                let letters = rest.replace(/[0-9]/g, '');
+                let numbers = rest.replace(/[^0-9]/g, '');
+                if (letters.length > 0 && numbers.length > 0) {
+                    formatted += ' ' + letters + ' ' + numbers;
+                } else {
+                    formatted += ' ' + rest;
+                }
+            }
+            input.value = formatted.trim();
+            persistFormState();
+        }
+
+        // LOCALSTORAGE PERSISTENCE
+        function persistFormState() {
+            const state = {
+                regNo: document.getElementById('regNo').value,
+                model: document.getElementById('vehicleModel').value,
+                idv: document.getElementById('idvInput').value,
+                expiry: document.getElementById('expiryDateInput').value,
+                vehicleType: currentVehicleType,
+                ncb: currentNcbRate,
+                zeroDep: document.getElementById('chkZeroDep').checked,
+                engine: document.getElementById('chkEngine').checked,
+                consumables: document.getElementById('chkConsumables').checked,
+                rsa: document.getElementById('chkRsa').checked,
+                passengerPa: document.getElementById('chkPassengerPa').checked
+            };
+            localStorage.setItem('pn_motor_state', JSON.stringify(state));
+        }
+
+        function restorePersistedState() {
+            const raw = localStorage.getItem('pn_motor_state');
+            if (!raw) return;
+            try {
+                const state = JSON.parse(raw);
+                if (state.regNo) document.getElementById('regNo').value = state.regNo;
+                if (state.model) document.getElementById('vehicleModel').value = state.model;
+                if (state.expiry) document.getElementById('expiryDateInput').value = state.expiry;
+                if (state.idv) document.getElementById('idvInput').value = state.idv;
+                if (state.ncb !== undefined) setNcb(state.ncb);
+                if (state.vehicleType) setVehicleClass(state.vehicleType);
+                if (state.zeroDep !== undefined) document.getElementById('chkZeroDep').checked = state.zeroDep;
+                if (state.engine !== undefined) document.getElementById('chkEngine').checked = state.engine;
+                if (state.consumables !== undefined) document.getElementById('chkConsumables').checked = state.consumables;
+                if (state.rsa !== undefined) document.getElementById('chkRsa').checked = state.rsa;
+                if (state.passengerPa !== undefined) document.getElementById('chkPassengerPa').checked = state.passengerPa;
+                calculatePolicyBreakup();
+            } catch(e){}
+        }
+
+        // GEOLOCATION
+        function detectUserLocation() {
+            triggerHaptic();
+            if (!("geolocation" in navigator)) {
+                showToast("Geolocation not supported", "info");
+                return;
+            }
+
+            const locBanner = document.getElementById('locationBanner');
+            const drawerText = document.getElementById('drawerLocText');
+            locBanner.innerText = currentLang === 'hi' ? "जीपीएस से जुड़ रहा है..." : "Connecting GPS...";
+
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    const lat = pos.coords.latitude.toFixed(2);
+                    const lon = pos.coords.longitude.toFixed(2);
+                    locBanner.innerText = `Connected: Lat ${lat}, Lon ${lon} (Fast-Track Active)`;
+                    drawerText.innerText = currentLang === 'hi' ? "क्षेत्रीय डेस्क (GPS लॉक)" : "Regional Desk (GPS Locked)";
+                    showToast(currentLang === 'hi' ? "क्षेत्रीय क्लेम डेस्क सफलतापूर्वक सिंक हुआ" : "Regional Claim Desk Synced via GPS", "success");
+                },
+                (err) => {
+                    locBanner.innerText = "Regional Desk: Mumbai & Pan-India";
+                    showToast("GPS Permission Denied. Defaulted to Pan-India", "info");
+                },
+                { timeout: 8000 }
+            );
+        }
+
+        // SHARE API
+        async function shareQuotation() {
+            triggerHaptic();
+            const reg = document.getElementById('regNo').value.trim().toUpperCase() || 'New Vehicle';
+            const prem = document.getElementById('livePremiumDisplay').innerText;
+            const idv = document.getElementById('idvValDisplay').innerText;
+
+            const shareData = {
+                title: 'PolicyNest Motor Insurance Quote',
+                text: `PolicyNest Motor Quote for ${reg}:\n• IDV: ${idv}\n• Annual Premium: ${prem}\nGet instant cashless renewal quotes.`,
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                } catch(e){}
+            } else {
+                copyQuoteSummary();
+            }
+        }
+
+        // COPY SUMMARY
+        function copyQuoteSummary() {
+            triggerHaptic();
+            const reg = document.getElementById('regNo').value.trim().toUpperCase() || 'Vehicle';
+            const model = document.getElementById('vehicleModel').value.trim() || 'General';
+            const idv = document.getElementById('idvValDisplay').innerText;
+            const prem = document.getElementById('livePremiumDisplay').innerText;
+            const ncb = (currentNcbRate * 100) + '%';
+
+            const summary = `*PolicyNest Motor Insurance Summary*\nVehicle: ${reg} (${model})\nTarget IDV: ${idv}\nNCB Discount: ${ncb}\nCalculated Premium: ${prem}\nDesk: https://policynestsecure.in`;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(summary).then(() => {
+                    showToast(currentLang === 'hi' ? "कोटेशन टेक्स्ट कॉपी हो गया!" : "Quote summary copied to clipboard!", "success");
+                }).catch(() => showToast("Failed to copy quote", "error"));
+            } else {
+                showToast("Clipboard not supported on this browser", "info");
+            }
+        }
+
+        // PRINT / PDF MODAL
+        function openPrintModal() {
+            triggerHaptic();
+            const reg = document.getElementById('regNo').value.trim().toUpperCase() || 'NOT SPECIFIED';
+            const model = document.getElementById('vehicleModel').value.trim() || 'Not Specified';
+            const idv = document.getElementById('idvValDisplay').innerText;
+            const prem = document.getElementById('livePremiumDisplay').innerText;
+            const ncb = (currentNcbRate * 100) + '%';
+
+            document.getElementById('printRc').innerText = reg;
+            document.getElementById('printModel').innerText = model;
+            document.getElementById('printIdv').innerText = idv;
+            document.getElementById('printNcb').innerText = ncb;
+            document.getElementById('printTotal').innerText = prem;
+            document.getElementById('quoteRefId').innerText = `REF: PN-2026-${Math.floor(100000 + Math.random() * 900000)}`;
+
+            const list = document.getElementById('printAddonsList');
+            list.innerHTML = '';
+            if (document.getElementById('chkZeroDep').checked) list.innerHTML += '<li>Zero Depreciation Cover (100% Cashless)</li>';
+            if (document.getElementById('chkEngine').checked) list.innerHTML += '<li>Engine & Hydro-Lock Gearbox Protection</li>';
+            if (document.getElementById('chkConsumables').checked) list.innerHTML += '<li>Consumables Cover (Coolant, Nuts, Engine Oil)</li>';
+            if (document.getElementById('chkRsa').checked) list.innerHTML += '<li>24x7 Roadside Assistance & Flatbed Towing</li>';
+            if (document.getElementById('chkPassengerPa').checked) list.innerHTML += '<li>Personal Accident Cover for Passengers (₹5L/Seat)</li>';
+
+            const modal = document.getElementById('printableQuoteModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closePrintModal() {
+            document.getElementById('printableQuoteModal').classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        // OFFLINE MONITOR
+        function initNetworkMonitoring() {
+            const pill = document.getElementById('networkStatusPill');
+            window.addEventListener('offline', () => {
+                pill.classList.remove('hidden');
+                pill.classList.add('flex');
+                showToast("You are offline. Offline cache active.", "info");
+            });
+            window.addEventListener('online', () => {
+                pill.classList.add('hidden');
+                pill.classList.remove('flex');
+                showToast("Back online!", "success");
+            });
+        }
+
+        // DRAWER
         function toggleDrawer() {
+            triggerHaptic();
             const drawer = document.getElementById('sideDrawer');
             const card = document.getElementById('drawerCard');
             const isOpen = !drawer.classList.contains('pointer-events-none');
@@ -548,15 +951,18 @@
         });
 
         function dismissBanner() {
+            triggerHaptic();
             document.getElementById('pwaBanner').style.display = 'none';
         }
 
         function installAppPrompt() {
-            alert("To install this app on your phone:\n\n• On Chrome: Tap three dots (⋮) > 'Add to Home screen'\n• On Safari (iPhone): Tap Share (⎋) > 'Add to Home Screen'");
+            triggerHaptic();
+            showToast("Tap browser menu (⋮) > Add to Home Screen to install", "info");
         }
 
         function handleDirectPhotoUpload(input) {
             if (input.files && input.files[0]) {
+                triggerHaptic();
                 const fileName = input.files[0].name;
                 const msg = encodeURIComponent(`Hi PolicyNest,\n\nI have uploaded my RC/Existing Policy document: "${fileName}".\n\nPlease check the attached details and send me the lowest renewal quotes.`);
                 window.open(`https://wa.me/919152058250?text=${msg}`, '_blank');
@@ -564,11 +970,12 @@
         }
 
         function scheduleExpiryAlert() {
+            triggerHaptic();
             const expDate = document.getElementById('expiryDateInput').value;
             const reg = document.getElementById('regNo').value.trim().toUpperCase();
 
             if (!expDate) {
-                alert("Please select your policy expiry date first.");
+                showToast(currentLang === 'hi' ? "कृपया पहले पॉलिसी समाप्ति तारीख चुनें" : "Please select expiry date first", "error");
                 return;
             }
 
@@ -576,49 +983,60 @@
             window.open(`https://wa.me/919152058250?text=${msg}`, '_blank');
         }
 
+        // SET NCB WITH EXPLICIT TOUCH INDICATOR
         function setNcb(rate) {
+            triggerHaptic();
             currentNcbRate = rate;
             document.querySelectorAll('.ncb-btn').forEach(btn => {
-                btn.classList.remove('bg-appBrand', 'text-white', 'shadow-xs');
-                btn.classList.add('bg-slate-50', 'text-slate-700');
+                btn.classList.remove('bg-appBrand', 'text-white', 'shadow-md', 'ring-2', 'ring-blue-400');
+                btn.classList.add('bg-slate-50', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
             });
 
-            if (rate === 0) document.getElementById('ncbBtn0').classList.add('bg-appBrand', 'text-white', 'shadow-xs');
-            if (rate === 0.20) document.getElementById('ncbBtn20').classList.add('bg-appBrand', 'text-white', 'shadow-xs');
-            if (rate === 0.35) document.getElementById('ncbBtn35').classList.add('bg-appBrand', 'text-white', 'shadow-xs');
-            if (rate === 0.50) document.getElementById('ncbBtn50').classList.add('bg-appBrand', 'text-white', 'shadow-xs');
+            const activeBtn = rate === 0 ? 'ncbBtn0' : (rate === 0.20 ? 'ncbBtn20' : (rate === 0.35 ? 'ncbBtn35' : 'ncbBtn50'));
+            const target = document.getElementById(activeBtn);
+            if (target) {
+                target.classList.remove('bg-slate-50', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+                target.classList.add('bg-appBrand', 'text-white', 'shadow-md', 'ring-2', 'ring-blue-400');
+            }
 
             calculatePolicyBreakup();
+            persistFormState();
         }
 
+        // SET VEHICLE CLASS WITH EXPLICIT TOUCH INDICATOR
         function setVehicleClass(type) {
+            triggerHaptic();
             currentVehicleType = type;
             document.querySelectorAll('.type-btn').forEach(btn => {
-                btn.classList.remove('bg-appBlue', 'text-white');
-                btn.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+                btn.classList.remove('bg-appBrand', 'text-white', 'shadow-md', 'ring-2', 'ring-blue-400');
+                btn.classList.add('bg-white', 'dark:bg-slate-900', 'text-slate-600', 'dark:text-slate-300', 'border', 'border-slate-200', 'dark:border-slate-800');
             });
 
             const slider = document.getElementById('idvInput');
             const headline = document.getElementById('heroHeadline');
 
             if (type === 'bike') {
-                document.getElementById('tabBike').classList.add('bg-appBlue', 'text-white');
-                document.getElementById('tabBike').classList.remove('bg-white', 'text-slate-600', 'border');
-                headline.innerText = "Two-Wheeler Comprehensive & Zero-Dep Policy";
+                const b = document.getElementById('tabBike');
+                b.classList.remove('bg-white', 'dark:bg-slate-900', 'text-slate-600', 'border');
+                b.classList.add('bg-appBrand', 'text-white', 'shadow-md', 'ring-2', 'ring-blue-400');
+                headline.innerText = currentLang === 'hi' ? "किफायती टू-व्हीलर कंप्रिहेंसिव व ज़ीरो-डेप बीमा" : "Two-Wheeler Comprehensive & Zero-Dep Policy";
                 slider.min = 25000; slider.max = 250000; slider.step = 5000; slider.value = 65000;
             } else if (type === 'car') {
-                document.getElementById('tabCar').classList.add('bg-appBlue', 'text-white');
-                document.getElementById('tabCar').classList.remove('bg-white', 'text-slate-600', 'border');
-                headline.innerText = "Instant Zero-Dep Car Policy Quotes";
+                const c = document.getElementById('tabCar');
+                c.classList.remove('bg-white', 'dark:bg-slate-900', 'text-slate-600', 'border');
+                c.classList.add('bg-appBrand', 'text-white', 'shadow-md', 'ring-2', 'ring-blue-400');
+                headline.innerText = currentLang === 'hi' ? "सस्ती ज़ीरो-डेप कार बीमा कोटेशन" : "Instant Zero-Dep Car Policy Quotes";
                 slider.min = 100000; slider.max = 3000000; slider.step = 25000; slider.value = 600000;
             } else {
-                document.getElementById('tabComm').classList.add('bg-appBlue', 'text-white');
-                document.getElementById('tabComm').classList.remove('bg-white', 'text-slate-600', 'border');
-                headline.innerText = "Commercial Fleet & Goods Carrier Policy";
+                const cm = document.getElementById('tabComm');
+                cm.classList.remove('bg-white', 'dark:bg-slate-900', 'text-slate-600', 'border');
+                cm.classList.add('bg-appBrand', 'text-white', 'shadow-md', 'ring-2', 'ring-blue-400');
+                headline.innerText = currentLang === 'hi' ? "कमर्शियल वाहन व फ्लीट बीमा पॉलिसी" : "Commercial Fleet & Goods Carrier Policy";
                 slider.min = 300000; slider.max = 4000000; slider.step = 50000; slider.value = 1200000;
             }
 
             calculatePolicyBreakup();
+            persistFormState();
         }
 
         function calculatePolicyBreakup() {
@@ -661,16 +1079,18 @@
 
             const total = Math.round(odBase + tpMandatory);
             document.getElementById('livePremiumDisplay').innerText = "₹" + total.toLocaleString('en-IN') + " / yr";
+            persistFormState();
         }
 
         function requestQuoteWhatsApp() {
+            triggerHaptic();
             const reg = document.getElementById('regNo').value.trim().toUpperCase();
             const model = document.getElementById('vehicleModel').value.trim();
             const idv = document.getElementById('idvValDisplay').innerText;
             const prem = document.getElementById('livePremiumDisplay').innerText;
 
             if (!reg) {
-                alert("Please enter your Vehicle Registration Number");
+                showToast(currentLang === 'hi' ? "कृपया वाहन नंबर दर्ज करें" : "Please enter Vehicle Registration Number", "error");
                 return;
             }
 
@@ -689,23 +1109,41 @@
             window.open(`https://wa.me/919152058250?text=${msg}`, '_blank');
         }
 
+        // BOTTOM DOCK NAVIGATION (WITH ACTIVE INDICATOR HIGHLIGHT)
         function navigateTab(tab) {
-            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-tab', 'text-appBrand'));
+            triggerHaptic();
+            document.querySelectorAll('nav button').forEach(b => {
+                b.classList.remove('dock-active');
+                b.classList.add('text-slate-400');
+            });
             const scrollArea = document.getElementById('appScrollArea');
 
             if (tab === 'home') {
-                if (document.getElementById('navBtnHome')) document.getElementById('navBtnHome').classList.add('active-tab');
+                const btn = document.getElementById('navBtnHome');
+                if (btn) { btn.classList.add('dock-active'); btn.classList.remove('text-slate-400'); }
                 scrollArea.scrollTo({ top: 0, behavior: 'smooth' });
             } else if (tab === 'calc') {
-                if (document.getElementById('navBtnCalc')) document.getElementById('navBtnCalc').classList.add('active-tab');
+                const btn = document.getElementById('navBtnCalc');
+                if (btn) { btn.classList.add('dock-active'); btn.classList.remove('text-slate-400'); }
                 document.getElementById('estimatorSection').scrollIntoView({ behavior: 'smooth' });
             } else if (tab === 'partner') {
-                if (document.getElementById('navBtnPartner')) document.getElementById('navBtnPartner').classList.add('active-tab');
+                const btn = document.getElementById('navBtnPartner');
+                if (btn) { btn.classList.add('dock-active'); btn.classList.remove('text-slate-400'); }
                 document.getElementById('partnerSection').scrollIntoView({ behavior: 'smooth' });
             }
         }
 
+        // INITIALIZATION
+        initThemeEngine();
+        initNetworkMonitoring();
+        restorePersistedState();
         calculatePolicyBreakup();
+
+        // Restore language preference
+        const savedLang = localStorage.getItem('pn_lang') || 'en';
+        currentLang = savedLang;
+        if (savedLang === 'hi') applyLanguage('hi');
     </script>
 </body>
 </html>
+
