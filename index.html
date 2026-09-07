@@ -33,8 +33,9 @@
             user-select: none;
             box-sizing: border-box;
         }
-        body {
-            overscroll-behavior-y: none;
+        html, body {
+            height: 100%;
+            overflow: hidden;
             background-color: #070B14;
         }
         .hide-scrollbar::-webkit-scrollbar {
@@ -56,13 +57,13 @@
         }
     </style>
 </head>
-<body class="flex justify-center items-center min-h-screen text-slate-800 antialiased font-sans p-0 sm:p-4">
+<body class="flex justify-center items-center h-full text-slate-800 antialiased font-sans p-0 sm:p-4">
 
-    <!-- MOBILE CONTAINER FRAME -->
-    <div class="w-full max-w-md bg-appSurface h-screen sm:h-[94vh] sm:rounded-[40px] shadow-2xl flex flex-col overflow-hidden relative sm:border-[8px] sm:border-slate-800">
+    <!-- MOBILE CONTAINER FRAME (STRICT SHELL) -->
+    <div class="w-full max-w-md bg-appSurface h-full sm:h-[94vh] sm:rounded-[40px] shadow-2xl flex flex-col overflow-hidden relative sm:border-[8px] sm:border-slate-800">
         
-        <!-- ENTERPRISE SLIDE-OVER DRAWER MENU (HIDDEN BY DEFAULT) -->
-        <div id="sideDrawer" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <!-- ENTERPRISE SLIDE-OVER DRAWER MENU -->
+        <div id="sideDrawer" class="absolute inset-0 z-50 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
             <div id="drawerCard" class="w-4/5 max-w-xs bg-slate-900 text-white h-full p-6 flex flex-col justify-between shadow-2xl transform -translate-x-full transition-transform duration-300">
                 <div class="space-y-6">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
@@ -111,10 +112,9 @@
             </div>
         </div>
 
-        <!-- ENTERPRISE APP HEADER -->
-        <header class="bg-slate-900 border-b border-slate-800 flex-shrink-0 z-30 shadow-md">
-            
-            <!-- TOP COMPLIANCE & CLAIM DESK RIBBON -->
+        <!-- APP TOP HEADER -->
+        <header class="bg-slate-900 border-b border-slate-800 flex-shrink-0 z-20 shadow-md">
+            <!-- Top Ribbon -->
             <div class="bg-slate-950 px-4 py-1.5 flex items-center justify-between text-[10px] border-b border-slate-800/60">
                 <div class="flex items-center space-x-2 text-slate-300">
                     <span class="flex items-center text-emerald-400 font-bold gap-1">
@@ -131,10 +131,8 @@
                 </a>
             </div>
 
-            <!-- MAIN HEADER BAR -->
+            <!-- Main Bar -->
             <div class="px-4 py-3 flex items-center justify-between">
-                
-                <!-- Left: Menu Drawer + Brand Tile -->
                 <div class="flex items-center space-x-3">
                     <button onclick="toggleDrawer()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition active:scale-95 shadow-xs">
                         <i class="fas fa-bars-staggered text-sm"></i>
@@ -147,14 +145,13 @@
                         <div class="leading-none">
                             <div class="flex items-center space-x-1">
                                 <span class="text-base font-black tracking-tight text-white">PolicyNest</span>
-                                <i class="fas fa-certificate text-blue-500 text-[11px]" title="Verified Advisory"></i>
+                                <i class="fas fa-certificate text-blue-500 text-[11px]"></i>
                             </div>
                             <span class="text-[9px] font-extrabold tracking-widest text-emerald-400 uppercase">SECURE MOTOR DESK</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right: Quick Direct Hotline & WhatsApp CTA -->
                 <div class="flex items-center space-x-2">
                     <a href="tel:+919152058250" class="flex items-center space-x-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl border border-slate-700/80 active:scale-95 transition shadow-xs">
                         <i class="fas fa-phone-alt text-[10px] text-blue-400"></i>
@@ -168,8 +165,24 @@
             </div>
         </header>
 
-        <!-- MAIN SCROLLABLE APP BODY -->
-        <main class="flex-1 overflow-y-auto hide-scrollbar p-4 space-y-4 pb-32">
+        <!-- MAIN SCROLLABLE APP BODY (INDEPENDENT CONTAINER SCROLL) -->
+        <main id="appScrollArea" class="flex-1 overflow-y-auto hide-scrollbar p-4 space-y-4 pb-32">
+
+            <!-- PWA PROMPT CHIP -->
+            <div id="pwaBanner" class="bg-gradient-to-r from-slate-900 to-appBlue text-white p-2.5 rounded-2xl flex items-center justify-between text-xs border border-white/10 shadow-sm">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-mobile-screen-button text-emerald-400 text-sm"></i>
+                    <span class="font-bold text-[11px]">Install PolicyNest App on Phone</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="installAppPrompt()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-1 rounded-full font-black text-[10px] shadow-sm">
+                        Install
+                    </button>
+                    <button onclick="dismissBanner()" class="text-slate-400 hover:text-white px-1">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
 
             <!-- VEHICLE SEGMENT TABS -->
             <div class="flex space-x-2 overflow-x-auto hide-scrollbar">
@@ -196,7 +209,7 @@
 
                 <h2 class="text-lg font-black leading-snug" id="heroHeadline">Instant Zero-Dep Car Policy Quotes</h2>
 
-                <!-- Text Inputs -->
+                <!-- Clean Inputs -->
                 <div class="space-y-2">
                     <div class="bg-white rounded-2xl p-1 flex items-center shadow-inner">
                         <span class="px-3 text-slate-400 text-xs font-bold"><i class="fas fa-barcode text-appBrand"></i></span>
@@ -224,7 +237,7 @@
                 </button>
             </div>
 
-            <!-- ACCIDENTAL BILL COMPARISON -->
+            <!-- FEATURE: ACCIDENTAL BILL COMPARISON -->
             <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200/80 space-y-3">
                 <div class="flex items-center justify-between pb-2 border-b border-slate-100">
                     <div class="flex items-center space-x-2">
@@ -294,7 +307,7 @@
                 </div>
             </div>
 
-            <!-- NCB DISCOUNT SAVER -->
+            <!-- FEATURE: NCB DISCOUNT SAVER -->
             <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200/80 space-y-3">
                 <div class="flex items-center justify-between pb-2 border-b border-slate-100">
                     <div class="flex items-center space-x-2">
@@ -458,9 +471,9 @@
             </section>
         </main>
 
-        <!-- FLOATING LOCKED FOOTER DOCK -->
-        <div class="absolute bottom-3 left-4 right-4 z-40 pointer-events-none">
-            <nav class="pointer-events-auto bg-white/90 floating-footer border border-slate-200/80 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.15),0_8px_10px_-6px_rgba(0,0,0,0.1)] rounded-full px-5 py-2 flex justify-between items-center">
+        <!-- ROCK-SOLID LOCKED FLOATING FOOTER DOCK -->
+        <div class="absolute bottom-3 left-3 right-3 z-30 pointer-events-none">
+            <nav class="pointer-events-auto bg-white/95 floating-footer border border-slate-200/90 shadow-[0_12px_30px_-4px_rgba(0,0,0,0.25)] rounded-full px-5 py-2 flex justify-between items-center">
                 <button onclick="navigateTab('home')" id="navBtnHome" class="flex flex-col items-center active-tab">
                     <i class="fas fa-home text-base"></i>
                     <span class="text-[9px] font-bold mt-0.5">Home</span>
@@ -471,7 +484,7 @@
                     <span class="text-[9px] font-semibold mt-0.5">Add-ons</span>
                 </button>
                 
-                <!-- CENTRAL ACCENT BUTTON -->
+                <!-- Center Accent Action -->
                 <button onclick="requestQuoteWhatsApp()" class="-mt-5 w-11 h-11 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center text-lg shadow-lg border-2 border-white active:scale-90 transition">
                     <i class="fab fa-whatsapp"></i>
                 </button>
@@ -510,7 +523,6 @@
             }
         }
 
-        // Close drawer on clicking backdrop
         document.getElementById('sideDrawer').addEventListener('click', function(e) {
             if (e.target === this) toggleDrawer();
         });
@@ -659,9 +671,11 @@
 
         function navigateTab(tab) {
             document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-tab', 'text-appBrand'));
+            const scrollArea = document.getElementById('appScrollArea');
+
             if (tab === 'home') {
                 document.getElementById('navBtnHome').classList.add('active-tab');
-                document.querySelector('main').scrollTo({ top: 0, behavior: 'smooth' });
+                scrollArea.scrollTo({ top: 0, behavior: 'smooth' });
             } else if (tab === 'calc') {
                 document.getElementById('navBtnCalc').classList.add('active-tab');
                 document.getElementById('estimatorSection').scrollIntoView({ behavior: 'smooth' });
