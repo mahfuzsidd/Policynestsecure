@@ -35,8 +35,7 @@
         }
         html, body {
             height: 100%;
-            overflow: hidden;
-            background-color: #070B14;
+            background-color: #F8FAFC;
         }
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
@@ -57,122 +56,128 @@
         }
     </style>
 </head>
-<body class="flex justify-center items-center h-full text-slate-800 antialiased font-sans p-0 sm:p-4">
+<body class="h-full text-slate-800 antialiased font-sans flex flex-col bg-slate-100">
 
-    <!-- MOBILE CONTAINER FRAME (STRICT SHELL) -->
-    <div class="w-full max-w-md bg-appSurface h-full sm:h-[94vh] sm:rounded-[40px] shadow-2xl flex flex-col overflow-hidden relative sm:border-[8px] sm:border-slate-800">
-        
-        <!-- ENTERPRISE SLIDE-OVER DRAWER MENU -->
-        <div id="sideDrawer" class="absolute inset-0 z-50 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
-            <div id="drawerCard" class="w-4/5 max-w-xs bg-slate-900 text-white h-full p-6 flex flex-col justify-between shadow-2xl transform -translate-x-full transition-transform duration-300">
-                <div class="space-y-6">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-4">
-                        <div class="flex items-center space-x-2.5">
-                            <div class="w-9 h-9 rounded-xl bg-white p-1 flex items-center justify-center">
-                                <img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-" alt="Logo" class="h-full w-auto object-contain">
-                            </div>
-                            <div>
-                                <span class="font-black text-sm tracking-tight text-white block">PolicyNest Secure</span>
-                                <span class="text-[9px] text-emerald-400 font-bold uppercase tracking-wider">Govt / IRDAI Certified</span>
-                            </div>
-                        </div>
-                        <button onclick="toggleDrawer()" class="text-slate-400 hover:text-white p-1.5">
-                            <i class="fas fa-times text-base"></i>
-                        </button>
-                    </div>
-
-                    <nav class="space-y-2 text-xs font-bold">
-                        <a href="javascript:void(0)" onclick="toggleDrawer(); navigateTab('home');" class="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 text-white transition">
-                            <i class="fas fa-car text-blue-400 w-5"></i>
-                            <span>Motor Insurance Home</span>
-                        </a>
-                        <a href="javascript:void(0)" onclick="toggleDrawer(); navigateTab('calc');" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition">
-                            <i class="fas fa-calculator text-emerald-400 w-5"></i>
-                            <span>IDV & Rider Estimator</span>
-                        </a>
-                        <a href="javascript:void(0)" onclick="toggleDrawer(); navigateTab('partner');" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition">
-                            <i class="fas fa-briefcase text-amber-400 w-5"></i>
-                            <span>POSP Agent Onboarding</span>
-                        </a>
-                        <a href="https://wa.me/919152058250?text=Hi%2C%20I%20need%20to%20locate%20cashless%20garages%20nearby." target="_blank" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition">
-                            <i class="fas fa-warehouse text-purple-400 w-5"></i>
-                            <span>Cashless Garages (7,500+)</span>
-                        </a>
-                        <a href="https://wa.me/919152058250?text=EMERGENCY%3A%20Need%20Claim%20Assistance%20Immediately." target="_blank" class="flex items-center space-x-3 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 transition">
-                            <i class="fas fa-phone-volume text-red-400 w-5"></i>
-                            <span>24x7 Claim SOS Support</span>
-                        </a>
-                    </nav>
-                </div>
-
-                <div class="border-t border-slate-800 pt-4 text-[10px] text-slate-400 space-y-1">
-                    <p class="font-bold text-slate-300">PolicyNest Insurance Advisory</p>
-                    <p>IRDAI Reg. Licensed Agency • India</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- APP TOP HEADER -->
-        <header class="bg-slate-900 border-b border-slate-800 flex-shrink-0 z-20 shadow-md">
-            <!-- Top Ribbon -->
-            <div class="bg-slate-950 px-4 py-1.5 flex items-center justify-between text-[10px] border-b border-slate-800/60">
-                <div class="flex items-center space-x-2 text-slate-300">
-                    <span class="flex items-center text-emerald-400 font-bold gap-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                        IRDAI Compliant
-                    </span>
-                    <span class="text-slate-600">|</span>
-                    <span class="text-slate-400 font-semibold truncate">30-Min Cashless Claim Desk</span>
-                </div>
-                
-                <a href="https://wa.me/919152058250?text=Hi%2C%20I%20need%20help%20with%20Motor%20Insurance." target="_blank" class="text-emerald-400 hover:text-emerald-300 font-black flex items-center space-x-1">
-                    <i class="fab fa-whatsapp text-xs"></i>
-                    <span>Help</span>
-                </a>
-            </div>
-
-            <!-- Main Bar -->
-            <div class="px-4 py-3 flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <button onclick="toggleDrawer()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition active:scale-95 shadow-xs">
-                        <i class="fas fa-bars-staggered text-sm"></i>
-                    </button>
-
+    <!-- ENTERPRISE SLIDE-OVER DRAWER MENU -->
+    <div id="sideDrawer" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div id="drawerCard" class="w-4/5 max-w-xs bg-slate-900 text-white h-full p-6 flex flex-col justify-between shadow-2xl transform -translate-x-full transition-transform duration-300">
+            <div class="space-y-6">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-4">
                     <div class="flex items-center space-x-2.5">
-                        <div class="w-9 h-9 rounded-xl bg-white p-1 flex items-center justify-center shadow-md">
+                        <div class="w-9 h-9 rounded-xl bg-white p-1 flex items-center justify-center">
                             <img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-" alt="Logo" class="h-full w-auto object-contain">
                         </div>
-                        <div class="leading-none">
-                            <div class="flex items-center space-x-1">
-                                <span class="text-base font-black tracking-tight text-white">PolicyNest</span>
-                                <i class="fas fa-certificate text-blue-500 text-[11px]"></i>
-                            </div>
-                            <span class="text-[9px] font-extrabold tracking-widest text-emerald-400 uppercase">SECURE MOTOR DESK</span>
+                        <div>
+                            <span class="font-black text-sm tracking-tight text-white block">PolicyNest Secure</span>
+                            <span class="text-[9px] text-emerald-400 font-bold uppercase tracking-wider">Govt / IRDAI Certified</span>
                         </div>
                     </div>
+                    <button onclick="toggleDrawer()" class="text-slate-400 hover:text-white p-1.5">
+                        <i class="fas fa-times text-base"></i>
+                    </button>
                 </div>
 
-                <div class="flex items-center space-x-2">
-                    <a href="tel:+919152058250" class="flex items-center space-x-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl border border-slate-700/80 active:scale-95 transition shadow-xs">
-                        <i class="fas fa-phone-alt text-[10px] text-blue-400"></i>
-                        <span class="text-[11px] font-bold">SOS</span>
+                <nav class="space-y-2 text-xs font-bold">
+                    <a href="javascript:void(0)" onclick="toggleDrawer(); navigateTab('home');" class="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 text-white transition">
+                        <i class="fas fa-car text-blue-400 w-5"></i>
+                        <span>Motor Insurance Home</span>
                     </a>
-                    
-                    <a href="https://wa.me/919152058250" target="_blank" class="w-9 h-9 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center shadow-lg active:scale-95 transition">
-                        <i class="fab fa-whatsapp text-base"></i>
+                    <a href="javascript:void(0)" onclick="toggleDrawer(); navigateTab('calc');" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition">
+                        <i class="fas fa-calculator text-emerald-400 w-5"></i>
+                        <span>IDV & Rider Estimator</span>
                     </a>
+                    <a href="javascript:void(0)" onclick="toggleDrawer(); navigateTab('partner');" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition">
+                        <i class="fas fa-briefcase text-amber-400 w-5"></i>
+                        <span>POSP Agent Onboarding</span>
+                    </a>
+                    <a href="https://wa.me/919152058250?text=Hi%2C%20I%20need%20to%20locate%20cashless%20garages%20nearby." target="_blank" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition">
+                        <i class="fas fa-warehouse text-purple-400 w-5"></i>
+                        <span>Cashless Garages (7,500+)</span>
+                    </a>
+                    <a href="https://wa.me/919152058250?text=EMERGENCY%3A%20Need%20Claim%20Assistance%20Immediately." target="_blank" class="flex items-center space-x-3 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 transition">
+                        <i class="fas fa-phone-volume text-red-400 w-5"></i>
+                        <span>24x7 Claim SOS Support</span>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="border-t border-slate-800 pt-4 text-[10px] text-slate-400 space-y-1">
+                <p class="font-bold text-slate-300">PolicyNest Insurance Advisory</p>
+                <p>IRDAI Reg. Licensed Agency • India</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FULL WIDTH ENTERPRISE HEADER -->
+    <header class="bg-slate-900 border-b border-slate-800 flex-shrink-0 z-30 shadow-md w-full">
+        <!-- Top Compliance Ribbon -->
+        <div class="bg-slate-950 px-4 md:px-8 py-1.5 flex items-center justify-between text-[10px] border-b border-slate-800/60">
+            <div class="flex items-center space-x-2 text-slate-300">
+                <span class="flex items-center text-emerald-400 font-bold gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                    IRDAI Compliant
+                </span>
+                <span class="text-slate-600">|</span>
+                <span class="text-slate-400 font-semibold truncate">30-Min Cashless Claim Desk</span>
+            </div>
+            
+            <a href="https://wa.me/919152058250?text=Hi%2C%20I%20need%20help%20with%20Motor%20Insurance." target="_blank" class="text-emerald-400 hover:text-emerald-300 font-black flex items-center space-x-1">
+                <i class="fab fa-whatsapp text-xs"></i>
+                <span>Direct Support</span>
+            </a>
+        </div>
+
+        <!-- Main Bar (Full Width Responsive) -->
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleDrawer()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition active:scale-95 shadow-xs">
+                    <i class="fas fa-bars-staggered text-sm"></i>
+                </button>
+
+                <div class="flex items-center space-x-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-white p-1 flex items-center justify-center shadow-md">
+                        <img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-" alt="Logo" class="h-full w-auto object-contain">
+                    </div>
+                    <div class="leading-none">
+                        <div class="flex items-center space-x-1">
+                            <span class="text-base md:text-lg font-black tracking-tight text-white">PolicyNest</span>
+                            <i class="fas fa-certificate text-blue-500 text-[11px]"></i>
+                        </div>
+                        <span class="text-[9px] font-extrabold tracking-widest text-emerald-400 uppercase">SECURE MOTOR DESK</span>
+                    </div>
                 </div>
             </div>
-        </header>
 
-        <!-- MAIN SCROLLABLE APP BODY (INDEPENDENT CONTAINER SCROLL) -->
-        <main id="appScrollArea" class="flex-1 overflow-y-auto hide-scrollbar p-4 space-y-4 pb-32">
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center space-x-6 text-xs font-bold text-slate-300">
+                <a href="javascript:void(0)" onclick="navigateTab('home')" class="hover:text-white transition">Home</a>
+                <a href="javascript:void(0)" onclick="navigateTab('calc')" class="hover:text-white transition">Estimator</a>
+                <a href="javascript:void(0)" onclick="navigateTab('partner')" class="hover:text-white transition">Partner Program</a>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <a href="tel:+919152058250" class="flex items-center space-x-1.5 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl border border-slate-700/80 active:scale-95 transition shadow-xs">
+                    <i class="fas fa-phone-alt text-[11px] text-blue-400"></i>
+                    <span class="text-xs font-bold">SOS Desk</span>
+                </a>
+                
+                <a href="https://wa.me/919152058250" target="_blank" class="h-9 px-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center space-x-1.5 shadow-lg active:scale-95 transition text-xs font-bold">
+                    <i class="fab fa-whatsapp text-sm"></i>
+                    <span class="hidden sm:inline">WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- FULL SCREEN RESPONSIVE APP WRAPPER -->
+    <div class="flex-1 overflow-y-auto hide-scrollbar w-full relative" id="appScrollArea">
+        <div class="max-w-7xl mx-auto p-4 md:p-8 space-y-6 pb-28 md:pb-12">
 
             <!-- PWA PROMPT CHIP -->
-            <div id="pwaBanner" class="bg-gradient-to-r from-slate-900 to-appBlue text-white p-2.5 rounded-2xl flex items-center justify-between text-xs border border-white/10 shadow-sm">
+            <div id="pwaBanner" class="bg-gradient-to-r from-slate-900 to-appBlue text-white p-3 rounded-2xl flex items-center justify-between text-xs border border-white/10 shadow-sm">
                 <div class="flex items-center space-x-2">
                     <i class="fas fa-mobile-screen-button text-emerald-400 text-sm"></i>
-                    <span class="font-bold text-[11px]">Install PolicyNest App on Phone</span>
+                    <span class="font-bold text-[11px] md:text-xs">Install PolicyNest Web App on Phone for 1-Tap Access</span>
                 </div>
                 <div class="flex items-center space-x-2">
                     <button onclick="installAppPrompt()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-1 rounded-full font-black text-[10px] shadow-sm">
@@ -185,322 +190,337 @@
             </div>
 
             <!-- VEHICLE SEGMENT TABS -->
-            <div class="flex space-x-2 overflow-x-auto hide-scrollbar">
-                <button onclick="setVehicleClass('car')" id="tabCar" class="type-btn flex-1 bg-appBlue text-white py-2 px-3 rounded-2xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm active:scale-95 transition">
+            <div class="flex space-x-3 overflow-x-auto hide-scrollbar">
+                <button onclick="setVehicleClass('car')" id="tabCar" class="type-btn flex-1 md:flex-none md:w-48 bg-appBlue text-white py-2.5 px-4 rounded-2xl text-xs font-bold flex items-center justify-center space-x-2 shadow-sm active:scale-95 transition">
                     <i class="fas fa-car"></i>
-                    <span>Car</span>
+                    <span>Car (4-Wheeler)</span>
                 </button>
-                <button onclick="setVehicleClass('bike')" id="tabBike" class="type-btn flex-1 bg-white text-slate-600 border border-slate-200 py-2 px-3 rounded-2xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm active:scale-95 transition">
+                <button onclick="setVehicleClass('bike')" id="tabBike" class="type-btn flex-1 md:flex-none md:w-48 bg-white text-slate-600 border border-slate-200 py-2.5 px-4 rounded-2xl text-xs font-bold flex items-center justify-center space-x-2 shadow-sm active:scale-95 transition">
                     <i class="fas fa-motorcycle"></i>
-                    <span>Bike</span>
+                    <span>Bike / Scooter</span>
                 </button>
-                <button onclick="setVehicleClass('commercial')" id="tabComm" class="type-btn flex-1 bg-white text-slate-600 border border-slate-200 py-2 px-3 rounded-2xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm active:scale-95 transition">
+                <button onclick="setVehicleClass('commercial')" id="tabComm" class="type-btn flex-1 md:flex-none md:w-48 bg-white text-slate-600 border border-slate-200 py-2.5 px-4 rounded-2xl text-xs font-bold flex items-center justify-center space-x-2 shadow-sm active:scale-95 transition">
                     <i class="fas fa-truck"></i>
-                    <span>Commercial</span>
+                    <span>Commercial Fleet</span>
                 </button>
             </div>
 
-            <!-- PRIMARY VEHICLE FORM -->
-            <div class="bg-gradient-to-br from-appBlue via-blue-900 to-slate-900 text-white rounded-3xl p-5 shadow-lg relative overflow-hidden space-y-3">
-                <div class="flex justify-between items-center">
-                    <span class="bg-emerald-400/20 text-emerald-300 px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wide">Instant Policy</span>
-                    <span class="text-[11px] text-blue-200 font-semibold"><i class="fas fa-shield-alt text-emerald-400 mr-1"></i>Cashless Claims</span>
-                </div>
-
-                <h2 class="text-lg font-black leading-snug" id="heroHeadline">Instant Zero-Dep Car Policy Quotes</h2>
-
-                <!-- Clean Inputs -->
-                <div class="space-y-2">
-                    <div class="bg-white rounded-2xl p-1 flex items-center shadow-inner">
-                        <span class="px-3 text-slate-400 text-xs font-bold"><i class="fas fa-barcode text-appBrand"></i></span>
-                        <input type="text" id="regNo" placeholder="Enter Vehicle Number" class="w-full uppercase p-2 text-slate-900 font-black text-xs tracking-wider focus:outline-none placeholder:text-slate-400 placeholder:font-normal">
-                    </div>
-
-                    <div class="bg-white rounded-2xl p-1 flex items-center shadow-inner">
-                        <span class="px-3 text-slate-400 text-xs font-bold"><i class="fas fa-car-side text-appBrand"></i></span>
-                        <input type="text" id="vehicleModel" placeholder="Vehicle Maker & Model" class="w-full p-2 text-slate-900 font-bold text-xs focus:outline-none placeholder:text-slate-400 placeholder:font-normal">
-                    </div>
-                </div>
-
-                <!-- Direct Photo Upload -->
-                <div class="pt-1">
-                    <label class="w-full py-2 bg-white/10 hover:bg-white/20 border border-dashed border-white/40 rounded-2xl flex items-center justify-center space-x-2 text-xs font-bold text-emerald-300 cursor-pointer active:scale-95 transition">
-                        <i class="fas fa-camera text-sm"></i>
-                        <span>Upload RC Photo Instead</span>
-                        <input type="file" accept="image/*" class="hidden" onchange="handleDirectPhotoUpload(this)">
-                    </label>
-                </div>
-
-                <button onclick="requestQuoteWhatsApp()" class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-black text-xs rounded-2xl shadow-lg transition flex items-center justify-center space-x-2">
-                    <i class="fab fa-whatsapp text-base"></i>
-                    <span>Get Instant Quote on WhatsApp</span>
-                </button>
-            </div>
-
-            <!-- FEATURE: ACCIDENTAL BILL COMPARISON -->
-            <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200/80 space-y-3">
-                <div class="flex items-center justify-between pb-2 border-b border-slate-100">
-                    <div class="flex items-center space-x-2">
-                        <div class="w-7 h-7 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-xs font-black">
-                            <i class="fas fa-file-invoice-dollar"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xs font-black text-slate-900 uppercase tracking-wide">Accidental Bill Comparison</h3>
-                            <p class="text-[9px] text-slate-400 font-medium">Claim payout difference on accident repair</p>
-                        </div>
-                    </div>
-                    <span class="text-[9px] font-bold bg-blue-50 text-appBrand px-2 py-0.5 rounded-full">Actual Scenario</span>
-                </div>
-
-                <div class="space-y-2 text-xs">
-                    <div class="flex justify-between items-center text-[10px] text-slate-400 font-bold uppercase px-1">
-                        <span>Replaced Parts</span>
-                        <div class="flex space-x-6">
-                            <span>Normal Policy</span>
-                            <span class="text-emerald-600">Zero-Dep</span>
-                        </div>
-                    </div>
-
-                    <div class="p-2 bg-slate-50 rounded-xl flex justify-between items-center">
-                        <div>
-                            <span class="font-bold text-slate-800 text-[11px] block">Front Bumper (Plastic)</span>
-                            <span class="text-[9px] text-slate-400">50% cut in standard policy</span>
-                        </div>
-                        <div class="flex space-x-8 text-right font-bold text-[11px]">
-                            <span class="text-red-500">₹3,500</span>
-                            <span class="text-emerald-600 font-black">₹0</span>
-                        </div>
-                    </div>
-
-                    <div class="p-2 bg-slate-50 rounded-xl flex justify-between items-center">
-                        <div>
-                            <span class="font-bold text-slate-800 text-[11px] block">Headlight Assembly (Glass/Fiber)</span>
-                            <span class="text-[9px] text-slate-400">30% fiber depreciation cut</span>
-                        </div>
-                        <div class="flex space-x-8 text-right font-bold text-[11px]">
-                            <span class="text-red-500">₹2,800</span>
-                            <span class="text-emerald-600 font-black">₹0</span>
-                        </div>
-                    </div>
-
-                    <div class="p-2 bg-slate-50 rounded-xl flex justify-between items-center">
-                        <div>
-                            <span class="font-bold text-slate-800 text-[11px] block">Side Fender & Painting (Metal)</span>
-                            <span class="text-[9px] text-slate-400">Paint depreciation & deductibles</span>
-                        </div>
-                        <div class="flex space-x-8 text-right font-bold text-[11px]">
-                            <span class="text-red-500">₹8,500</span>
-                            <span class="text-emerald-600 font-black">₹0</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-gradient-to-r from-red-50 via-slate-50 to-emerald-50 p-2.5 rounded-2xl border border-slate-200/80 flex justify-between items-center">
-                    <div>
-                        <span class="text-[10px] text-slate-500 font-bold block">Your Out-of-Pocket Expense</span>
-                        <span class="text-[11px] text-red-600 font-extrabold">Normal: You pay ₹14,800</span>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-[9px] text-slate-400 uppercase font-bold block">With PolicyNest</span>
-                        <span class="text-base font-black text-emerald-600">₹0 (100% Cashless)</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FEATURE: NCB DISCOUNT SAVER -->
-            <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200/80 space-y-3">
-                <div class="flex items-center justify-between pb-2 border-b border-slate-100">
-                    <div class="flex items-center space-x-2">
-                        <div class="w-7 h-7 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xs font-black">
-                            <i class="fas fa-percent"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xs font-black text-slate-900 uppercase tracking-wide">NCB Discount Saver</h3>
-                            <p class="text-[9px] text-slate-400 font-medium">Claim-free year bonus on Own Damage</p>
-                        </div>
-                    </div>
-                    <span class="text-xs font-black text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full" id="ncbDiscountTag">-₹0 Off</span>
-                </div>
-
-                <div class="space-y-1.5">
-                    <label class="text-[10px] font-extrabold uppercase text-slate-500 block">Select Past Year Claim Record</label>
-                    <div class="grid grid-cols-4 gap-1.5">
-                        <button type="button" onclick="setNcb(0)" id="ncbBtn0" class="ncb-btn py-2 rounded-xl text-xs font-bold border border-slate-200 bg-appBrand text-white shadow-xs transition">
-                            0%
-                            <span class="block text-[8px] font-normal">New / Claimed</span>
-                        </button>
-                        <button type="button" onclick="setNcb(0.20)" id="ncbBtn20" class="ncb-btn py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700 transition">
-                            20%
-                            <span class="block text-[8px] font-normal">1 Year Clean</span>
-                        </button>
-                        <button type="button" onclick="setNcb(0.35)" id="ncbBtn35" class="ncb-btn py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700 transition">
-                            35%
-                            <span class="block text-[8px] font-normal">3 Yrs Clean</span>
-                        </button>
-                        <button type="button" onclick="setNcb(0.50)" id="ncbBtn50" class="ncb-btn py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700 transition">
-                            50%
-                            <span class="block text-[8px] font-normal">Max Bonus</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- EXPIRY ALERT SCHEDULER -->
-            <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200/80 space-y-3">
-                <div class="flex items-center space-x-2.5">
-                    <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-sm font-black">
-                        <i class="fas fa-bell"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-xs font-black text-slate-900 uppercase tracking-wide">Expiry Reminder Setup</h3>
-                        <p class="text-[10px] text-slate-400">Get WhatsApp alert 7 days before your policy lapses</p>
-                    </div>
-                </div>
-
-                <div class="flex space-x-2">
-                    <input type="date" id="expiryDateInput" class="flex-1 bg-slate-50 border border-slate-200 p-2.5 rounded-xl text-xs font-bold text-slate-700 focus:outline-none">
-                    <button onclick="scheduleExpiryAlert()" class="bg-appBlue hover:bg-blue-900 active:scale-95 text-white text-xs font-bold px-4 rounded-xl shadow-xs whitespace-nowrap">
-                        Set Alert
-                    </button>
-                </div>
-            </div>
-
-            <!-- COMPREHENSIVE MOTOR ESTIMATOR & ADD-ONS -->
-            <div id="estimatorSection" class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/80 space-y-4">
-                <div class="flex justify-between items-center pb-3 border-b border-slate-100">
-                    <div>
-                        <h3 class="text-xs font-black text-slate-900 uppercase tracking-wider">Premium Estimator</h3>
-                        <p class="text-[10px] text-slate-400 font-medium">Adjust IDV & pick riders</p>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-[10px] text-slate-400 font-bold uppercase block">Net Annual Premium</span>
-                        <span class="text-xl font-black text-emerald-600" id="livePremiumDisplay">₹6,420 / yr</span>
-                    </div>
-                </div>
-
-                <div class="space-y-1.5">
-                    <div class="flex justify-between text-xs font-bold text-slate-700">
-                        <span>Insured Declared Value (IDV)</span>
-                        <span id="idvValDisplay" class="text-appBrand font-black">₹6,00,000</span>
-                    </div>
-                    <input type="range" id="idvInput" min="50000" max="3000000" step="25000" value="600000" class="w-full accent-appBrand cursor-pointer" oninput="calculatePolicyBreakup()">
-                </div>
-
-                <div class="pt-2 space-y-2">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 block">Select Policy Add-on Covers</span>
+            <!-- TWO-COLUMN GRID (MOBILE SINGLE COL, DESKTOP DUAL COL) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                
+                <!-- LEFT COLUMN: PRIMARY INPUT, ACCIDENTAL BILL & NCB -->
+                <div class="lg:col-span-6 space-y-6">
                     
-                    <div class="grid grid-cols-1 gap-2 text-xs">
-                        <label class="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
-                            <div class="flex items-center space-x-2.5">
-                                <input type="checkbox" id="chkZeroDep" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
-                                <div>
-                                    <div class="font-bold text-slate-800">Zero Depreciation</div>
-                                    <div class="text-[10px] text-slate-400">100% cashless replacement on parts</div>
-                                </div>
-                            </div>
-                            <span class="text-[10px] font-bold text-emerald-600">Must Have</span>
-                        </label>
+                    <!-- PRIMARY FORM CARD -->
+                    <div class="bg-gradient-to-br from-appBlue via-blue-900 to-slate-900 text-white rounded-3xl p-6 shadow-lg relative overflow-hidden space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="bg-emerald-400/20 text-emerald-300 px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wide">Instant Policy</span>
+                            <span class="text-xs text-blue-200 font-semibold"><i class="fas fa-shield-alt text-emerald-400 mr-1"></i>7,500+ Cashless Garages</span>
+                        </div>
 
-                        <label class="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
-                            <div class="flex items-center space-x-2.5">
-                                <input type="checkbox" id="chkEngine" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
-                                <div>
-                                    <div class="font-bold text-slate-800">Engine & Gearbox Protection</div>
-                                    <div class="text-[10px] text-slate-400">Water ingression & hydro-lock repair</div>
-                                </div>
-                            </div>
-                            <span class="text-[10px] font-bold text-blue-600">Recommended</span>
-                        </label>
+                        <h2 class="text-xl md:text-2xl font-black leading-snug" id="heroHeadline">Instant Zero-Dep Car Policy Quotes</h2>
 
-                        <label class="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
-                            <div class="flex items-center space-x-2.5">
-                                <input type="checkbox" id="chkConsumables" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
-                                <div>
-                                    <div class="font-bold text-slate-800">Consumables Protection</div>
-                                    <div class="text-[10px] text-slate-400">Nuts, bolts, AC gas & engine oil bills</div>
-                                </div>
+                        <!-- Clean Inputs -->
+                        <div class="space-y-3">
+                            <div class="bg-white rounded-2xl p-1.5 flex items-center shadow-inner">
+                                <span class="px-3 text-slate-400 text-sm font-bold"><i class="fas fa-barcode text-appBrand"></i></span>
+                                <input type="text" id="regNo" placeholder="ENTER VEHICLE NUMBER" class="w-full uppercase p-2 text-slate-900 font-black text-xs md:text-sm tracking-wider focus:outline-none placeholder:text-slate-400 placeholder:font-normal">
                             </div>
-                            <span class="text-[10px] font-bold text-slate-500">+₹550</span>
-                        </label>
 
-                        <label class="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
-                            <div class="flex items-center space-x-2.5">
-                                <input type="checkbox" id="chkRsa" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
-                                <div>
-                                    <div class="font-bold text-slate-800">24x7 Roadside Assistance (RSA)</div>
-                                    <div class="text-[10px] text-slate-400">Accident towing & flat tyre assist</div>
-                                </div>
+                            <div class="bg-white rounded-2xl p-1.5 flex items-center shadow-inner">
+                                <span class="px-3 text-slate-400 text-sm font-bold"><i class="fas fa-car-side text-appBrand"></i></span>
+                                <input type="text" id="vehicleModel" placeholder="Vehicle Maker & Model" class="w-full p-2 text-slate-900 font-bold text-xs md:text-sm focus:outline-none placeholder:text-slate-400 placeholder:font-normal">
                             </div>
-                            <span class="text-[10px] font-bold text-slate-500">+₹450</span>
-                        </label>
+                        </div>
 
-                        <label class="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
+                        <!-- Direct Photo Upload -->
+                        <div class="pt-1">
+                            <label class="w-full py-2.5 bg-white/10 hover:bg-white/20 border border-dashed border-white/40 rounded-2xl flex items-center justify-center space-x-2 text-xs font-bold text-emerald-300 cursor-pointer active:scale-95 transition">
+                                <i class="fas fa-camera text-sm"></i>
+                                <span>Upload RC Photo Instead of Typing</span>
+                                <input type="file" accept="image/*" class="hidden" onchange="handleDirectPhotoUpload(this)">
+                            </label>
+                        </div>
+
+                        <button onclick="requestQuoteWhatsApp()" class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-black text-sm rounded-2xl shadow-lg transition flex items-center justify-center space-x-2">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                            <span>Get Lowest Quote on WhatsApp</span>
+                        </button>
+                    </div>
+
+                    <!-- ACCIDENTAL BILL COMPARISON -->
+                    <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/80 space-y-4">
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                             <div class="flex items-center space-x-2.5">
-                                <input type="checkbox" id="chkPassengerPa" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
+                                <div class="w-8 h-8 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-sm font-black">
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                </div>
                                 <div>
-                                    <div class="font-bold text-slate-800">Passenger PA Shield (₹5L / Seat)</div>
-                                    <div class="text-[10px] text-slate-400">Accident cover for co-passengers</div>
+                                    <h3 class="text-xs md:text-sm font-black text-slate-900 uppercase tracking-wide">Accidental Bill Comparison</h3>
+                                    <p class="text-[10px] text-slate-400 font-medium">Claim payout difference on accidental repair</p>
                                 </div>
                             </div>
-                            <span class="text-[10px] font-bold text-slate-500">+₹500</span>
-                        </label>
+                            <span class="text-[10px] font-bold bg-blue-50 text-appBrand px-2.5 py-1 rounded-full">Actual Scenario</span>
+                        </div>
+
+                        <div class="space-y-2 text-xs">
+                            <div class="flex justify-between items-center text-[10px] text-slate-400 font-bold uppercase px-1">
+                                <span>Replaced Parts</span>
+                                <div class="flex space-x-8">
+                                    <span>Normal Policy</span>
+                                    <span class="text-emerald-600 font-bold">Zero-Dep</span>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-slate-50 rounded-xl flex justify-between items-center">
+                                <div>
+                                    <span class="font-bold text-slate-800 text-xs block">Front Bumper (Plastic)</span>
+                                    <span class="text-[10px] text-slate-400">50% cut in standard policy</span>
+                                </div>
+                                <div class="flex space-x-10 text-right font-bold">
+                                    <span class="text-red-500">₹3,500</span>
+                                    <span class="text-emerald-600 font-black">₹0</span>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-slate-50 rounded-xl flex justify-between items-center">
+                                <div>
+                                    <span class="font-bold text-slate-800 text-xs block">Headlight Assembly (Glass/Fiber)</span>
+                                    <span class="text-[10px] text-slate-400">30% fiber depreciation cut</span>
+                                </div>
+                                <div class="flex space-x-10 text-right font-bold">
+                                    <span class="text-red-500">₹2,800</span>
+                                    <span class="text-emerald-600 font-black">₹0</span>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-slate-50 rounded-xl flex justify-between items-center">
+                                <div>
+                                    <span class="font-bold text-slate-800 text-xs block">Side Fender & Painting (Metal)</span>
+                                    <span class="text-[10px] text-slate-400">Paint depreciation & deductibles</span>
+                                </div>
+                                <div class="flex space-x-10 text-right font-bold">
+                                    <span class="text-red-500">₹8,500</span>
+                                    <span class="text-emerald-600 font-black">₹0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-red-50 via-slate-50 to-emerald-50 p-3.5 rounded-2xl border border-slate-200/80 flex justify-between items-center">
+                            <div>
+                                <span class="text-[11px] text-slate-500 font-bold block">Your Out-of-Pocket Expense</span>
+                                <span class="text-xs text-red-600 font-extrabold">Normal: You pay ₹14,800</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[10px] text-slate-400 uppercase font-bold block">With PolicyNest</span>
+                                <span class="text-lg font-black text-emerald-600">₹0 (100% Cashless)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NCB DISCOUNT SAVER -->
+                    <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/80 space-y-3">
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                            <div class="flex items-center space-x-2.5">
+                                <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm font-black">
+                                    <i class="fas fa-percent"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xs md:text-sm font-black text-slate-900 uppercase tracking-wide">NCB Discount Saver</h3>
+                                    <p class="text-[10px] text-slate-400 font-medium">Claim-free year bonus on Own Damage</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-black text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full" id="ncbDiscountTag">-₹0 Off</span>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-[11px] font-extrabold uppercase text-slate-500 block">Select Past Year Claim Record</label>
+                            <div class="grid grid-cols-4 gap-2">
+                                <button type="button" onclick="setNcb(0)" id="ncbBtn0" class="ncb-btn py-2.5 rounded-xl text-xs font-bold border border-slate-200 bg-appBrand text-white shadow-xs transition">
+                                    0%
+                                    <span class="block text-[9px] font-normal">New / Claimed</span>
+                                </button>
+                                <button type="button" onclick="setNcb(0.20)" id="ncbBtn20" class="ncb-btn py-2.5 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700 transition">
+                                    20%
+                                    <span class="block text-[9px] font-normal">1 Year Clean</span>
+                                </button>
+                                <button type="button" onclick="setNcb(0.35)" id="ncbBtn35" class="ncb-btn py-2.5 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700 transition">
+                                    35%
+                                    <span class="block text-[9px] font-normal">3 Yrs Clean</span>
+                                </button>
+                                <button type="button" onclick="setNcb(0.50)" id="ncbBtn50" class="ncb-btn py-2.5 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700 transition">
+                                    50%
+                                    <span class="block text-[9px] font-normal">Max Bonus</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <button onclick="requestQuoteWhatsApp()" class="w-full py-3 bg-appBlue hover:bg-blue-900 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition">
-                    Lock Custom IDV & Add-on Package →
-                </button>
-            </div>
+                <!-- RIGHT COLUMN: ESTIMATOR, RIDERS & EXPIRY ALERT -->
+                <div class="lg:col-span-6 space-y-6">
+                    
+                    <!-- COMPREHENSIVE MOTOR ESTIMATOR & ADD-ONS -->
+                    <div id="estimatorSection" class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200/80 space-y-5">
+                        <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+                            <div>
+                                <h3 class="text-sm font-black text-slate-900 uppercase tracking-wider">Premium Estimator</h3>
+                                <p class="text-[11px] text-slate-400 font-medium">Adjust IDV & pick customized riders</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[10px] text-slate-400 font-bold uppercase block">Net Annual Premium</span>
+                                <span class="text-2xl font-black text-emerald-600" id="livePremiumDisplay">₹6,420 / yr</span>
+                            </div>
+                        </div>
 
-            <!-- PARTNER / POSP SECTION -->
-            <section id="partnerSection" class="bg-gradient-to-br from-emerald-800 via-teal-900 to-slate-900 text-white rounded-3xl p-5 shadow-sm space-y-3 relative overflow-hidden">
-                <div class="relative z-10 space-y-2.5">
-                    <div class="flex justify-between items-center">
-                        <span class="bg-white/20 text-emerald-300 px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider">Join Partner Network</span>
-                        <span class="text-[10px] text-emerald-200 font-bold"><i class="fas fa-wallet mr-1"></i>Earn ₹50k - ₹1L+</span>
+                        <!-- IDV Slider -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs font-bold text-slate-700">
+                                <span>Insured Declared Value (IDV)</span>
+                                <span id="idvValDisplay" class="text-appBrand font-black text-sm">₹6,00,000</span>
+                            </div>
+                            <input type="range" id="idvInput" min="50000" max="3000000" step="25000" value="600000" class="w-full accent-appBrand cursor-pointer" oninput="calculatePolicyBreakup()">
+                        </div>
+
+                        <!-- ADD-ONS CHECKBOXES -->
+                        <div class="pt-2 space-y-2.5">
+                            <span class="text-[11px] font-black uppercase tracking-wider text-slate-500 block">Select Policy Add-on Covers</span>
+                            
+                            <div class="grid grid-cols-1 gap-2.5 text-xs">
+                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
+                                    <div class="flex items-center space-x-3">
+                                        <input type="checkbox" id="chkZeroDep" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
+                                        <div>
+                                            <div class="font-bold text-slate-800">Zero Depreciation</div>
+                                            <div class="text-[10px] text-slate-400">100% cashless replacement on parts</div>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-emerald-600">Must Have</span>
+                                </label>
+
+                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
+                                    <div class="flex items-center space-x-3">
+                                        <input type="checkbox" id="chkEngine" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
+                                        <div>
+                                            <div class="font-bold text-slate-800">Engine & Gearbox Protection</div>
+                                            <div class="text-[10px] text-slate-400">Water ingression & hydro-lock repair</div>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-blue-600">Recommended</span>
+                                </label>
+
+                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
+                                    <div class="flex items-center space-x-3">
+                                        <input type="checkbox" id="chkConsumables" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
+                                        <div>
+                                            <div class="font-bold text-slate-800">Consumables Protection</div>
+                                            <div class="text-[10px] text-slate-400">Nuts, bolts, AC gas & engine oil bills</div>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-slate-500">+₹550</span>
+                                </label>
+
+                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
+                                    <div class="flex items-center space-x-3">
+                                        <input type="checkbox" id="chkRsa" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
+                                        <div>
+                                            <div class="font-bold text-slate-800">24x7 Roadside Assistance (RSA)</div>
+                                            <div class="text-[10px] text-slate-400">Accident towing & flat tyre assist</div>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-slate-500">+₹450</span>
+                                </label>
+
+                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
+                                    <div class="flex items-center space-x-3">
+                                        <input type="checkbox" id="chkPassengerPa" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
+                                        <div>
+                                            <div class="font-bold text-slate-800">Passenger PA Shield (₹5L / Seat)</div>
+                                            <div class="text-[10px] text-slate-400">Accident cover for co-passengers</div>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-slate-500">+₹500</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button onclick="requestQuoteWhatsApp()" class="w-full py-3.5 bg-appBlue hover:bg-blue-900 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition">
+                            Lock Custom IDV & Add-on Package →
+                        </button>
                     </div>
 
-                    <h3 class="text-base font-black leading-tight">Become an Authorized Motor POSP Partner</h3>
-                    <p class="text-[11px] text-slate-200 leading-relaxed">Issue instant car, bike & commercial policies across 15+ insurers with zero setup fee and prompt digital commission payouts.</p>
+                    <!-- EXPIRY ALERT SCHEDULER -->
+                    <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/80 space-y-3">
+                        <div class="flex items-center space-x-2.5">
+                            <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-sm font-black">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xs font-black text-slate-900 uppercase tracking-wide">Expiry Reminder Setup</h3>
+                                <p class="text-[10px] text-slate-400">Get WhatsApp alert 7 days before your policy lapses</p>
+                            </div>
+                        </div>
 
-                    <a href="https://wa.me/919152058250?text=Hi%20PolicyNest%2C%20I%20want%20to%20join%20as%20a%20Motor%20Insurance%20POSP%20Partner.%20Please%20share%20the%20onboarding%20details." target="_blank" class="w-full py-3 bg-white text-emerald-800 hover:bg-emerald-50 active:scale-95 text-center font-black text-xs rounded-xl shadow-md transition flex items-center justify-center space-x-2 mt-2">
-                        <i class="fab fa-whatsapp text-sm text-green-600"></i>
+                        <div class="flex space-x-2">
+                            <input type="date" id="expiryDateInput" class="flex-1 bg-slate-50 border border-slate-200 p-3 rounded-xl text-xs font-bold text-slate-700 focus:outline-none">
+                            <button onclick="scheduleExpiryAlert()" class="bg-appBlue hover:bg-blue-900 active:scale-95 text-white text-xs font-bold px-5 rounded-xl shadow-xs whitespace-nowrap">
+                                Set Alert
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- PARTNER / POSP SECTION (FULL WIDTH) -->
+            <section id="partnerSection" class="bg-gradient-to-br from-emerald-800 via-teal-900 to-slate-900 text-white rounded-3xl p-6 md:p-8 shadow-sm space-y-4 relative overflow-hidden">
+                <div class="relative z-10 space-y-3 max-w-3xl">
+                    <div class="flex items-center space-x-3">
+                        <span class="bg-white/20 text-emerald-300 px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider">Join Partner Network</span>
+                        <span class="text-xs text-emerald-200 font-bold"><i class="fas fa-wallet mr-1"></i>Earn ₹50k - ₹1L+</span>
+                    </div>
+
+                    <h3 class="text-lg md:text-xl font-black leading-tight">Become an Authorized Motor POSP Partner</h3>
+                    <p class="text-xs md:text-sm text-slate-200 leading-relaxed">Issue instant car, bike & commercial policies across 15+ insurers with zero setup fee and prompt digital commission payouts.</p>
+
+                    <a href="https://wa.me/919152058250?text=Hi%20PolicyNest%2C%20I%20want%20to%20join%20as%20a%20Motor%20Insurance%20POSP%20Partner.%20Please%20share%20the%20onboarding%20details." target="_blank" class="w-full sm:w-auto inline-flex py-3.5 px-8 bg-white text-emerald-800 hover:bg-emerald-50 active:scale-95 font-black text-xs md:text-sm rounded-xl shadow-md transition items-center justify-center space-x-2">
+                        <i class="fab fa-whatsapp text-base text-green-600"></i>
                         <span>Join Partner Network on WhatsApp</span>
                     </a>
                 </div>
             </section>
-        </main>
 
-        <!-- ROCK-SOLID LOCKED FLOATING FOOTER DOCK -->
-        <div class="absolute bottom-3 left-3 right-3 z-30 pointer-events-none">
-            <nav class="pointer-events-auto bg-white/95 floating-footer border border-slate-200/90 shadow-[0_12px_30px_-4px_rgba(0,0,0,0.25)] rounded-full px-5 py-2 flex justify-between items-center">
-                <button onclick="navigateTab('home')" id="navBtnHome" class="flex flex-col items-center active-tab">
-                    <i class="fas fa-home text-base"></i>
-                    <span class="text-[9px] font-bold mt-0.5">Home</span>
-                </button>
-                
-                <button onclick="navigateTab('calc')" id="navBtnCalc" class="flex flex-col items-center text-slate-400 hover:text-slate-600 transition">
-                    <i class="fas fa-calculator text-base"></i>
-                    <span class="text-[9px] font-semibold mt-0.5">Add-ons</span>
-                </button>
-                
-                <!-- Center Accent Action -->
-                <button onclick="requestQuoteWhatsApp()" class="-mt-5 w-11 h-11 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center text-lg shadow-lg border-2 border-white active:scale-90 transition">
-                    <i class="fab fa-whatsapp"></i>
-                </button>
-
-                <button onclick="navigateTab('partner')" id="navBtnPartner" class="flex flex-col items-center text-slate-400 hover:text-slate-600 transition">
-                    <i class="fas fa-briefcase text-base"></i>
-                    <span class="text-[9px] font-semibold mt-0.5">Partner</span>
-                </button>
-                
-                <a href="tel:+919152058250" class="flex flex-col items-center text-slate-400 hover:text-slate-600 transition">
-                    <i class="fas fa-headset text-base"></i>
-                    <span class="text-[9px] font-semibold mt-0.5">Help</span>
-                </a>
-            </nav>
         </div>
+    </div>
 
+    <!-- MOBILE-ONLY FLOATING LOCKED DOCK (DESKTOP ME HIDE RAHEGA) -->
+    <div class="md:hidden fixed bottom-3 left-3 right-3 z-40 pointer-events-none">
+        <nav class="pointer-events-auto bg-white/95 floating-footer border border-slate-200/90 shadow-[0_12px_30px_-4px_rgba(0,0,0,0.25)] rounded-full px-5 py-2 flex justify-between items-center">
+            <button onclick="navigateTab('home')" id="navBtnHome" class="flex flex-col items-center active-tab">
+                <i class="fas fa-home text-base"></i>
+                <span class="text-[9px] font-bold mt-0.5">Home</span>
+            </button>
+            
+            <button onclick="navigateTab('calc')" id="navBtnCalc" class="flex flex-col items-center text-slate-400 hover:text-slate-600 transition">
+                <i class="fas fa-calculator text-base"></i>
+                <span class="text-[9px] font-semibold mt-0.5">Add-ons</span>
+            </button>
+            
+            <!-- Central Accent Button -->
+            <button onclick="requestQuoteWhatsApp()" class="-mt-5 w-11 h-11 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center text-lg shadow-lg border-2 border-white active:scale-90 transition">
+                <i class="fab fa-whatsapp"></i>
+            </button>
+
+            <button onclick="navigateTab('partner')" id="navBtnPartner" class="flex flex-col items-center text-slate-400 hover:text-slate-600 transition">
+                <i class="fas fa-briefcase text-base"></i>
+                <span class="text-[9px] font-semibold mt-0.5">Partner</span>
+            </button>
+            
+            <a href="tel:+919152058250" class="flex flex-col items-center text-slate-400 hover:text-slate-600 transition">
+                <i class="fas fa-headset text-base"></i>
+                <span class="text-[9px] font-semibold mt-0.5">Help</span>
+            </a>
+        </nav>
     </div>
 
     <!-- JAVASCRIPT LOGIC ENGINE -->
@@ -674,13 +694,13 @@
             const scrollArea = document.getElementById('appScrollArea');
 
             if (tab === 'home') {
-                document.getElementById('navBtnHome').classList.add('active-tab');
+                if (document.getElementById('navBtnHome')) document.getElementById('navBtnHome').classList.add('active-tab');
                 scrollArea.scrollTo({ top: 0, behavior: 'smooth' });
             } else if (tab === 'calc') {
-                document.getElementById('navBtnCalc').classList.add('active-tab');
+                if (document.getElementById('navBtnCalc')) document.getElementById('navBtnCalc').classList.add('active-tab');
                 document.getElementById('estimatorSection').scrollIntoView({ behavior: 'smooth' });
             } else if (tab === 'partner') {
-                document.getElementById('navBtnPartner').classList.add('active-tab');
+                if (document.getElementById('navBtnPartner')) document.getElementById('navBtnPartner').classList.add('active-tab');
                 document.getElementById('partnerSection').scrollIntoView({ behavior: 'smooth' });
             }
         }
@@ -689,4 +709,3 @@
     </script>
 </body>
 </html>
-
