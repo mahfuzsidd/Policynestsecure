@@ -2,295 +2,677 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PolicyNest Secure | Premier Insurance Advisory Services</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0F172A">
+    <title>PolicyNest Secure | Motor App</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        logoGreen: '#008037',
-                        logoBlue: '#1D4ED8',
-                        logoGold: '#B58900',
-                        logoLightGreen: '#E6F4EA'
+                        appNavy: '#0F172A',
+                        appBlue: '#1E3A8A',
+                        appBrand: '#2563EB',
+                        appGreen: '#059669',
+                        appEmerald: '#10B981',
+                        appSurface: '#F8FAFC'
                     }
                 }
             }
         }
     </script>
     <style>
-        html { scroll-behavior: smooth; }
-        .hero-gradient {
-            background: linear-gradient(135deg, #008037 0%, #1D4ED8 100%);
+        * {
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            box-sizing: border-box;
         }
-        .partner-card {
-            transition: all 0.3s ease;
-            border: 1px solid #f3f4f6;
+        body {
+            overscroll-behavior-y: none;
+            background-color: #070B14;
         }
-        .partner-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            border-color: #008037;
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .active-tab {
+            color: #2563EB;
+        }
+        .active-tab i {
+            transform: scale(1.15);
+        }
+        .floating-footer {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
         }
     </style>
 </head>
-<body class="bg-gray-50 font-sans text-gray-900">
+<body class="flex justify-center items-center min-h-screen text-slate-800 antialiased font-sans p-0 sm:p-4">
 
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-" alt="PolicyNest Secure Logo" class="h-14 w-auto object-contain">
-                <div class="flex flex-col leading-tight">
-                    <span class="text-xl font-bold text-logoBlue">PolicyNest</span>
-                    <span class="text-sm font-bold text-logoGreen tracking-widest uppercase">Secure</span>
+    <!-- MOBILE CONTAINER FRAME -->
+    <div class="w-full max-w-md bg-appSurface h-screen sm:h-[94vh] sm:rounded-[40px] shadow-2xl flex flex-col overflow-hidden relative sm:border-[8px] sm:border-slate-800">
+        
+        <!-- ENTERPRISE SLIDE-OVER DRAWER MENU (HIDDEN BY DEFAULT) -->
+        <div id="sideDrawer" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+            <div id="drawerCard" class="w-4/5 max-w-xs bg-slate-900 text-white h-full p-6 flex flex-col justify-between shadow-2xl transform -translate-x-full transition-transform duration-300">
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                        <div class="flex items-center space-x-2.5">
+                            <div class="w-9 h-9 rounded-xl bg-white p-1 flex items-center justify-center">
+                                <img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-" alt="Logo" class="h-full w-auto object-contain">
+                            </div>
+                            <div>
+                                <span class="font-black text-sm tracking-tight text-white block">PolicyNest Secure</span>
+                                <span class="text-[9px] text-emerald-400 font-bold uppercase tracking-wider">Govt / IRDAI Certified</span>
+                            </div>
+                        </div>
+                        <button onclick="toggleDrawer()" class="text-slate-400 hover:text-white p-1.5">
+                            <i class="fas fa-times text-base"></i>
+                        </button>
+                    </div>
+
+                    <nav class="space-y-2 text-xs font-bold">
+                        <a href="javascript:void(0)" onclick="toggleDrawer(); navigateTab('home');" class="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 text-white transition">
+                            <i class="fas fa-car text-blue-400 w-5"></i>
+                            <span>Motor Insurance Home</span>
+                        </a>
+                        <a href="javascript:void(0)" onclick="toggleDrawer(); navigateTab('calc');" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition">
+                            <i class="fas fa-calculator text-emerald-400 w-5"></i>
+                            <span>IDV & Rider Estimator</span>
+                        </a>
+                        <a href="javascript:void(0)" onclick="toggleDrawer(); navigateTab('partner');" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition">
+                            <i class="fas fa-briefcase text-amber-400 w-5"></i>
+                            <span>POSP Agent Onboarding</span>
+                        </a>
+                        <a href="https://wa.me/919152058250?text=Hi%2C%20I%20need%20to%20locate%20cashless%20garages%20nearby." target="_blank" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition">
+                            <i class="fas fa-warehouse text-purple-400 w-5"></i>
+                            <span>Cashless Garages (7,500+)</span>
+                        </a>
+                        <a href="https://wa.me/919152058250?text=EMERGENCY%3A%20Need%20Claim%20Assistance%20Immediately." target="_blank" class="flex items-center space-x-3 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 transition">
+                            <i class="fas fa-phone-volume text-red-400 w-5"></i>
+                            <span>24x7 Claim SOS Support</span>
+                        </a>
+                    </nav>
+                </div>
+
+                <div class="border-t border-slate-800 pt-4 text-[10px] text-slate-400 space-y-1">
+                    <p class="font-bold text-slate-300">PolicyNest Insurance Advisory</p>
+                    <p>IRDAI Reg. Licensed Agency • India</p>
                 </div>
             </div>
-            <div class="hidden md:flex space-x-8 font-medium">
-                <a href="#" class="hover:text-logoGreen transition">Home</a>
-                <a href="#insurance" class="hover:text-logoGreen transition">Services</a>
-                <a href="#partners" class="hover:text-logoGreen transition">Partners</a>
-                <a href="#contact" class="bg-logoGold text-white px-5 py-2 rounded-full hover:bg-yellow-700 transition shadow-md">Contact Us</a>
-            </div>
         </div>
-    </nav>
 
-    <header class="hero-gradient text-white py-24 px-6 text-center shadow-lg">
-        <div class="container mx-auto">
-            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 uppercase tracking-tight leading-tight">
-                Protecting Your Future, <br>Securing Your World
-            </h1>
-            <p class="text-xl mb-10 opacity-90 max-w-2xl mx-auto font-light">
-                India's most trusted insurance advisory service. We find you the best coverage with the fastest claim processing at the right price.
-            </p>
-            <a href="#contact" class="bg-white text-logoGreen font-bold py-3 px-10 rounded-lg shadow-xl hover:bg-gray-100 transition inline-block transform hover:scale-105">Request a Quote</a>
-        </div>
-    </header>
-
-    <section id="insurance" class="py-20 container mx-auto px-6">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold text-logoGreen uppercase tracking-widest">Our Insurance Services</h2>
-            <div class="h-1 w-20 bg-logoGreen mx-auto mt-2"></div>
-        </div>
-        <div class="grid md:grid-cols-3 gap-10">
-            <div class="bg-white p-8 rounded-2xl shadow-sm border-b-4 border-logoGreen text-center">
-                <i class="fas fa-heartbeat text-logoGreen text-4xl mb-5"></i>
-                <h3 class="text-2xl font-bold mb-3 text-logoBlue">Health Insurance</h3>
-                <p class="text-gray-600">Secure your finances against medical emergencies with cashless hospital networks and premium care.</p>
-            </div>
-            <div class="bg-white p-8 rounded-2xl shadow-sm border-b-4 border-logoBlue text-center scale-105 border-x-2 border-t-2 border-gray-100 shadow-md">
-                <i class="fas fa-car text-logoBlue text-4xl mb-5"></i>
-                <h3 class="text-2xl font-bold mb-3 text-logoBlue">Motor Insurance</h3>
-                <p class="text-logoBlue font-bold italic text-sm mb-2 uppercase tracking-tighter">Specialist Choice</p>
-                <p class="text-gray-600">Comprehensive protection for your car or bike against accidents, theft, and natural disasters.</p>
-            </div>
-            <div class="bg-white p-8 rounded-2xl shadow-sm border-b-4 border-logoGold text-center">
-                <i class="fas fa-piggy-bank text-logoGold text-4xl mb-5"></i>
-                <h3 class="text-2xl font-bold mb-3 text-logoBlue">Life Insurance</h3>
-                <p class="text-gray-600">Guarantee your family's future and dreams even in your absence with high-coverage term plans.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="partners" class="py-20 bg-gray-100 border-y border-gray-200">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl font-bold text-logoBlue mb-4">India's Leading Insurance Partners</h2>
-            <p class="text-logoGreen font-semibold mb-12 uppercase text-sm tracking-widest">Authorized to Source Policies From 15+ Top Carriers</p>
+        <!-- ENTERPRISE APP HEADER -->
+        <header class="bg-slate-900 border-b border-slate-800 flex-shrink-0 z-30 shadow-md">
             
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
-                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
-                    <img src="https://www.google.com/s2/favicons?sz=128&domain=hdfcergo.com" class="h-10 mb-2" alt="HDFC ERGO">
-                    <span class="text-xs font-extrabold text-gray-700">HDFC ERGO</span>
+            <!-- TOP COMPLIANCE & CLAIM DESK RIBBON -->
+            <div class="bg-slate-950 px-4 py-1.5 flex items-center justify-between text-[10px] border-b border-slate-800/60">
+                <div class="flex items-center space-x-2 text-slate-300">
+                    <span class="flex items-center text-emerald-400 font-bold gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                        IRDAI Compliant
+                    </span>
+                    <span class="text-slate-600">|</span>
+                    <span class="text-slate-400 font-semibold truncate">30-Min Cashless Claim Desk</span>
                 </div>
-                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
-                    <img src="https://www.google.com/s2/favicons?sz=128&domain=icicilombard.com" class="h-10 mb-2" alt="ICICI Lombard">
-                    <span class="text-xs font-extrabold text-gray-700">ICICI Lombard</span>
-                </div>
-                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
-                    <img src="https://www.google.com/s2/favicons?sz=128&domain=bajajallianz.com" class="h-10 mb-2" alt="Bajaj Allianz">
-                    <span class="text-xs font-extrabold text-gray-700">Bajaj Allianz</span>
-                </div>
-                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
-                    <img src="https://www.google.com/s2/favicons?sz=128&domain=tataaig.com" class="h-10 mb-2" alt="TATA AIG">
-                    <span class="text-xs font-extrabold text-gray-700">TATA AIG</span>
-                </div>
-                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
-                    <img src="https://www.google.com/s2/favicons?sz=128&domain=reliancegeneral.co.in" class="h-10 mb-2" alt="Reliance General">
-                    <span class="text-xs font-extrabold text-gray-700">Reliance Gen</span>
-                </div>
-                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
-                    <img src="https://www.google.com/s2/favicons?sz=128&domain=digitinsurance.com" class="h-10 mb-2" alt="Digit">
-                    <span class="text-xs font-extrabold text-gray-700">Go Digit</span>
-                </div>
-                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
-                    <img src="https://www.google.com/s2/favicons?sz=128&domain=iffcotokio.co.in" class="h-10 mb-2" alt="IFFCO Tokio">
-                    <span class="text-xs font-extrabold text-gray-700">IFFCO Tokio</span>
-                </div>
-                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
-                    <img src="https://www.google.com/s2/favicons?sz=128&domain=sbigeneral.in" class="h-10 mb-2" alt="SBI General">
-                    <span class="text-xs font-extrabold text-gray-700">SBI General</span>
-                </div>
-                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
-                    <img src="https://www.google.com/s2/favicons?sz=128&domain=newindia.co.in" class="h-10 mb-2" alt="New India">
-                    <span class="text-xs font-extrabold text-gray-700">New India</span>
-                </div>
-                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
-                    <img src="https://www.google.com/s2/favicons?sz=128&domain=unitedindia.co.in" class="h-10 mb-2" alt="United India">
-                    <span class="text-xs font-extrabold text-gray-700">United India</span>
-                </div>
-                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
-                    <img src="https://www.google.com/s2/favicons?sz=128&domain=nationalinsurance.nic.co.in" class="h-10 mb-2" alt="National Ins">
-                    <span class="text-xs font-extrabold text-gray-700">National Ins</span>
-                </div>
-                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
-                    <img src="https://www.google.com/s2/favicons?sz=128&domain=cholainsurance.com" class="h-10 mb-2" alt="Chola MS">
-                    <span class="text-xs font-extrabold text-gray-700">Chola MS</span>
-                </div>
-                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
-                    <img src="https://www.google.com/s2/favicons?sz=128&domain=magma-hdi.com" class="h-10 mb-2" alt="Magma HDI">
-                    <span class="text-xs font-extrabold text-gray-700">Magma HDI</span>
-                </div>
-                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
-                    <img src="https://www.google.com/s2/favicons?sz=128&domain=royal-sundaram.in" class="h-10 mb-2" alt="Royal Sundaram">
-                    <span class="text-xs font-extrabold text-gray-700">Royal Sundaram</span>
-                </div>
-                <div class="bg-white p-4 rounded-xl partner-card flex flex-col items-center justify-center">
-                    <img src="https://www.google.com/s2/favicons?sz=128&domain=acko.com" class="h-10 mb-2" alt="Acko">
-                    <span class="text-xs font-extrabold text-gray-700">Acko General</span>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="py-16 bg-white text-center">
-  <h2 class="text-3xl font-bold mb-10 text-logoGreen">Our Achievements</h2>
-
-  <div class="grid md:grid-cols-4 gap-8">
-    <div>
-      <h3 class="text-4xl font-bold text-logoBlue">5+</h3>
-      <p>Branches Across India</p>
-    </div>
-
-    <div>
-      <h3 class="text-4xl font-bold text-logoBlue">12,500+</h3>
-      <p>Policies Issued</p>
-    </div>
-
-    <div>
-      <h3 class="text-4xl font-bold text-logoBlue">1,000+</h3>
-      <p>Channel Partners</p>
-    </div>
-
-    <div>
-      <h3 class="text-4xl font-bold text-logoBlue">10,000+</h3>
-      <p>Happy Customers</p>
-    </div>
-  </div>
-    </section>
-    <section class="py-16 bg-logoLightGreen text-center">
-  <h2 class="text-3xl font-bold mb-6 text-logoGreen">Become a Partner With Us</h2>
-
-  <p class="mb-6 text-lg">
-    Join PolicyNest Secure and build a successful career in insurance advisory.
-    Earn up to ₹1,00,000+ monthly with performance-based incentives.
-  </p>
-
-  <a href="https://wa.me/919152058250" 
-     class="bg-green-500 text-white px-8 py-4 rounded-xl shadow-lg hover:bg-green-600">
-    Join Now on WhatsApp
-  </a>
-
-  <p class="mt-4 text-sm text-gray-600">
-    *Earnings depend on performance and business volume.
-  </p>
-    </section>
-
-    <section class="py-12 bg-white">
-        <div class="container mx-auto px-6 text-center">
-            <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-8">Official Regulatory Compliance</p>
-            <div class="flex flex-wrap justify-center items-center gap-12">
-                <a href="https://www.irdai.gov.in" target="_blank" class="flex flex-col items-center group">
-                    <div class="p-4 bg-gray-50 rounded-full group-hover:bg-logoLightGreen transition border border-gray-100 shadow-sm">
-                        <img src="https://www.google.com/s2/favicons?sz=64&domain=irdai.gov.in" class="w-10 h-10" alt="IRDAI">
-                    </div>
-                    <span class="mt-2 font-bold text-gray-600 group-hover:text-logoGreen">IRDAI Official Portal</span>
-                </a>
-                <a href="https://policyholder.gov.in" target="_blank" class="flex flex-col items-center group">
-                    <div class="p-4 bg-gray-50 rounded-full group-hover:bg-logoLightGreen transition border border-gray-100 shadow-sm">
-                        <img src="https://www.google.com/s2/favicons?sz=64&domain=policyholder.gov.in" class="w-10 h-10" alt="Policyholder">
-                    </div>
-                    <span class="mt-2 font-bold text-gray-600 group-hover:text-logoGreen">Policyholder Awareness</span>
+                
+                <a href="https://wa.me/919152058250?text=Hi%2C%20I%20need%20help%20with%20Motor%20Insurance." target="_blank" class="text-emerald-400 hover:text-emerald-300 font-black flex items-center space-x-1">
+                    <i class="fab fa-whatsapp text-xs"></i>
+                    <span>Help</span>
                 </a>
             </div>
+
+            <!-- MAIN HEADER BAR -->
+            <div class="px-4 py-3 flex items-center justify-between">
+                
+                <!-- Left: Menu Drawer + Brand Tile -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="toggleDrawer()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition active:scale-95 shadow-xs">
+                        <i class="fas fa-bars-staggered text-sm"></i>
+                    </button>
+
+                    <div class="flex items-center space-x-2.5">
+                        <div class="w-9 h-9 rounded-xl bg-white p-1 flex items-center justify-center shadow-md">
+                            <img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-" alt="Logo" class="h-full w-auto object-contain">
+                        </div>
+                        <div class="leading-none">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-base font-black tracking-tight text-white">PolicyNest</span>
+                                <i class="fas fa-certificate text-blue-500 text-[11px]" title="Verified Advisory"></i>
+                            </div>
+                            <span class="text-[9px] font-extrabold tracking-widest text-emerald-400 uppercase">SECURE MOTOR DESK</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Quick Direct Hotline & WhatsApp CTA -->
+                <div class="flex items-center space-x-2">
+                    <a href="tel:+919152058250" class="flex items-center space-x-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl border border-slate-700/80 active:scale-95 transition shadow-xs">
+                        <i class="fas fa-phone-alt text-[10px] text-blue-400"></i>
+                        <span class="text-[11px] font-bold">SOS</span>
+                    </a>
+                    
+                    <a href="https://wa.me/919152058250" target="_blank" class="w-9 h-9 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center shadow-lg active:scale-95 transition">
+                        <i class="fab fa-whatsapp text-base"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN SCROLLABLE APP BODY -->
+        <main class="flex-1 overflow-y-auto hide-scrollbar p-4 space-y-4 pb-32">
+
+            <!-- VEHICLE SEGMENT TABS -->
+            <div class="flex space-x-2 overflow-x-auto hide-scrollbar">
+                <button onclick="setVehicleClass('car')" id="tabCar" class="type-btn flex-1 bg-appBlue text-white py-2 px-3 rounded-2xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm active:scale-95 transition">
+                    <i class="fas fa-car"></i>
+                    <span>Car</span>
+                </button>
+                <button onclick="setVehicleClass('bike')" id="tabBike" class="type-btn flex-1 bg-white text-slate-600 border border-slate-200 py-2 px-3 rounded-2xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm active:scale-95 transition">
+                    <i class="fas fa-motorcycle"></i>
+                    <span>Bike</span>
+                </button>
+                <button onclick="setVehicleClass('commercial')" id="tabComm" class="type-btn flex-1 bg-white text-slate-600 border border-slate-200 py-2 px-3 rounded-2xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm active:scale-95 transition">
+                    <i class="fas fa-truck"></i>
+                    <span>Commercial</span>
+                </button>
+            </div>
+
+            <!-- PRIMARY VEHICLE FORM -->
+            <div class="bg-gradient-to-br from-appBlue via-blue-900 to-slate-900 text-white rounded-3xl p-5 shadow-lg relative overflow-hidden space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="bg-emerald-400/20 text-emerald-300 px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wide">Instant Policy</span>
+                    <span class="text-[11px] text-blue-200 font-semibold"><i class="fas fa-shield-alt text-emerald-400 mr-1"></i>Cashless Claims</span>
+                </div>
+
+                <h2 class="text-lg font-black leading-snug" id="heroHeadline">Instant Zero-Dep Car Policy Quotes</h2>
+
+                <!-- Text Inputs -->
+                <div class="space-y-2">
+                    <div class="bg-white rounded-2xl p-1 flex items-center shadow-inner">
+                        <span class="px-3 text-slate-400 text-xs font-bold"><i class="fas fa-barcode text-appBrand"></i></span>
+                        <input type="text" id="regNo" placeholder="Enter Vehicle Number" class="w-full uppercase p-2 text-slate-900 font-black text-xs tracking-wider focus:outline-none placeholder:text-slate-400 placeholder:font-normal">
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-1 flex items-center shadow-inner">
+                        <span class="px-3 text-slate-400 text-xs font-bold"><i class="fas fa-car-side text-appBrand"></i></span>
+                        <input type="text" id="vehicleModel" placeholder="Vehicle Maker & Model" class="w-full p-2 text-slate-900 font-bold text-xs focus:outline-none placeholder:text-slate-400 placeholder:font-normal">
+                    </div>
+                </div>
+
+                <!-- Direct Photo Upload -->
+                <div class="pt-1">
+                    <label class="w-full py-2 bg-white/10 hover:bg-white/20 border border-dashed border-white/40 rounded-2xl flex items-center justify-center space-x-2 text-xs font-bold text-emerald-300 cursor-pointer active:scale-95 transition">
+                        <i class="fas fa-camera text-sm"></i>
+                        <span>Upload RC Photo Instead</span>
+                        <input type="file" accept="image/*" class="hidden" onchange="handleDirectPhotoUpload(this)">
+                    </label>
+                </div>
+
+                <button onclick="requestQuoteWhatsApp()" class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-black text-xs rounded-2xl shadow-lg transition flex items-center justify-center space-x-2">
+                    <i class="fab fa-whatsapp text-base"></i>
+                    <span>Get Instant Quote on WhatsApp</span>
+                </button>
+            </div>
+
+            <!-- ACCIDENTAL BILL COMPARISON -->
+            <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200/80 space-y-3">
+                <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-7 h-7 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-xs font-black">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black text-slate-900 uppercase tracking-wide">Accidental Bill Comparison</h3>
+                            <p class="text-[9px] text-slate-400 font-medium">Claim payout difference on accident repair</p>
+                        </div>
+                    </div>
+                    <span class="text-[9px] font-bold bg-blue-50 text-appBrand px-2 py-0.5 rounded-full">Actual Scenario</span>
+                </div>
+
+                <div class="space-y-2 text-xs">
+                    <div class="flex justify-between items-center text-[10px] text-slate-400 font-bold uppercase px-1">
+                        <span>Replaced Parts</span>
+                        <div class="flex space-x-6">
+                            <span>Normal Policy</span>
+                            <span class="text-emerald-600">Zero-Dep</span>
+                        </div>
+                    </div>
+
+                    <div class="p-2 bg-slate-50 rounded-xl flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-slate-800 text-[11px] block">Front Bumper (Plastic)</span>
+                            <span class="text-[9px] text-slate-400">50% cut in standard policy</span>
+                        </div>
+                        <div class="flex space-x-8 text-right font-bold text-[11px]">
+                            <span class="text-red-500">₹3,500</span>
+                            <span class="text-emerald-600 font-black">₹0</span>
+                        </div>
+                    </div>
+
+                    <div class="p-2 bg-slate-50 rounded-xl flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-slate-800 text-[11px] block">Headlight Assembly (Glass/Fiber)</span>
+                            <span class="text-[9px] text-slate-400">30% fiber depreciation cut</span>
+                        </div>
+                        <div class="flex space-x-8 text-right font-bold text-[11px]">
+                            <span class="text-red-500">₹2,800</span>
+                            <span class="text-emerald-600 font-black">₹0</span>
+                        </div>
+                    </div>
+
+                    <div class="p-2 bg-slate-50 rounded-xl flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-slate-800 text-[11px] block">Side Fender & Painting (Metal)</span>
+                            <span class="text-[9px] text-slate-400">Paint depreciation & deductibles</span>
+                        </div>
+                        <div class="flex space-x-8 text-right font-bold text-[11px]">
+                            <span class="text-red-500">₹8,500</span>
+                            <span class="text-emerald-600 font-black">₹0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-red-50 via-slate-50 to-emerald-50 p-2.5 rounded-2xl border border-slate-200/80 flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] text-slate-500 font-bold block">Your Out-of-Pocket Expense</span>
+                        <span class="text-[11px] text-red-600 font-extrabold">Normal: You pay ₹14,800</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-[9px] text-slate-400 uppercase font-bold block">With PolicyNest</span>
+                        <span class="text-base font-black text-emerald-600">₹0 (100% Cashless)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NCB DISCOUNT SAVER -->
+            <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200/80 space-y-3">
+                <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-7 h-7 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xs font-black">
+                            <i class="fas fa-percent"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-black text-slate-900 uppercase tracking-wide">NCB Discount Saver</h3>
+                            <p class="text-[9px] text-slate-400 font-medium">Claim-free year bonus on Own Damage</p>
+                        </div>
+                    </div>
+                    <span class="text-xs font-black text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full" id="ncbDiscountTag">-₹0 Off</span>
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="text-[10px] font-extrabold uppercase text-slate-500 block">Select Past Year Claim Record</label>
+                    <div class="grid grid-cols-4 gap-1.5">
+                        <button type="button" onclick="setNcb(0)" id="ncbBtn0" class="ncb-btn py-2 rounded-xl text-xs font-bold border border-slate-200 bg-appBrand text-white shadow-xs transition">
+                            0%
+                            <span class="block text-[8px] font-normal">New / Claimed</span>
+                        </button>
+                        <button type="button" onclick="setNcb(0.20)" id="ncbBtn20" class="ncb-btn py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700 transition">
+                            20%
+                            <span class="block text-[8px] font-normal">1 Year Clean</span>
+                        </button>
+                        <button type="button" onclick="setNcb(0.35)" id="ncbBtn35" class="ncb-btn py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700 transition">
+                            35%
+                            <span class="block text-[8px] font-normal">3 Yrs Clean</span>
+                        </button>
+                        <button type="button" onclick="setNcb(0.50)" id="ncbBtn50" class="ncb-btn py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700 transition">
+                            50%
+                            <span class="block text-[8px] font-normal">Max Bonus</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXPIRY ALERT SCHEDULER -->
+            <div class="bg-white rounded-3xl p-4 shadow-sm border border-slate-200/80 space-y-3">
+                <div class="flex items-center space-x-2.5">
+                    <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-sm font-black">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-black text-slate-900 uppercase tracking-wide">Expiry Reminder Setup</h3>
+                        <p class="text-[10px] text-slate-400">Get WhatsApp alert 7 days before your policy lapses</p>
+                    </div>
+                </div>
+
+                <div class="flex space-x-2">
+                    <input type="date" id="expiryDateInput" class="flex-1 bg-slate-50 border border-slate-200 p-2.5 rounded-xl text-xs font-bold text-slate-700 focus:outline-none">
+                    <button onclick="scheduleExpiryAlert()" class="bg-appBlue hover:bg-blue-900 active:scale-95 text-white text-xs font-bold px-4 rounded-xl shadow-xs whitespace-nowrap">
+                        Set Alert
+                    </button>
+                </div>
+            </div>
+
+            <!-- COMPREHENSIVE MOTOR ESTIMATOR & ADD-ONS -->
+            <div id="estimatorSection" class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/80 space-y-4">
+                <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+                    <div>
+                        <h3 class="text-xs font-black text-slate-900 uppercase tracking-wider">Premium Estimator</h3>
+                        <p class="text-[10px] text-slate-400 font-medium">Adjust IDV & pick riders</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-[10px] text-slate-400 font-bold uppercase block">Net Annual Premium</span>
+                        <span class="text-xl font-black text-emerald-600" id="livePremiumDisplay">₹6,420 / yr</span>
+                    </div>
+                </div>
+
+                <div class="space-y-1.5">
+                    <div class="flex justify-between text-xs font-bold text-slate-700">
+                        <span>Insured Declared Value (IDV)</span>
+                        <span id="idvValDisplay" class="text-appBrand font-black">₹6,00,000</span>
+                    </div>
+                    <input type="range" id="idvInput" min="50000" max="3000000" step="25000" value="600000" class="w-full accent-appBrand cursor-pointer" oninput="calculatePolicyBreakup()">
+                </div>
+
+                <div class="pt-2 space-y-2">
+                    <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 block">Select Policy Add-on Covers</span>
+                    
+                    <div class="grid grid-cols-1 gap-2 text-xs">
+                        <label class="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
+                            <div class="flex items-center space-x-2.5">
+                                <input type="checkbox" id="chkZeroDep" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
+                                <div>
+                                    <div class="font-bold text-slate-800">Zero Depreciation</div>
+                                    <div class="text-[10px] text-slate-400">100% cashless replacement on parts</div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-bold text-emerald-600">Must Have</span>
+                        </label>
+
+                        <label class="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
+                            <div class="flex items-center space-x-2.5">
+                                <input type="checkbox" id="chkEngine" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
+                                <div>
+                                    <div class="font-bold text-slate-800">Engine & Gearbox Protection</div>
+                                    <div class="text-[10px] text-slate-400">Water ingression & hydro-lock repair</div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-bold text-blue-600">Recommended</span>
+                        </label>
+
+                        <label class="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
+                            <div class="flex items-center space-x-2.5">
+                                <input type="checkbox" id="chkConsumables" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
+                                <div>
+                                    <div class="font-bold text-slate-800">Consumables Protection</div>
+                                    <div class="text-[10px] text-slate-400">Nuts, bolts, AC gas & engine oil bills</div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-500">+₹550</span>
+                        </label>
+
+                        <label class="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
+                            <div class="flex items-center space-x-2.5">
+                                <input type="checkbox" id="chkRsa" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
+                                <div>
+                                    <div class="font-bold text-slate-800">24x7 Roadside Assistance (RSA)</div>
+                                    <div class="text-[10px] text-slate-400">Accident towing & flat tyre assist</div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-500">+₹450</span>
+                        </label>
+
+                        <label class="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50/50 cursor-pointer transition">
+                            <div class="flex items-center space-x-2.5">
+                                <input type="checkbox" id="chkPassengerPa" checked class="w-4 h-4 accent-appBrand rounded" onchange="calculatePolicyBreakup()">
+                                <div>
+                                    <div class="font-bold text-slate-800">Passenger PA Shield (₹5L / Seat)</div>
+                                    <div class="text-[10px] text-slate-400">Accident cover for co-passengers</div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-500">+₹500</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button onclick="requestQuoteWhatsApp()" class="w-full py-3 bg-appBlue hover:bg-blue-900 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition">
+                    Lock Custom IDV & Add-on Package →
+                </button>
+            </div>
+
+            <!-- PARTNER / POSP SECTION -->
+            <section id="partnerSection" class="bg-gradient-to-br from-emerald-800 via-teal-900 to-slate-900 text-white rounded-3xl p-5 shadow-sm space-y-3 relative overflow-hidden">
+                <div class="relative z-10 space-y-2.5">
+                    <div class="flex justify-between items-center">
+                        <span class="bg-white/20 text-emerald-300 px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider">Join Partner Network</span>
+                        <span class="text-[10px] text-emerald-200 font-bold"><i class="fas fa-wallet mr-1"></i>Earn ₹50k - ₹1L+</span>
+                    </div>
+
+                    <h3 class="text-base font-black leading-tight">Become an Authorized Motor POSP Partner</h3>
+                    <p class="text-[11px] text-slate-200 leading-relaxed">Issue instant car, bike & commercial policies across 15+ insurers with zero setup fee and prompt digital commission payouts.</p>
+
+                    <a href="https://wa.me/919152058250?text=Hi%20PolicyNest%2C%20I%20want%20to%20join%20as%20a%20Motor%20Insurance%20POSP%20Partner.%20Please%20share%20the%20onboarding%20details." target="_blank" class="w-full py-3 bg-white text-emerald-800 hover:bg-emerald-50 active:scale-95 text-center font-black text-xs rounded-xl shadow-md transition flex items-center justify-center space-x-2 mt-2">
+                        <i class="fab fa-whatsapp text-sm text-green-600"></i>
+                        <span>Join Partner Network on WhatsApp</span>
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <!-- FLOATING LOCKED FOOTER DOCK -->
+        <div class="absolute bottom-3 left-4 right-4 z-40 pointer-events-none">
+            <nav class="pointer-events-auto bg-white/90 floating-footer border border-slate-200/80 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.15),0_8px_10px_-6px_rgba(0,0,0,0.1)] rounded-full px-5 py-2 flex justify-between items-center">
+                <button onclick="navigateTab('home')" id="navBtnHome" class="flex flex-col items-center active-tab">
+                    <i class="fas fa-home text-base"></i>
+                    <span class="text-[9px] font-bold mt-0.5">Home</span>
+                </button>
+                
+                <button onclick="navigateTab('calc')" id="navBtnCalc" class="flex flex-col items-center text-slate-400 hover:text-slate-600 transition">
+                    <i class="fas fa-calculator text-base"></i>
+                    <span class="text-[9px] font-semibold mt-0.5">Add-ons</span>
+                </button>
+                
+                <!-- CENTRAL ACCENT BUTTON -->
+                <button onclick="requestQuoteWhatsApp()" class="-mt-5 w-11 h-11 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center text-lg shadow-lg border-2 border-white active:scale-90 transition">
+                    <i class="fab fa-whatsapp"></i>
+                </button>
+
+                <button onclick="navigateTab('partner')" id="navBtnPartner" class="flex flex-col items-center text-slate-400 hover:text-slate-600 transition">
+                    <i class="fas fa-briefcase text-base"></i>
+                    <span class="text-[9px] font-semibold mt-0.5">Partner</span>
+                </button>
+                
+                <a href="tel:+919152058250" class="flex flex-col items-center text-slate-400 hover:text-slate-600 transition">
+                    <i class="fas fa-headset text-base"></i>
+                    <span class="text-[9px] font-semibold mt-0.5">Help</span>
+                </a>
+            </nav>
         </div>
-    </section>
-
-    <section id="contact" class="py-20 bg-logoLightGreen text-center container mx-auto px-6 rounded-3xl shadow-md my-10 border border-logoGreen/20">
-        <h2 class="text-3xl font-bold mb-4 text-logoGreen">Consult Our Experts Today</h2>
-        <p class="text-gray-500 mb-12">Professional insurance advice is just a click away.</p>
-        <div class="flex flex-col md:flex-row justify-center items-center gap-6">
-            <a href="https://wa.me/919152058250" target="_blank" class="w-64 flex items-center justify-center space-x-3 bg-green-500 text-white px-8 py-4 rounded-xl hover:bg-green-600 shadow-xl transition transform hover:scale-105">
-                <i class="fab fa-whatsapp text-2xl"></i>
-                <span class="font-bold">WhatsApp Now</span>
-            </a>
-            <a href="https://instagram.com/policynestsecure" target="_blank" class="w-64 flex items-center justify-center space-x-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white px-8 py-4 rounded-xl hover:opacity-90 shadow-xl transition transform hover:scale-105">
-                <i class="fab fa-instagram text-2xl"></i>
-                <span class="font-bold">Follow Instagram</span>
-            </a>
-            <a href="tel:+919152058250" class="w-64 flex items-center justify-center space-x-3 bg-logoBlue text-white px-8 py-4 rounded-xl hover:bg-blue-800 shadow-xl transition transform hover:scale-105">
-                <i class="fas fa-phone-alt text-2xl"></i>
-                <span class="font-bold">Call Support</span>
-            </a>
-        </div>
-
-<footer class="bg-logoGreen text-gray-100 py-20 px-6 border-t-4 border-logoGold mt-16">
-  <div class="container mx-auto">
-
-    <div class="grid md:grid-cols-3 gap-10 text-sm">
-
-      <!-- Logo + About -->
-      <div class="space-y-4">
-        <div class="bg-white p-2 rounded-lg inline-block shadow-inner">
-          <img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-" 
-               alt="PolicyNest Secure" class="h-12">
-        </div>
-        <p class="leading-relaxed opacity-90">
-          PolicyNest Secure is a premier insurance advisory firm dedicated to delivering 
-          transparent, reliable, and high-quality protection plans across India.
-        </p>
-      </div>
-
-      <!-- Leadership -->
-      <div class="space-y-3">
-        <h3 class="text-white text-xl font-bold">Leadership</h3>
-        <p class="text-yellow-300 font-semibold uppercase tracking-widest text-xs">
-          Founder & CEO
-        </p>
-        <p class="text-lg text-white font-bold">Md Sarphe Alam</p>
-      </div>
-
-      <!-- Compliance -->
-      <div class="space-y-3">
-        <h3 class="text-white text-xl font-bold">Office & Compliance</h3>
-        <p class="opacity-80 leading-relaxed">
-          Registered Office: Mumbai, Maharashtra, India.<br>
-          IRDAI Registered Agency.
-        </p>
-
-        <p class="text-gray-300 italic text-xs border-l-2 border-logoGold pl-3">
-          *Insurance is the subject matter of solicitation. Please read the policy document carefully before investing.
-        </p>
-      </div>
 
     </div>
 
-    <!-- Divider -->
-    <hr class="border-green-800 my-10 opacity-30">
+    <!-- JAVASCRIPT LOGIC ENGINE -->
+    <script>
+        let currentVehicleType = 'car';
+        let currentNcbRate = 0;
 
-    <!-- Bottom -->
-    <div class="text-center text-sm opacity-70">
-      © 2026 policynestsecure.in | Delivering Trust & Security Since 2022
-    </div>
+        // Slide-Over Drawer Toggle
+        function toggleDrawer() {
+            const drawer = document.getElementById('sideDrawer');
+            const card = document.getElementById('drawerCard');
+            const isOpen = !drawer.classList.contains('pointer-events-none');
 
-  </div>
-</footer>
+            if (isOpen) {
+                card.classList.add('-translate-x-full');
+                drawer.classList.add('opacity-0', 'pointer-events-none');
+            } else {
+                drawer.classList.remove('opacity-0', 'pointer-events-none');
+                card.classList.remove('-translate-x-full');
+            }
+        }
+
+        // Close drawer on clicking backdrop
+        document.getElementById('sideDrawer').addEventListener('click', function(e) {
+            if (e.target === this) toggleDrawer();
+        });
+
+        function dismissBanner() {
+            document.getElementById('pwaBanner').style.display = 'none';
+        }
+
+        function installAppPrompt() {
+            alert("To install this app on your phone:\n\n• On Chrome: Tap three dots (⋮) > 'Add to Home screen'\n• On Safari (iPhone): Tap Share (⎋) > 'Add to Home Screen'");
+        }
+
+        function handleDirectPhotoUpload(input) {
+            if (input.files && input.files[0]) {
+                const fileName = input.files[0].name;
+                const msg = encodeURIComponent(`Hi PolicyNest,\n\nI have uploaded my RC/Existing Policy document: "${fileName}".\n\nPlease check the attached details and send me the lowest renewal quotes.`);
+                window.open(`https://wa.me/919152058250?text=${msg}`, '_blank');
+            }
+        }
+
+        function scheduleExpiryAlert() {
+            const expDate = document.getElementById('expiryDateInput').value;
+            const reg = document.getElementById('regNo').value.trim().toUpperCase();
+
+            if (!expDate) {
+                alert("Please select your policy expiry date first.");
+                return;
+            }
+
+            const msg = encodeURIComponent(`Hi PolicyNest,\n\nPlease set an automated renewal reminder for my vehicle:\n• Vehicle No: ${reg || 'Pending'}\n• Policy Expiry Date: ${expDate}\n\nPlease notify me 7 days before.`);
+            window.open(`https://wa.me/919152058250?text=${msg}`, '_blank');
+        }
+
+        function setNcb(rate) {
+            currentNcbRate = rate;
+            document.querySelectorAll('.ncb-btn').forEach(btn => {
+                btn.classList.remove('bg-appBrand', 'text-white', 'shadow-xs');
+                btn.classList.add('bg-slate-50', 'text-slate-700');
+            });
+
+            if (rate === 0) document.getElementById('ncbBtn0').classList.add('bg-appBrand', 'text-white', 'shadow-xs');
+            if (rate === 0.20) document.getElementById('ncbBtn20').classList.add('bg-appBrand', 'text-white', 'shadow-xs');
+            if (rate === 0.35) document.getElementById('ncbBtn35').classList.add('bg-appBrand', 'text-white', 'shadow-xs');
+            if (rate === 0.50) document.getElementById('ncbBtn50').classList.add('bg-appBrand', 'text-white', 'shadow-xs');
+
+            calculatePolicyBreakup();
+        }
+
+        function setVehicleClass(type) {
+            currentVehicleType = type;
+            document.querySelectorAll('.type-btn').forEach(btn => {
+                btn.classList.remove('bg-appBlue', 'text-white');
+                btn.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+            });
+
+            const slider = document.getElementById('idvInput');
+            const headline = document.getElementById('heroHeadline');
+
+            if (type === 'bike') {
+                document.getElementById('tabBike').classList.add('bg-appBlue', 'text-white');
+                document.getElementById('tabBike').classList.remove('bg-white', 'text-slate-600', 'border');
+                headline.innerText = "Two-Wheeler Comprehensive & Zero-Dep Policy";
+                slider.min = 25000; slider.max = 250000; slider.step = 5000; slider.value = 65000;
+            } else if (type === 'car') {
+                document.getElementById('tabCar').classList.add('bg-appBlue', 'text-white');
+                document.getElementById('tabCar').classList.remove('bg-white', 'text-slate-600', 'border');
+                headline.innerText = "Instant Zero-Dep Car Policy Quotes";
+                slider.min = 100000; slider.max = 3000000; slider.step = 25000; slider.value = 600000;
+            } else {
+                document.getElementById('tabComm').classList.add('bg-appBlue', 'text-white');
+                document.getElementById('tabComm').classList.remove('bg-white', 'text-slate-600', 'border');
+                headline.innerText = "Commercial Fleet & Goods Carrier Policy";
+                slider.min = 300000; slider.max = 4000000; slider.step = 50000; slider.value = 1200000;
+            }
+
+            calculatePolicyBreakup();
+        }
+
+        function calculatePolicyBreakup() {
+            const idv = parseInt(document.getElementById('idvInput').value);
+            document.getElementById('idvValDisplay').innerText = "₹" + idv.toLocaleString('en-IN');
+
+            let odBase = 0;
+            let tpMandatory = 0;
+
+            if (currentVehicleType === 'bike') {
+                odBase = idv * 0.012;
+                tpMandatory = 850;
+            } else if (currentVehicleType === 'car') {
+                odBase = idv * 0.016;
+                tpMandatory = 3416;
+            } else {
+                odBase = idv * 0.024;
+                tpMandatory = 7500;
+            }
+
+            const ncbDiscount = Math.round(odBase * currentNcbRate);
+            odBase -= ncbDiscount;
+            document.getElementById('ncbDiscountTag').innerText = "-₹" + ncbDiscount.toLocaleString('en-IN') + " Off";
+
+            if (document.getElementById('chkZeroDep').checked) {
+                odBase += (currentVehicleType === 'bike') ? 250 : (idv * 0.0035);
+            }
+            if (document.getElementById('chkEngine').checked) {
+                odBase += (currentVehicleType === 'bike') ? 120 : (idv * 0.0018);
+            }
+            if (document.getElementById('chkConsumables').checked) {
+                odBase += (currentVehicleType === 'bike') ? 150 : 550;
+            }
+            if (document.getElementById('chkRsa').checked) {
+                odBase += (currentVehicleType === 'bike') ? 99 : 450;
+            }
+            if (document.getElementById('chkPassengerPa').checked) {
+                odBase += (currentVehicleType === 'bike') ? 150 : 500;
+            }
+
+            const total = Math.round(odBase + tpMandatory);
+            document.getElementById('livePremiumDisplay').innerText = "₹" + total.toLocaleString('en-IN') + " / yr";
+        }
+
+        function requestQuoteWhatsApp() {
+            const reg = document.getElementById('regNo').value.trim().toUpperCase();
+            const model = document.getElementById('vehicleModel').value.trim();
+            const idv = document.getElementById('idvValDisplay').innerText;
+            const prem = document.getElementById('livePremiumDisplay').innerText;
+
+            if (!reg) {
+                alert("Please enter your Vehicle Registration Number");
+                return;
+            }
+
+            const selectedAddons = [];
+            if (document.getElementById('chkZeroDep').checked) selectedAddons.push("Zero Depreciation");
+            if (document.getElementById('chkEngine').checked) selectedAddons.push("Engine Protect");
+            if (document.getElementById('chkConsumables').checked) selectedAddons.push("Consumables");
+            if (document.getElementById('chkRsa').checked) selectedAddons.push("24x7 RSA");
+            if (document.getElementById('chkPassengerPa').checked) selectedAddons.push("Passenger PA (₹5L)");
+
+            const addonsList = selectedAddons.length > 0 ? selectedAddons.join(", ") : "Standard Plan";
+
+            const msg = encodeURIComponent(
+                `Hi PolicyNest,\n\nI need instant insurance quote:\n• Type: ${currentVehicleType.toUpperCase()}\n• Vehicle No: ${reg}\n• Model: ${model || 'Unspecified'}\n• Selected IDV: ${idv}\n• Applied NCB: ${currentNcbRate * 100}%\n• Add-ons: ${addonsList}\n• Estimated Premium: ${prem}\n\nPlease share official carrier quotes.`
+            );
+            window.open(`https://wa.me/919152058250?text=${msg}`, '_blank');
+        }
+
+        function navigateTab(tab) {
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-tab', 'text-appBrand'));
+            if (tab === 'home') {
+                document.getElementById('navBtnHome').classList.add('active-tab');
+                document.querySelector('main').scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (tab === 'calc') {
+                document.getElementById('navBtnCalc').classList.add('active-tab');
+                document.getElementById('estimatorSection').scrollIntoView({ behavior: 'smooth' });
+            } else if (tab === 'partner') {
+                document.getElementById('navBtnPartner').classList.add('active-tab');
+                document.getElementById('partnerSection').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        calculatePolicyBreakup();
+    </script>
+</body>
+</html>
+
