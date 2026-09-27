@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policy Nest Secure - Login & CRM Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js for Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { display: flex; height: 100vh; background-color: #f4f6f9; color: #1e293b; overflow: hidden; }
+
+        /* LOGIN PAGE OVERLAY SCREEN */
+        #loginScreen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 420px;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .login-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 2px solid #2563eb;
+        }
+        .login-card h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 5px;
+        }
+        .login-card p {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+        .login-form-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        .login-form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #475569;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .login-form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .login-form-group input:focus {
+            border-color: #2563eb;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+        .btn-login:hover {
+            background-color: #1d4ed8;
+        }
+        .login-error {
+            color: #dc2626;
+            font-size: 12px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* OVERLAY FOR MOBILE & MODAL */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 99;
+        }
+
+        /* SIDEBAR STYLE */
+        .sidebar { 
+            width: 260px; 
+            background-color: #0f172a; 
+            color: #94a3b8; 
+            display: flex; 
+            flex-direction: column; 
+            flex-shrink: 0; 
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1); 
+            transition: transform 0.3s ease;
+            z-index: 100;
+        }
+
+        .sidebar-header { padding: 15px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #1e293b; background: #0b1120; }
+        .sidebar-logo { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid #334155; }
+        .brand-title { color: #ffffff; font-size: 13px; font-weight: 700; line-height: 1.2; letter-spacing: 0.5px; }
+        .brand-subtitle { font-size: 9px; color: #d97706; font-weight: 600; text-transform: uppercase; }
+
+        .nav-list { list-style: none; padding: 15px 10px; display: flex; flex-direction: column; gap: 5px; }
+        .nav-item a { display: flex; align-items: center; gap: 14px; padding: 12px 16px; color: #94a3b8; text-decoration: none; font-size: 14px; font-weight: 500; border-radius: 8px; transition: all 0.2s ease; cursor: pointer; }
+        .nav-item a:hover { background-color: #1e293b; color: #ffffff; }
+        .nav-item.active a { background-color: #2563eb; color: #ffffff; font-weight: 600; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+        .nav-item i { font-size: 16px; width: 20px; text-align: center; }
+
+        /* MAIN WRAPPER */
+        .main-wrapper { flex-grow: 1; display: flex; flex-direction: column; height: 100vh; overflow: hidden; width: 100%; }
+        
+        .top-header { 
+            height: 60px; 
+            background-color: #ffffff; 
+            border-bottom: 1px solid #e2e8f0; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 0 20px; 
+        }
+
+        .header-left { display: flex; align-items: center; gap: 15px; }
+        .menu-toggle { display: none; background: none; border: none; font-size: 20px; color: #0f172a; cursor: pointer; }
+
+        .page-title { font-size: 18px; font-weight: 700; color: #0f172a; }
+        .user-profile { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #334155; }
+        .user-avatar { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 1px solid #cbd5e1; }
+
+        .content-body { padding: 20px; overflow-y: auto; flex-grow: 1; position: relative; }
+        
+        /* VIEW SECTIONS */
+        .view-section { display: none; }
+        .view-section.active { display: block; }
+
+        /* STATS & CARDS */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 25px; }
+        .stat-card { background: #ffffff; border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 15px; }
+        .stat-icon { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #ffffff; }
+        .stat-info h3 { font-size: 12px; font-weight: 600; color: #64748b; text-transform: uppercase; margin-bottom: 4px; }
+        .stat-info p { font-size: 20px; font-weight: 700; color: #0f172a; }
+
+        .card { background-color: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; margin-bottom: 25px; }
+        .card-title { font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+
+        /* SEARCH POLICY BOX */
+        .search-policy-container { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #fff; border-radius: 12px; padding: 20px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .search-policy-container h3 { font-size: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: #f8fafc; }
+        .search-controls { display: flex; gap: 10px; flex-wrap: wrap; }
+        .search-controls select, .search-controls input { padding: 10px 14px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 13px; outline: none; }
+        .search-controls select { background: #fff; color: #0f172a; font-weight: 600; }
+        .search-controls input { flex-grow: 1; background: #fff; }
+        .btn-search-policy { background: #2563eb; color: #fff; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-search-policy:hover { background: #1d4ed8; }
+        
+        .policy-result-card { background: #fff; color: #1e293b; border-radius: 8px; padding: 15px; margin-top: 15px; border: 1px solid #cbd5e1; display: none; }
+
+        /* MODAL POPUP FOR 19 COLUMNS DETAILS */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: #fff; width: 100%; max-width: 750px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); overflow: hidden; animation: fadeIn 0.2s ease; max-height: 90vh; display: flex; flex-direction: column; }
+        .modal-header { background: #0f172a; color: #fff; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; }
+        .modal-header h3 { font-size: 16px; }
+        .modal-close { background: none; border: none; color: #fff; font-size: 18px; cursor: pointer; }
+        .modal-body { padding: 20px; overflow-y: auto; flex-grow: 1; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+        .modal-footer { padding: 15px 20px; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        
+        .detail-item { background: #f8fafc; padding: 10px 12px; border-radius: 6px; border: 1px solid #e2e8f0; }
+        .detail-item span.label { font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 3px; }
+        .detail-item span.val { font-size: 13px; font-weight: 600; color: #0f172a; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* FILTER BAR & BUTTONS */
+        .filter-bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 15px; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .filter-bar select, .filter-bar input { padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; background: #fff; }
+        .filter-bar label { font-size: 12px; font-weight: 600; color: #475569; text-transform: uppercase; }
+
+        .btn-excel { background: #16a34a; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
+        .btn-excel:hover { background: #15803d; }
+
+        .btn-pdf-icon { background: #2563eb; color: white; border: none; width: 32px; height: 32px; border-radius: 6px; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: background 0.2s; }
+        .btn-pdf-icon:hover { background: #1d4ed8; }
+        .btn-pdf-disabled { background: #e2e8f0; color: #94a3b8; border: none; width: 32px; height: 32px; border-radius: 6px; font-size: 14px; cursor: not-allowed; display: inline-flex; align-items: center; justify-content: center; }
+
+        .btn-edit-policy { background: #d97706; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-edit-policy:hover { background: #b45309; }
+
+        .quick-links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .quick-link-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; text-align: center; text-decoration: none; color: #1e293b; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; }
+        .quick-link-card:hover { background: #eff6ff; border-color: #2563eb; transform: translateY(-2px); }
+        .quick-link-card i { font-size: 24px; color: #2563eb; }
+        .quick-link-card span { font-weight: 600; font-size: 14px; }
+
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group.full-width { grid-column: 1 / -1; }
+        .form-group label { font-size: 12px; font-weight: 600; color: #475569; text-transform: uppercase; }
+        .form-group input, .form-group select { padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; }
+        .form-group input:focus { border-color: #2563eb; }
+
+        .file-upload-box { border: 2px dashed #cbd5e1; padding: 15px; border-radius: 6px; text-align: center; background: #f8fafc; cursor: pointer; }
+        .file-upload-box input { display: none; }
+        .file-upload-label { font-size: 13px; color: #475569; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; font-weight: 500; }
+
+        .btn-submit { grid-column: 1 / -1; padding: 12px; background-color: #0f172a; color: #ffffff; border: none; border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-top: 10px; }
+        .btn-submit:hover { background-color: #1e293b; }
+
+        .table-responsive { overflow-x: auto; max-height: 450px; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; white-space: nowrap; }
+        th { background-color: #f8fafc; color: #475569; font-weight: 600; text-align: left; padding: 12px 15px; border-bottom: 2px solid #e2e8f0; position: sticky; top: 0; z-index: 10; }
+        td { padding: 12px 15px; border-bottom: 1px solid #e2e8f0; color: #334155; cursor: pointer; }
+        tr:hover { background-color: #f1f5f9; }
+
+        .footer { height: 40px; background-color: #ffffff; border-top: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #64748b; text-align: center; padding: 0 10px; }
+
+        /* MOBILE MEDIA QUERIES */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .sidebar { position: fixed; top: 0; left: 0; bottom: 0; transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .sidebar-overlay.active { display: block; }
+            .page-title { font-size: 15px; }
+            .content-body { padding: 15px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .user-profile span { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOGIN SCREEN OVERLAY -->
+    <div id="loginScreen">
+        <div class="login-card">
+            <img src="https://i.ibb.co/60xVfr91/logo.jpg" alt="Logo" class="login-logo" onerror="this.src='https://i.ibb.co/3m09W7Z/logo.jpg'">
+            <h2>Policy Nest Secure</h2>
+            <p>Sign in to your CRM Dashboard</p>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="login-form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" required placeholder="Enter email...">
+                </div>
+                <div class="login-form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" required placeholder="Enter password...">
+                </div>
+                <div id="loginErrorMsg" class="login-error">Invalid Email or Password!</div>
+                <button type="submit" class="btn-login">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- DETAILS POPUP MODAL -->
+    <div class="modal-overlay" id="policyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-file-shield"></i> Policy Complete Details</h3>
+                <button class="modal-close" onclick="closePolicyModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body" id="modalBodyDetails">
+                <!-- Injected via JS -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-edit-policy" id="modalEditBtn" onclick=""><i class="fa-solid fa-pen-to-square"></i> Edit Policy</button>
+                <div id="modalPdfActionArea"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="https://i.ibb.co/60xVfr91/logo.jpg" alt="Logo" class="sidebar-logo" id="brandLogoImg" onerror="this.src='https://i.ibb.co/3m09W7Z/logo.jpg'">
+            <div>
+                <div class="brand-title">POLICY NEST SECURE</div>
+                <div class="brand-subtitle">PRIVATE LIMITED</div>
+            </div>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item active" id="nav-home">
+                <a onclick="switchView('home', this)"><i class="fa-solid fa-house"></i> HOME</a>
+            </li>
+            <li class="nav-item" id="nav-sales">
+                <a onclick="switchView('sales', this)"><i class="fa-solid fa-cart-shopping"></i> SALES ENTRY</a>
+            </li>
+            <li class="nav-item" id="nav-reports">
+                <a onclick="switchView('reports', this)"><i class="fa-solid fa-file-invoice"></i> REPORTS & DATA</a>
+            </li>
+            <li class="nav-item" id="nav-analytics">
+                <a onclick="switchView('analytics', this)"><i class="fa-solid fa-chart-pie"></i> ANALYTICS</a>
+            </li>
+            <li class="nav-item" id="nav-payouts">
+                <a onclick="switchView('payouts', this)"><i class="fa-solid fa-wallet"></i> PAYOUTS</a>
+            </li>
+            <li class="nav-item" id="nav-agents">
+                <a onclick="switchView('agents', this)"><i class="fa-solid fa-users"></i> AGENTS</a>
+            </li>
+        </ul>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="top-header">
+            <div class="header-left">
+                <button class="menu-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+                <div class="page-title" id="topPageTitle">Home Dashboard</div>
+            </div>
+            <div class="user-profile">
+                <img src="https://i.ibb.co/60xVfr91/logo.jpg" alt="Profile Logo" class="user-avatar" onerror="this.src='https://i.ibb.co/3m09W7Z/logo.jpg'">
+                <span>Policy Nest Secure</span>
+            </div>
+        </header>
+
+        <main class="content-body">
+            
+            <!-- 1. HOME / DASHBOARD VIEW -->
+            <div id="view-home" class="view-section active">
+                
+                <!-- GET YOUR POLICY COPY CONTAINER -->
+                <div class="search-policy-container">
+                    <h3><i class="fa-solid fa-file-arrow-down" style="color: #38bdf8;"></i> Get Your Policy Copy</h3>
+                    <div class="search-controls">
+                        <select id="searchType">
+                            <option value="policyNo">Policy No</option>
+                            <option value="mobileNo">Mobile No</option>
+                        </select>
+                        <input type="text" id="searchQueryInput" placeholder="Enter Policy No or Mobile No...">
+                        <button class="btn-search-policy" onclick="searchPolicyCopy()"><i class="fa-solid fa-search"></i> Search</button>
+                    </div>
+                    <div id="policyResultCard" class="policy-result-card"></div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #2563eb;"><i class="fa-solid fa-file-shield"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Policies</h3>
+                            <p id="statTotalPolicies">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #16a34a;"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Gross Premium</h3>
+                            <p id="statGrossPremium">₹0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #d97706;"><i class="fa-solid fa-chart-line"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Profit (Amt)</h3>
+                            <p id="statTotalProfit">₹0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #0284c7;"><i class="fa-solid fa-calendar-day"></i></div>
+                        <div class="stat-info">
+                            <h3>Today's Policies</h3>
+                            <p id="statTodayPolicies">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #7c3aed;"><i class="fa-solid fa-building-shield"></i></div>
+                        <div class="stat-info">
+                            <h3>Active Insurance Cos</h3>
+                            <p id="statActiveCos">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #db2777;"><i class="fa-solid fa-handshake"></i></div>
+                        <div class="stat-info">
+                            <h3>Active Brokers/CBAs</h3>
+                            <p id="statActiveBrokers">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"><i class="fa-solid fa-compass" style="color: #2563eb;"></i> Quick Navigation & System Links</div>
+                    <div class="quick-links-grid">
+                        <a class="quick-link-card" onclick="switchView('sales', document.getElementById('nav-sales').querySelector('a'))">
+                            <i class="fa-solid fa-cart-plus"></i>
+                            <span>New Policy Sales Entry</span>
+                        </a>
+                        <a class="quick-link-card" onclick="switchView('reports', document.getElementById('nav-reports').querySelector('a'))">
+                            <i class="fa-solid fa-table-list"></i>
+                            <span>View Live Sheet Records</span>
+                        </a>
+                        <a class="quick-link-card" onclick="switchView('payouts', document.getElementById('nav-payouts').querySelector('a'))">
+                            <i class="fa-solid fa-wallet"></i>
+                            <span>Payouts Management</span>
+                        </a>
+                        <a class="quick-link-card" onclick="window.open('https://docs.google.com/spreadsheets/d/19TvQRmbfs139aWHynE3nwFrFZ7kpVvSQj8qa1W6c4/edit', '_blank')">
+                            <i class="fa-solid fa-file-excel" style="color: #16a34a;"></i>
+                            <span>Open Google Sheet</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"><i class="fa-solid fa-clock-rotate-left" style="color: #0f172a;"></i> Recent Policies Overview (Click any row to view/edit)</div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Client Name</th>
+                                    <th>Policy No</th>
+                                    <th>Insurance Company</th>
+                                    <th>Veh NO</th>
+                                    <th>Gross Premium</th>
+                                    <th>Profit (Amt)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="homeTableBody">
+                                <tr><td colspan="7" style="text-align:center; padding: 20px;">Loading Summary...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. SALES ENTRY VIEW WITH EDIT & PDF UPLOAD -->
+            <div id="view-sales" class="view-section">
+                <div class="card">
+                    <div class="card-title" id="salesFormTitle"><i class="fa-solid fa-plus-circle" style="color: #2563eb;"></i> Enter New Policy Sales Details & Upload PDF</div>
+                    <form id="policyForm">
+                        <div class="form-grid">
+                            <div class="form-group"><label>Date</label><input type="date" id="date" required></div>
+                            <div class="form-group"><label>Client Name</label><input type="text" id="clientName" required></div>
+                            <div class="form-group"><label>Policy no</label><input type="text" id="policyNo" required></div>
+                            <div class="form-group"><label>Insurance Compny</label><input type="text" id="insuranceCompany" required></div>
+                            <div class="form-group"><label>Veh NO</label><input type="text" id="vehNo" required></div>
+                            <div class="form-group"><label>POLICY START DATE</label><input type="date" id="policyStartDate"></div>
+                            <div class="form-group"><label>Policy end Date</label><input type="date" id="policyEndDate"></div>
+                            <div class="form-group"><label>Broker name</label><input type="text" id="brokerName"></div>
+                            <div class="form-group"><label>Policy type</label><input type="text" id="policyType"></div>
+                            <div class="form-group"><label>Vehicalle type</label><input type="text" id="vehicalleType"></div>
+                            <div class="form-group"><label>Sod Premium</label><input type="number" id="sodPremium" step="any"></div>
+                            <div class="form-group"><label>Tp premium</label><input type="number" id="tpPremium" step="any"></div>
+                            <div class="form-group"><label>GstNet Premium</label><input type="number" id="gstNetPremium" step="any"></div>
+                            <div class="form-group"><label>Gross Premium</label><input type="number" id="grossPremium" step="any"></div>
+                            <div class="form-group"><label>Payout Premium</label><input type="number" id="payoutPremium" step="any" oninput="calculateProfit()"></div>
+                            <div class="form-group"><label>Recived Payout From IC %</label><input type="number" id="recivedPayoutFromIC" step="any" oninput="calculateProfit()"></div>
+                            <div class="form-group"><label>CBA Payout %</label><input type="number" id="cbaPayout" step="any" oninput="calculateProfit()"></div>
+                            <div class="form-group"><label>PROFIT IN AMT</label><input type="number" id="profitInAmt" step="any" readonly style="background-color: #f1f5f9; font-weight: bold; color: #16a34a;"></div>
+                            <div class="form-group"><label>Cba Name</label><input type="text" id="cbaName"></div>
+                            
+                            <!-- PDF UPLOAD SECTION -->
+                            <div class="form-group full-width">
+                                <label>Upload Policy PDF Document</label>
+                                <div class="file-upload-box">
+                                    <label class="file-upload-label" for="policyPdfFile">
+                                        <i class="fa-solid fa-cloud-arrow-up" style="font-size: 20px; color: #2563eb;"></i>
+                                        <span id="fileNameDisplay">Choose PDF file or drag here...</span>
+                                    </label>
+                                    <input type="file" id="policyPdfFile" accept="application/pdf" onchange="handleFileSelect(this)">
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn-submit" id="submitBtn">Submit Policy Data</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 3. REPORTS & DATA VIEW -->
+            <div id="view-reports" class="view-section">
+                <div class="card">
+                    <div class="card-title">
+                        <span><i class="fa-solid fa-table" style="color: #0f172a;"></i> Reports & Live Sheet Records (Click row for details)</span>
+                        <button class="btn-excel" onclick="downloadExcel()"><i class="fa-solid fa-file-excel"></i> Download Excel</button>
+                    </div>
+                    
+                    <div class="filter-bar">
+                        <label>Filter Range:</label>
+                        <select id="reportFilter" onchange="applyReportFilter()">
+                            <option value="today" selected>Today</option>
+                            <option value="weekly">Weekly (Last 7 Days)</option>
+                            <option value="monthly">Monthly (Current Month)</option>
+                            <option value="yearly">Yearly (Current Year)</option>
+                            <option value="custom">Custom Date Range</option>
+                            <option value="all">All Records</option>
+                        </select>
+                        <div id="reportCustomRange" style="display:none; display:flex; gap:10px; align-items:center;">
+                            <input type="date" id="reportStartDate" onchange="applyReportFilter()">
+                            <span>to</span>
+                            <input type="date" id="reportEndDate" onchange="applyReportFilter()">
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Client Name</th>
+                                    <th>Policy no</th>
+                                    <th>Insurance Compny</th>
+                                    <th>Veh NO</th>
+                                    <th>POLICY START DATE</th>
+                                    <th>Policy end Date</th>
+                                    <th>Broker name</th>
+                                    <th>Policy type</th>
+                                    <th>Vehicalle type</th>
+                                    <th>Sod Premium</th>
+                                    <th>Tp premium</th>
+                                    <th>GstNet Premium</th>
+                                    <th>Gross Premium</th>
+                                    <th>Payout Premium</th>
+                                    <th>Recived Payout From IC %</th>
+                                    <th>CBA Payout %</th>
+                                    <th>PROFIT IN AMT</th>
+                                    <th>Cba Name</th>
+                                    <th>Download PDF</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <tr><td colspan="20" style="text-align:center; padding: 20px;">Loading Google Sheet Data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. ANALYTICS VIEW -->
+            <div id="view-analytics" class="view-section">
+                <div class="card">
+                    <div class="card-title">
+                        <span><i class="fa-solid fa-chart-pie" style="color: #2563eb;"></i> Detailed Analytics & Color Chart Analysis</span>
+                    </div>
+                    
+                    <div class="filter-bar">
+                        <label>Analytics Filter:</label>
+                        <select id="analyticsFilter" onchange="applyAnalyticsFilter()">
+                            <option value="today">Today</option>
+                            <option value="weekly">Weekly (Last 7 Days)</option>
+                            <option value="monthly" selected>Monthly (Current Month)</option>
+                            <option value="yearly">Yearly (Current Year)</option>
+                            <option value="custom">Custom Date Range</option>
+                            <option value="all">All Records</option>
+                        </select>
+                        <div id="analyticsCustomRange" style="display:none; display:flex; gap:10px; align-items:center;">
+                            <input type="date" id="analyticsStartDate" onchange="applyAnalyticsFilter()">
+                            <span>to</span>
+                            <input type="date" id="analyticsEndDate" onchange="applyAnalyticsFilter()">
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; margin-top: 20px;">
+                        <div style="background: #fff; padding: 15px; border: 1px solid #e2e8f0; border-radius: 8px; text-align: center;">
+                            <h3 style="font-size: 14px; font-weight: 600; color: #475569; margin-bottom: 10px;">Policies Share by Insurance Company (Circle Chart)</h3>
+                            <div style="position: relative; height: 280px; width: 100%;">
+                                <canvas id="companyDoughnutChart"></canvas>
+                            </div>
+                        </div>
+                        <div style="background: #fff; padding: 15px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                            <h3 style="font-size: 14px; font-weight: 600; color: #475569; margin-bottom: 10px;">Gross Premium & Profit Trend</h3>
+                            <div style="position: relative; height: 280px; width: 100%;">
+                                <canvas id="profitBarChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. PAYOUTS VIEW -->
+            <div id="view-payouts" class="view-section">
+                <div class="card">
+                    <div class="card-title">
+                        <span><i class="fa-solid fa-wallet" style="color: #d97706;"></i> Payouts & Amount Breakdown</span>
+                    </div>
+                    
+                    <div class="filter-bar">
+                        <label>Payouts Filter:</label>
+                        <select id="payoutsFilter" onchange="applyPayoutsFilter()">
+                            <option value="today">Today</option>
+                            <option value="weekly">Weekly (Last 7 Days)</option>
+                            <option value="monthly" selected>Monthly (Current Month)</option>
+                            <option value="yearly">Yearly (Current Year)</option>
+                            <option value="custom">Custom Date Range</option>
+                            <option value="all">All Records</option>
+                        </select>
+                        <div id="payoutsCustomRange" style="display:none; display:flex; gap:10px; align-items:center;">
+                            <input type="date" id="payoutsStartDate" onchange="applyPayoutsFilter()">
+                            <span>to</span>
+                            <input type="date" id="payoutsEndDate" onchange="applyPayoutsFilter()">
+                        </div>
+                    </div>
+
+                    <div class="stats-grid" style="margin-top: 15px;">
+                        <div class="stat-card" style="border-left: 4px solid #2563eb;">
+                            <div class="stat-icon" style="background: #2563eb;"><i class="fa-solid fa-coins"></i></div>
+                            <div class="stat-info">
+                                <h3>Total Gross Premium</h3>
+                                <p id="payoutGrossTotal">₹0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card" style="border-left: 4px solid #7c3aed;">
+                            <div class="stat-icon" style="background: #7c3aed;"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                            <div class="stat-info">
+                                <h3>Total Payout Premium</h3>
+                                <p id="payoutPayoutTotal">₹0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card" style="border-left: 4px solid #16a34a;">
+                            <div class="stat-icon" style="background: #16a34a;"><i class="fa-solid fa-chart-line"></i></div>
+                            <div class="stat-info">
+                                <h3>Total Net Profit</h3>
+                                <p id="payoutProfitTotal">₹0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive" style="margin-top: 20px;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Client Name</th>
+                                    <th>Policy No</th>
+                                    <th>Gross Premium</th>
+                                    <th>Payout Premium</th>
+                                    <th>IC Payout %</th>
+                                    <th>CBA Payout %</th>
+                                    <th>Profit In Amt</th>
+                                    <th>CBA Name</th>
+                                </tr>
+                            </thead>
+                            <tbody id="payoutsTableBody">
+                                <tr><td colspan="9" style="text-align:center; padding: 20px;">Loading Payouts Data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. AGENTS VIEW -->
+            <div id="view-agents" class="view-section">
+                <div class="card">
+                    <div class="card-title"><i class="fa-solid fa-users" style="color: #4f46e5;"></i> Agents & Partners Directory (Earnings & Volume)</div>
+                    <p style="color:#64748b; font-size: 14px; margin-bottom: 15px;">Active CBAs and brokers sorted from highest to lowest policy volume with total earnings.</p>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>CBA Name</th>
+                                    <th>Broker Name</th>
+                                    <th>Total Policies Count</th>
+                                    <th>Total Payout Earned (₹)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="agentsTableBody">
+                                <tr><td colspan="5" style="text-align:center; padding: 20px;">Loading Agents Data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="footer">
+            &copy; 2026 POLICY NEST SECURE PRIVATE LIMITED. All Rights Reserved.
+        </footer>
+    </div>
+
+<script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwiS96s2Rb_qO4gqJGYjfyu0CbL3SPe20ofWpbnd9GcSWEVqNIrnL4TLW2aq2Yk6Cl4/exec";
+    let globalMasterData = [];
+    let doughnutChartInstance = null;
+    let barChartInstance = null;
+    let base64PdfStore = {};
+    let isEditMode = false;
+    let editingPolicyNo = null;
+
+    // Login Authentication Function
+    function handleLogin(e) {
+        e.preventDefault();
+        let email = document.getElementById("loginEmail").value.trim();
+        let pass = document.getElementById("loginPassword").value.trim();
+
+        if(email === "mdsarphe@policynestsecure.in" && pass === "Pnest@0786") {
+            document.getElementById("loginScreen").style.display = "none";
+            loadData();
+        } else {
+            let err = document.getElementById("loginErrorMsg");
+            err.style.display = "block";
+            err.innerText = "Incorrect Email or Password!";
+        }
+    }
+
+    function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("active");
+        document.getElementById("overlay").classList.toggle("active");
+    }
+
+    function switchView(viewName, element) {
+        document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+
+        document.getElementById('view-' + viewName).classList.add('active');
+        if(element && element.parentElement) {
+            element.parentElement.classList.add('active');
+        }
+
+        let titles = {
+            'home': 'Home Dashboard',
+            'sales': 'Sales & Policy Entry',
+            'reports': 'Reports & Live Sheet Records',
+            'analytics': 'Analytics & Performance',
+            'payouts': 'Payouts Management',
+            'agents': 'Agents Directory'
+        };
+        document.getElementById('topPageTitle').innerText = titles[viewName] || 'Dashboard';
+
+        if(window.innerWidth <= 768) {
+            toggleSidebar();
+        }
+
+        if(viewName === 'analytics') {
+            renderAnalytics();
+        }
+    }
+
+    function handleFileSelect(input) {
+        let displaySpan = document.getElementById("fileNameDisplay");
+        if (input.files && input.files[0]) {
+            let file = input.files[0];
+            displaySpan.innerText = "Selected PDF: " + file.name;
+            displaySpan.style.color = "#16a34a";
+            displaySpan.style.fontWeight = "600";
+
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                window.currentUploadedPdfBase64 = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            displaySpan.innerText = "Choose PDF file or drag here...";
+            displaySpan.style.color = "#475569";
+            displaySpan.style.fontWeight = "500";
+            window.currentUploadedPdfBase64 = null;
+        }
+    }
+
+    function formatDate(dateStr) {
+        if(!dateStr) return '';
+        let d = new Date(dateStr);
+        if(isNaN(d)) return dateStr;
+        let day = String(d.getDate()).padStart(2, '0');
+        let month = String(d.getMonth() + 1).padStart(2, '0');
+        let year = d.getFullYear();
+        return `${day}-${month}-${year}`;
+    }
+
+    function calculateProfit() {
+        let payoutPrem = parseFloat(document.getElementById("payoutPremium").value) || 0;
+        let icPct = parseFloat(document.getElementById("recivedPayoutFromIC").value) || 0;
+        let cbaPct = parseFloat(document.getElementById("cbaPayout").value) || 0;
+        
+        let icAmt = (payoutPrem * icPct) / 100;
+        let cbaAmt = (payoutPrem * cbaPct) / 100;
+        let profit = icAmt - cbaAmt;
+        
+        document.getElementById("profitInAmt").value = profit.toFixed(2);
+    }
+
+    function openPolicyModal(policyNo) {
+        let found = globalMasterData.find(row => String(row["Policy no"] || row["Policy No"] || '') === String(policyNo));
+        if(!found) return;
+
+        let modalBody = document.getElementById("modalBodyDetails");
+        modalBody.innerHTML = `
+            <div class="detail-item"><span class="label">Date</span><span class="val">${formatDate(found["Date"])}</span></div>
+            <div class="detail-item"><span class="label">Client Name</span><span class="val">${found["Client Name"] || ''}</span></div>
+            <div class="detail-item"><span class="label">Policy No</span><span class="val">${found["Policy no"] || found["Policy No"] || ''}</span></div>
+            <div class="detail-item"><span class="label">Insurance Company</span><span class="val">${found["Insurance Compny"] || found["Insurance Company"] || ''}</span></div>
+            <div class="detail-item"><span class="label">Vehicle No</span><span class="val">${found["Veh NO"] || ''}</span></div>
+            <div class="detail-item"><span class="label">Policy Start Date</span><span class="val">${formatDate(found["POLICY START DATE"])}</span></div>
+            <div class="detail-item"><span class="label">Policy End Date</span><span class="val">${formatDate(found["Policy end Date"])}</span></div>
+            <div class="detail-item"><span class="label">Broker Name</span><span class="val">${found["Broker name"] || ''}</span></div>
+            <div class="detail-item"><span class="label">Policy Type</span><span class="val">${found["Policy type"] || ''}</span></div>
+            <div class="detail-item"><span class="label">Vehicle Type</span><span class="val">${found["Vehicalle type"] || ''}</span></div>
+            <div class="detail-item"><span class="label">Sod Premium</span><span class="val">${found["Sod Premium"] || ''}</span></div>
+            <div class="detail-item"><span class="label">Tp Premium</span><span class="val">${found["Tp premium"] || ''}</span></div>
+            <div class="detail-item"><span class="label">Gst Net Premium</span><span class="val">${found["GstNet Premium"] || ''}</span></div>
+            <div class="detail-item"><span class="label">Gross Premium</span><span class="val">${found["Gross Premium"] || ''}</span></div>
+            <div class="detail-item"><span class="label">Payout Premium</span><span class="val">${found["Payout Premium"] || ''}</span></div>
+            <div class="detail-item"><span class="label">Received Payout IC %</span><span class="val">${found["Recived Payout From IC %"] || ''}%</span></div>
+            <div class="detail-item"><span class="label">CBA Payout %</span><span class="val">${found["CBA Payout %"] || ''}%</span></div>
+            <div class="detail-item"><span class="label">Profit In Amt</span><span class="val" style="color:#16a34a;">₹${found["PROFIT IN AMT"] || ''}</span></div>
+            <div class="detail-item"><span class="label">CBA Name</span><span class="val">${found["Cba Name"] || ''}</span></div>
+        `;
+
+        let pdfData = base64PdfStore[policyNo] || found["pdfData"];
+        let pdfActionArea = document.getElementById("modalPdfActionArea");
+        if(pdfData) {
+            pdfActionArea.innerHTML = `<a href="${pdfData}" download="Policy_${policyNo}.pdf" class="btn-pdf-dl" style="padding: 6px 12px; font-size:12px;"><i class="fa-solid fa-file-pdf"></i> Download PDF</a>`;
+        } else {
+            pdfActionArea.innerHTML = `<button class="btn-pdf-disabled" onclick="alert('No PDF attached for this policy.')"><i class="fa-solid fa-file-pdf"></i></button>`;
+        }
+
+        document.getElementById("modalEditBtn").setAttribute("onclick", `editPolicyRecord('${policyNo}')`);
+        document.getElementById("policyModal").style.display = "flex";
+    }
+
+    function closePolicyModal() {
+        document.getElementById("policyModal").style.display = "none";
+    }
+
+    function editPolicyRecord(policyNo) {
+        let found = globalMasterData.find(row => String(row["Policy no"] || row["Policy No"] || '') === String(policyNo));
+        if(!found) return;
+
+        closePolicyModal();
+        switchView('sales', document.getElementById('nav-sales').querySelector('a'));
+
+        document.getElementById("salesFormTitle").innerHTML = `<i class="fa-solid fa-pen-to-square" style="color: #d97706;"></i> Edit Policy Details (${policyNo})`;
+        document.getElementById("submitBtn").innerText = "Update Policy Data";
+
+        isEditMode = true;
+        editingPolicyNo = policyNo;
+
+        document.getElementById("date").value = found["Date"] ? found["Date"].split('T')[0] : '';
+        document.getElementById("clientName").value = found["Client Name"] || '';
+        document.getElementById("policyNo").value = found["Policy no"] || found["Policy No"] || '';
+        document.getElementById("insuranceCompany").value = found["Insurance Compny"] || found["Insurance Company"] || '';
+        document.getElementById("vehNo").value = found["Veh NO"] || '';
+        document.getElementById("policyStartDate").value = found["POLICY START DATE"] ? found["POLICY START DATE"].split('T')[0] : '';
+        document.getElementById("policyEndDate").value = found["Policy end Date"] ? found["Policy end Date"].split('T')[0] : '';
+        document.getElementById("brokerName").value = found["Broker name"] || '';
+        document.getElementById("policyType").value = found["Policy type"] || '';
+        document.getElementById("vehicalleType").value = found["Vehicalle type"] || '';
+        document.getElementById("sodPremium").value = found["Sod Premium"] || '';
+        document.getElementById("tpPremium").value = found["Tp premium"] || '';
+        document.getElementById("gstNetPremium").value = found["GstNet Premium"] || '';
+        document.getElementById("grossPremium").value = found["Gross Premium"] || '';
+        document.getElementById("payoutPremium").value = found["Payout Premium"] || '';
+        document.getElementById("recivedPayoutFromIC").value = found["Recived Payout From IC %"] || '';
+        document.getElementById("cbaPayout").value = found["CBA Payout %"] || '';
+        document.getElementById("profitInAmt").value = found["PROFIT IN AMT"] || '';
+        document.getElementById("cbaName").value = found["Cba Name"] || '';
+    }
+
+    function searchPolicyCopy() {
+        let searchType = document.getElementById("searchType").value;
+        let query = document.getElementById("searchQueryInput").value.trim().toLowerCase();
+        let resultCard = document.getElementById("policyResultCard");
+
+        if(!query) {
+            alert("Please enter a search query!");
+            return;
+        }
+
+        let found = globalMasterData.find(row => {
+            let pNo = String(row["Policy no"] || row["Policy No"] || '').trim().toLowerCase();
+            let cName = String(row["Client Name"] || '').trim().toLowerCase();
+            if(searchType === 'policyNo') {
+                return pNo.includes(query);
+            } else {
+                return cName.includes(query) || pNo.includes(query);
+            }
+        });
+
+        if(!found) {
+            resultCard.style.display = "block";
+            resultCard.innerHTML = `<p style="color:#dc2626; font-weight:600;"><i class="fa-solid fa-triangle-exclamation"></i> No policy found matching "${query}".</p>`;
+            return;
+        }
+
+        let policyNo = found["Policy no"] || found["Policy No"] || '';
+        let pdfData = base64PdfStore[policyNo] || found["pdfData"];
+        let pdfButtonHTML = "";
+
+        if(pdfData) {
+            pdfButtonHTML = `<a href="${pdfData}" download="Policy_${policyNo}.pdf" class="btn-pdf-dl" style="padding: 8px 16px; font-size: 13px;"><i class="fa-solid fa-file-pdf"></i> Download Policy Copy</a>`;
+        } else {
+            pdfButtonHTML = `<button class="btn-pdf-disabled" onclick="alert('No PDF attached for this policy.')"><i class="fa-solid fa-file-pdf"></i></button>`;
+        }
+
+        resultCard.style.display = "block";
+        resultCard.innerHTML = `
+            <h4 style="color:#0f172a; margin-bottom: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 6px; display:flex; justify-content:space-between; align-items:center;">
+                <span><i class="fa-solid fa-circle-check" style="color:#16a34a;"></i> Policy Found</span>
+                <button class="btn-edit-policy" onclick="openPolicyModal('${policyNo}')" style="padding:4px 10px; font-size:11px;"><i class="fa-solid fa-eye"></i> View All 19 Columns</button>
+            </h4>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; font-size: 13px; margin-bottom: 12px;">
+                <div><b>Date:</b> ${formatDate(found["Date"])}</div>
+                <div><b>Client Name:</b> ${found["Client Name"] || ''}</div>
+                <div><b>Policy No:</b> ${policyNo}</div>
+                <div><b>Insurance Co:</b> ${found["Insurance Compny"] || found["Insurance Company"] || ''}</div>
+                <div><b>Vehicle No:</b> ${found["Veh NO"] || ''}</div>
+                <div><b>Gross Premium:</b> ₹${found["Gross Premium"] || '0'}</div>
+                <div><b>Net Profit:</b> ₹${found["PROFIT IN AMT"] || '0'}</div>
+                <div><b>CBA Name:</b> ${found["Cba Name"] || ''}</div>
+            </div>
+            <div style="text-align: right;">${pdfButtonHTML}</div>
+        `;
+    }
+
+    function filterDataByRange(data, filterType, startDate, endDate) {
+        let now = new Date();
+        now.setHours(0,0,0,0);
+
+        return data.filter(row => {
+            let rowDateStr = row["Date"];
+            if(!rowDateStr) return filterType === 'all';
+            let rowDate = new Date(rowDateStr);
+            if(isNaN(rowDate)) return false;
+            rowDate.setHours(0,0,0,0);
+
+            if(filterType === 'today') {
+                return rowDate.getTime() === now.getTime();
+            } else if(filterType === 'weekly') {
+                let weekAgo = new Date(now);
+                weekAgo.setDate(now.getDate() - 7);
+                return rowDate >= weekAgo && rowDate <= now;
+            } else if(filterType === 'monthly') {
+                return rowDate.getFullYear() === now.getFullYear() && rowDate.getMonth() === now.getMonth();
+            } else if(filterType === 'yearly') {
+                return rowDate.getFullYear() === now.getFullYear();
+            } else if(filterType === 'custom') {
+                if(!startDate || !endDate) return true;
+                let s = new Date(startDate);
+                let e = new Date(endDate);
+                s.setHours(0,0,0,0);
+                e.setHours(0,0,0,0);
+                return rowDate >= s && rowDate <= e;
+            }
+            return true;
+        });
+    }
+
+    function loadData() {
+        fetch(SCRIPT_URL)
+            .then(response => response.json())
+            .then(data => {
+                if (!data || data.length === 0 || data.error) {
+                    globalMasterData = [];
+                } else {
+                    globalMasterData = data;
+                }
+                updateDashboardHome();
+                applyReportFilter();
+                applyPayoutsFilter();
+                if(document.getElementById('view-analytics').classList.contains('active')) {
+                    renderAnalytics();
+                }
+            })
+            .catch(error => {
+                console.error("Fetch Error:", error);
+            });
+    }
+
+    function updateDashboardHome() {
+        let totalPolicies = globalMasterData.length;
+        let totalGross = 0;
+        let totalProfit = 0;
+        let todayCount = 0;
+        let insuranceCos = new Set();
+        let brokers = new Set();
+
+        let nowStr = new Date().toISOString().split('T')[0];
+
+        globalMasterData.forEach(row => {
+            let gross = parseFloat(row["Gross Premium"]) || 0;
+            let profit = parseFloat(row["PROFIT IN AMT"]) || 0;
+            totalGross += gross;
+            totalProfit += profit;
+
+            if(row["Date"] && row["Date"].startsWith(nowStr)) {
+                todayCount++;
+            }
+            if(row["Insurance Compny"] || row["Insurance Company"]) {
+                insuranceCos.add(row["Insurance Compny"] || row["Insurance Company"]);
+            }
+            if(row["Broker name"] || row["Cba Name"]) {
+                if(row["Broker name"]) brokers.add(row["Broker name"]);
+                if(row["Cba Name"]) brokers.add(row["Cba Name"]);
+            }
+        });
+
+        document.getElementById("statTotalPolicies").innerText = totalPolicies;
+        document.getElementById("statGrossPremium").innerText = "₹" + totalGross.toLocaleString('en-IN', {maximumFractionDigits:2});
+        document.getElementById("statTotalProfit").innerText = "₹" + totalProfit.toLocaleString('en-IN', {maximumFractionDigits:2});
+        document.getElementById("statTodayPolicies").innerText = todayCount;
+        document.getElementById("statActiveCos").innerText = insuranceCos.size;
+        document.getElementById("statActiveBrokers").innerText = brokers.size;
+
+        let homeTbody = document.getElementById("homeTableBody");
+        homeTbody.innerHTML = "";
+        let recentData = [...globalMasterData].reverse().slice(0, 5);
+        if(recentData.length === 0) {
+            homeTbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 20px;">No records found.</td></tr>`;
+        } else {
+            recentData.forEach(row => {
+                let pNo = row["Policy no"] || row["Policy No"] || '';
+                let tr = document.createElement("tr");
+                tr.setAttribute("onclick", `openPolicyModal('${pNo}')`);
+                tr.innerHTML = `
+                    <td>${formatDate(row["Date"])}</td>
+                    <td>${row["Client Name"] || ''}</td>
+                    <td>${pNo}</td>
+                    <td>${row["Insurance Compny"] || row["Insurance Company"] || ''}</td>
+                    <td>${row["Veh NO"] || ''}</td>
+                    <td>${row["Gross Premium"] || ''}</td>
+                    <td style="font-weight:bold; color:#16a34a;">${row["PROFIT IN AMT"] || ''}</td>
+                `;
+                homeTbody.appendChild(tr);
+            });
+        }
+
+        let agentsTbody = document.getElementById("agentsTableBody");
+        agentsTbody.innerHTML = "";
+        let agentMap = {};
+        
+        globalMasterData.forEach(row => {
+            let cba = row["Cba Name"] || 'Direct / N/A';
+            let broker = row["Broker name"] || 'N/A';
+            let payoutPrem = parseFloat(row["Payout Premium"]) || 0;
+            let cbaPct = parseFloat(row["CBA Payout %"]) || 0;
+            let cbaEarned = (payoutPrem * cbaPct) / 100;
+
+            if(!agentMap[cba]) {
+                agentMap[cba] = { count: 0, broker: broker, totalEarnings: 0 };
+            }
+            agentMap[cba].count++;
+            agentMap[cba].totalEarnings += cbaEarned;
+        });
+
+        let sortedAgents = Object.keys(agentMap).map(cba => {
+            return { cba: cba, broker: agentMap[cba].broker, count: agentMap[cba].count, earnings: agentMap[cba].totalEarnings };
+        }).sort((a, b) => b.count - a.count);
+
+        if(sortedAgents.length === 0) {
+            agentsTbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 20px;">No agents found.</td></tr>`;
+        } else {
+            sortedAgents.forEach((item, index) => {
+                let tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td style="font-weight:bold;">#${index + 1}</td>
+                    <td style="font-weight:600; color:#0f172a;">${item.cba}</td>
+                    <td>${item.broker}</td>
+                    <td style="font-weight:bold; color:#2563eb;">${item.count} Policies</td>
+                    <td style="font-weight:bold; color:#16a34a;">₹${item.earnings.toLocaleString('en-IN', {maximumFractionDigits:2})}</td>
+                `;
+                agentsTbody.appendChild(tr);
+            });
+        }
+    }
+
+    function applyReportFilter() {
+        let filterVal = document.getElementById("reportFilter").value;
+        let customRangeDiv = document.getElementById("reportCustomRange");
+        customRangeDiv.style.display = (filterVal === 'custom') ? 'flex' : 'none';
+
+        let sDate = document.getElementById("reportStartDate").value;
+        let eDate = document.getElementById("reportEndDate").value;
+
+        let filtered = filterDataByRange(globalMasterData, filterVal, sDate, eDate);
+        let tbody = document.getElementById("tableBody");
+        tbody.innerHTML = "";
+
+        if(filtered.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="20" style="text-align:center; padding: 20px;">No records found for selected period.</td></tr>`;
+            return;
+        }
+
+        filtered.forEach((row, idx) => {
+            let policyNo = row["Policy no"] || row["Policy No"] || '';
+            let pdfData = base64PdfStore[policyNo] || row["pdfData"];
+            
+            let pdfActionHTML = "";
+            if(pdfData) {
+                pdfActionHTML = `<a href="${pdfData}" download="Policy_${policyNo}.pdf" class="btn-pdf-icon" onclick="event.stopPropagation();" title="Download Policy PDF"><i class="fa-solid fa-file-pdf"></i></a>`;
+            } else {
+                pdfActionHTML = `<button class="btn-pdf-disabled" onclick="event.stopPropagation(); alert('No PDF attached for this policy.');" title="No PDF Available"><i class="fa-solid fa-file-pdf"></i></button>`;
+            }
+
+            let tr = document.createElement("tr");
+            tr.setAttribute("onclick", `openPolicyModal('${policyNo}')`);
+            tr.innerHTML = `
+                <td>${formatDate(row["Date"])}</td>
+                <td>${row["Client Name"] || ''}</td>
+                <td>${policyNo}</td>
+                <td>${row["Insurance Compny"] || row["Insurance Company"] || ''}</td>
+                <td>${row["Veh NO"] || ''}</td>
+                <td>${formatDate(row["POLICY START DATE"])}</td>
+                <td>${formatDate(row["Policy end Date"])}</td>
+                <td>${row["Broker name"] || ''}</td>
+                <td>${row["Policy type"] || ''}</td>
+                <td>${row["Vehicalle type"] || ''}</td>
+                <td>${row["Sod Premium"] || ''}</td>
+                <td>${row["Tp premium"] || ''}</td>
+                <td>${row["GstNet Premium"] || ''}</td>
+                <td>${row["Gross Premium"] || ''}</td>
+                <td>${row["Payout Premium"] || ''}</td>
+                <td>${row["Recived Payout From IC %"] || ''}</td>
+                <td>${row["CBA Payout %"] || ''}</td>
+                <td style="font-weight:bold; color:#16a34a;">${row["PROFIT IN AMT"] || ''}</td>
+                <td>${row["Cba Name"] || ''}</td>
+                <td style="text-align:center;">${pdfActionHTML}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function downloadExcel() {
+        let filterVal = document.getElementById("reportFilter").value;
+        let sDate = document.getElementById("reportStartDate").value;
+        let eDate = document.getElementById("reportEndDate").value;
+        let filtered = filterDataByRange(globalMasterData, filterVal, sDate, eDate);
+
+        if(filtered.length === 0) {
+            alert("No data available to download!");
+            return;
+        }
+
+        let csvContent = "data:text/csv;charset=utf-8,";
+        let headers = ["Date", "Client Name", "Policy No", "Insurance Company", "Veh NO", "Policy Start Date", "Policy End Date", "Broker Name", "Policy Type", "Vehicle Type", "Sod Premium", "Tp Premium", "GstNet Premium", "Gross Premium", "Payout Premium", "Received Payout IC %", "CBA Payout %", "Profit In Amt", "CBA Name"];
+        csvContent += headers.join(",") + "\r\n";
+
+        filtered.forEach(row => {
+            let rowData = [
+                formatDate(row["Date"]),
+                `"${row["Client Name"] || ''}"`,
+                `"${row["Policy no"] || row["Policy No"] || ''}"`,
+                `"${row["Insurance Compny"] || row["Insurance Company"] || ''}"`,
+                `"${row["Veh NO"] || ''}"`,
+                formatDate(row["POLICY START DATE"]),
+                formatDate(row["Policy end Date"]),
+                `"${row["Broker name"] || ''}"`,
+                `"${row["Policy type"] || ''}"`,
+                `"${row["Vehicalle type"] || ''}"`,
+                row["Sod Premium"] || '',
+                row["Tp premium"] || '',
+                row["GstNet Premium"] || '',
+                row["Gross Premium"] || '',
+                row["Payout Premium"] || '',
+                row["Recived Payout From IC %"] || '',
+                row["CBA Payout %"] || '',
+                row["PROFIT IN AMT"] || '',
+                `"${row["Cba Name"] || ''}"`
+            ];
+            csvContent += rowData.join(",") + "\r\n";
+        });
+
+        let encodedUri = encodeURI(csvContent);
+        let link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "Policy_Nest_Secure_Report.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    function applyPayoutsFilter() {
+        let filterVal = document.getElementById("payoutsFilter").value;
+        let customRangeDiv = document.getElementById("payoutsCustomRange");
+        customRangeDiv.style.display = (filterVal === 'custom') ? 'flex' : 'none';
+
+        let sDate = document.getElementById("payoutsStartDate").value;
+        let eDate = document.getElementById("payoutsEndDate").value;
+
+        let filtered = filterDataByRange(globalMasterData, filterVal, sDate, eDate);
+        let tbody = document.getElementById("payoutsTableBody");
+        tbody.innerHTML = "";
+
+        let sumGross = 0;
+        let sumPayout = 0;
+        let sumProfit = 0;
+
+        filtered.forEach(row => {
+            sumGross += parseFloat(row["Gross Premium"]) || 0;
+            sumPayout += parseFloat(row["Payout Premium"]) || 0;
+            sumProfit += parseFloat(row["PROFIT IN AMT"]) || 0;
+
+            let pNo = row["Policy no"] || row["Policy No"] || '';
+            let tr = document.createElement("tr");
+            tr.setAttribute("onclick", `openPolicyModal('${pNo}')`);
+            tr.innerHTML = `
+                <td>${formatDate(row["Date"])}</td>
+                <td>${row["Client Name"] || ''}</td>
+                <td>${pNo}</td>
+                <td>${row["Gross Premium"] || ''}</td>
+                <td>${row["Payout Premium"] || ''}</td>
+                <td>${row["Recived Payout From IC %"] || ''}%</td>
+                <td>${row["CBA Payout %"] || ''}%</td>
+                <td style="font-weight:bold; color:#16a34a;">${row["PROFIT IN AMT"] || ''}</td>
+                <td>${row["Cba Name"] || ''}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        if(filtered.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 20px;">No payout records found.</td></tr>`;
+        }
+
+        document.getElementById("payoutGrossTotal").innerText = "₹" + sumGross.toLocaleString('en-IN', {maximumFractionDigits:2});
+        document.getElementById("payoutPayoutTotal").innerText = "₹" + sumPayout.toLocaleString('en-IN', {maximumFractionDigits:2});
+        document.getElementById("payoutProfitTotal").innerText = "₹" + sumProfit.toLocaleString('en-IN', {maximumFractionDigits:2});
+    }
+
+    function applyAnalyticsFilter() {
+        let filterVal = document.getElementById("analyticsFilter").value;
+        let customRangeDiv = document.getElementById("analyticsCustomRange");
+        customRangeDiv.style.display = (filterVal === 'custom') ? 'flex' : 'none';
+
+        renderAnalytics();
+    }
+
+    function renderAnalytics() {
+        let filterVal = document.getElementById("analyticsFilter").value;
+        let sDate = document.getElementById("analyticsStartDate").value;
+        let eDate = document.getElementById("analyticsEndDate").value;
+
+        let filtered = filterDataByRange(globalMasterData, filterVal, sDate, eDate);
+
+        let dateProfitMap = {};
+        let companyCountMap = {};
+
+        filtered.forEach(row => {
+            let d = formatDate(row["Date"]) || 'Unknown';
+            let p = parseFloat(row["PROFIT IN AMT"]) || 0;
+            dateProfitMap[d] = (dateProfitMap[d] || 0) + p;
+
+            let comp = row["Insurance Compny"] || row["Insurance Company"] || 'Other';
+            companyCountMap[comp] = (companyCountMap[comp] || 0) + 1;
+        });
+
+        let dates = Object.keys(dateProfitMap).sort();
+        let profits = dates.map(d => dateProfitMap[d]);
+
+        let comps = Object.keys(companyCountMap);
+        let counts = comps.map(c => companyCountMap[c]);
+
+        let vibrantColors = ['#2563eb', '#16a34a', '#d97706', '#7c3aed', '#db2777', '#0284c7', '#ea580c', '#65a30d'];
+
+        let ctx1 = document.getElementById('companyDoughnutChart').getContext('2d');
+        if(doughnutChartInstance) doughnutChartInstance.destroy();
+        doughnutChartInstance = new Chart(ctx1, {
+            type: 'doughnut',
+            data: {
+                labels: comps,
+                datasets: [{
+                    data: counts,
+                    backgroundColor: vibrantColors.slice(0, comps.length),
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: { 
+                responsive: true, 
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                }
+            }
+        });
+
+        let ctx2 = document.getElementById('profitBarChart').getContext('2d');
+        if(barChartInstance) barChartInstance.destroy();
+        barChartInstance = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Net Profit (₹)',
+                    data: profits,
+                    backgroundColor: '#16a34a',
+                    borderRadius: 4
+                }]
+            },
+            options: { 
+                responsive: true, 
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    }
+
+    document.getElementById("policyForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        
+        let submitBtn = document.getElementById("submitBtn");
+        submitBtn.disabled = true;
+        submitBtn.innerText = isEditMode ? "Updating Data..." : "Saving Data...";
+
+        let policyNum = document.getElementById("policyNo").value;
+        if(window.currentUploadedPdfBase64) {
+            base64PdfStore[policyNum] = window.currentUploadedPdfBase64;
+        }
+
+        let params = new URLSearchParams();
+        params.append("date", document.getElementById("date").value);
+        params.append("clientName", document.getElementById("clientName").value);
+        params.append("policyNo", policyNum);
+        params.append("insuranceCompany", document.getElementById("insuranceCompany").value);
+        params.append("vehNo", document.getElementById("vehNo").value);
+        params.append("policyStartDate", document.getElementById("policyStartDate").value);
+        params.append("policyEndDate", document.getElementById("policyEndDate").value);
+        params.append("brokerName", document.getElementById("brokerName").value);
+        params.append("policyType", document.getElementById("policyType").value);
+        params.append("vehicalleType", document.getElementById("vehicalleType").value);
+        params.append("sodPremium", document.getElementById("sodPremium").value);
+        params.append("tpPremium", document.getElementById("tpPremium").value);
+        params.append("gstNetPremium", document.getElementById("gstNetPremium").value);
+        params.append("grossPremium", document.getElementById("grossPremium").value);
+        params.append("payoutPremium", document.getElementById("payoutPremium").value);
+        params.append("recivedPayoutFromIC", document.getElementById("recivedPayoutFromIC").value);
+        params.append("cbaPayout", document.getElementById("cbaPayout").value);
+        params.append("profitInAmt", document.getElementById("profitInAmt").value);
+        params.append("cbaName", document.getElementById("cbaName").value);
+
+        if(isEditMode) {
+            params.append("editPolicyNo", editingPolicyNo);
+        }
+
+        fetch(SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: params.toString()
+        }).then(() => {
+            alert(isEditMode ? "Policy entry updated successfully!" : "Policy entry saved to Sheet!");
+            document.getElementById("policyForm").reset();
+            document.getElementById("fileNameDisplay").innerText = "Choose PDF file or drag here...";
+            window.currentUploadedPdfBase64 = null;
+            isEditMode = false;
+            editingPolicyNo = null;
+            document.getElementById("salesFormTitle").innerHTML = `<i class="fa-solid fa-plus-circle" style="color: #2563eb;"></i> Enter New Policy Sales Details & Upload PDF`;
+            document.getElementById("submitBtn").innerText = "Submit Policy Data";
+            
+            switchView('reports', document.getElementById('nav-reports').querySelector('a'));
+            setTimeout(loadData, 2000);
+        }).catch(err => {
+            alert("Error saving record!");
+            console.error(err);
+        }).finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerText = isEditMode ? "Update Policy Data" : "Submit Policy Data";
+        });
+    });
+</script>
+
+</body>
+</html>
