@@ -98,6 +98,21 @@ html:not(.dark) header{box-shadow:0 4px 22px rgba(91,33,182,.18)}
 .logo-c img{width:100%;height:100%;object-fit:contain;padding:3px;border-radius:50%}
 .mono{border-radius:50%}
 html:not(.dark) .logo-t{box-shadow:0 6px 20px rgba(91,33,182,.18),inset 0 1px 0 #fff}
+/* ===== MOBILE FIX: no sideways overflow, full-width fixed header ===== */
+html,body{max-width:100%;overflow-x:clip}
+.grid>*,.sec>*{min-width:0}
+header{width:100%;left:0;right:0}
+@media(max-width:640px){
+ header .logo-c.lg{width:44px;height:44px}
+ header .max-w-7xl{padding-left:.75rem;padding-right:.75rem;gap:.4rem}
+ header .max-w-7xl>div:first-child{gap:.5rem;min-width:0}
+ header .btn.w-10{width:2.4rem;height:2.4rem}
+ #langBtn{padding:0 .65rem;height:2.4rem}
+ header a.btn-g{display:none}
+ header .leading-none .text-lg{font-size:1rem}
+ header .leading-none span.tracking-widest{font-size:7.5px;white-space:nowrap;letter-spacing:.1em}
+ .sec{padding-left:1rem;padding-right:1rem}
+}
 </style>
 </head>
 <body>
