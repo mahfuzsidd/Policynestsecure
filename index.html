@@ -1,436 +1,169 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#F7F3FF">
-<meta name="description" content="PolicyNest Secure - Instant car, bike & commercial vehicle insurance quotes, zero-dep cover, 30-minute cashless claims. IRDAI compliant.">
-<title>PolicyNest Secure | Motor Insurance</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script>tailwind.config={darkMode:'class'}</script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#092b50">
+<meta name="description" content="PolicyNest Secure - motor, health and life insurance quotes, renewals and claim assistance. IRDAI Reg. Licensed Agency, Mumbai.">
+<title>PolicyNest Secure | Insurance Made Simple</title>
 <style>
-*{-webkit-tap-highlight-color:transparent;box-sizing:border-box}
-:root{--bg:#F4F0FF;--b1:rgba(139,92,246,.35);--b2:rgba(217,70,239,.22);--b3:rgba(56,189,248,.2);--gl:rgba(255,255,255,.66);--ins:rgba(109,40,217,.07);--hdr:rgba(255,255,255,.78);--bd:rgba(109,40,217,.32);--sd:rgba(109,40,217,.25);--tx:#12052B;--tx2:#2E1A5C;--brand:#6D28D9;--green:#047857;--glow:0 10px 40px rgba(109,40,217,.16);--opt:#fff;--g1:#12052B;--g2:#7C3AED;--g3:#C026D3}
-html.dark{--bg:#06020F;--b1:rgba(139,92,246,.5);--b2:rgba(217,70,239,.32);--b3:rgba(56,189,248,.2);--gl:rgba(255,255,255,.07);--ins:rgba(0,0,0,.35);--hdr:rgba(8,3,22,.72);--bd:rgba(196,160,255,.3);--sd:rgba(196,160,255,.22);--tx:#fff;--tx2:#E9E0FF;--brand:#D2B8FF;--green:#4ADE80;--glow:0 10px 40px rgba(124,58,237,.3);--opt:#1a0b3d;--g1:#fff;--g2:#C4B5FD;--g3:#F0ABFC}
-html,body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-body{color:var(--tx);font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:radial-gradient(60rem 40rem at 8% -8%,var(--b1),transparent 60%),radial-gradient(50rem 40rem at 96% 8%,var(--b2),transparent 60%),radial-gradient(45rem 35rem at 50% 108%,var(--b3),transparent 60%),var(--bg);background-attachment:fixed;min-height:100vh}
-.neu,.neu-s,.neu-in{background:var(--gl);-webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);border:1px solid var(--bd);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),var(--glow)}
-.neu{border-radius:1.5rem;transition:transform .25s,box-shadow .25s}
-.neu-s{border-radius:1rem}
-.neu-in{border-radius:1rem;background:var(--ins);box-shadow:inset 0 2px 8px rgba(0,0,0,.2)}
-@media(hover:hover){.neu:hover{transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 14px 50px rgba(168,85,247,.38)}}
-.t2{color:var(--tx2);font-weight:600}.tb{color:var(--brand)}.tg{color:var(--green)}
-.btn{background:var(--gl);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--bd);border-radius:1rem;font-weight:800;color:var(--tx);transition:.2s;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:.5rem}
-.btn:hover{border-color:#C084FC;box-shadow:0 0 16px rgba(168,85,247,.5)}
-.btn:active{transform:scale(.97)}
-.btn-p{background:linear-gradient(135deg,#8B5CF6,#D946EF);color:#fff;border-color:rgba(255,255,255,.45);box-shadow:0 0 22px rgba(168,85,247,.65),inset 0 1px 0 rgba(255,255,255,.4)}
-.btn-g{background:linear-gradient(135deg,#22C55E,#059669);color:#fff;border-color:rgba(255,255,255,.4);box-shadow:0 0 20px rgba(34,197,94,.5),inset 0 1px 0 rgba(255,255,255,.4)}
-.btn-p:hover,.btn-g:hover{filter:brightness(1.12)}
-.tab.active{border-color:#C084FC;box-shadow:0 0 18px rgba(168,85,247,.7),inset 0 0 14px rgba(168,85,247,.28);color:var(--brand)}
-.fld{background:var(--ins);border:1px solid var(--bd);border-radius:1rem;padding:.85rem 1rem;width:100%;color:var(--tx);font-weight:700;outline:none;font-size:.9rem;color-scheme:light}
-html.dark .fld{color-scheme:dark}
-.fld:focus{border-color:#C084FC;box-shadow:0 0 0 3px rgba(168,85,247,.35)}
-.fld::placeholder{color:var(--tx2);opacity:.75;font-weight:500}
-.fld option{background:var(--opt);color:var(--tx)}
-.ico{width:50px;height:50px;border-radius:1rem;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(139,92,246,.4),rgba(217,70,239,.28));border:1px solid var(--bd);color:var(--brand);font-size:1.15rem;flex-shrink:0;box-shadow:0 0 16px rgba(168,85,247,.45)}
-.grad{background:linear-gradient(90deg,var(--g1),var(--g2) 45%,var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(168,85,247,.45))}
-.sec{max-width:80rem;margin:0 auto;padding:3rem 1.25rem}
-@media(min-width:1024px){.sec{padding:4.5rem 2rem}}
-.h2{font-size:1.9rem;font-weight:900;letter-spacing:-.015em;text-align:center}
-@media(min-width:768px){.h2{font-size:2.5rem}}
-.sub{text-align:center;color:var(--tx2);font-weight:600;margin:.5rem auto 2.5rem;max-width:38rem;font-size:.95rem}
-.hide-sb::-webkit-scrollbar{display:none}.hide-sb{scrollbar-width:none}
-input[type=range]{-webkit-appearance:none;appearance:none;height:12px;border-radius:99px;background:var(--ins);border:1px solid var(--bd);outline:none;width:100%}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;border:4px solid #A855F7;box-shadow:0 0 16px #A855F7}
-input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:4px solid #A855F7;box-shadow:0 0 16px #A855F7}
-.sw{appearance:none;-webkit-appearance:none;width:46px;height:26px;border-radius:99px;background:var(--ins);border:1px solid var(--bd);position:relative;cursor:pointer;flex-shrink:0;transition:.2s}
-.sw::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#A78BFA;transition:.2s}
-.sw:checked{background:linear-gradient(135deg,#8B5CF6,#D946EF);box-shadow:0 0 14px rgba(168,85,247,.7)}
-.sw:checked::after{left:23px;background:#fff}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .3s}
-.faq.open .faq-a{max-height:240px}.faq.open .fa-chevron-down{transform:rotate(180deg)}
-.fa-chevron-down{transition:.2s}
-.mq-wrap{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
-.marq{display:flex;gap:1.1rem;width:max-content;animation:mq 45s linear infinite;padding:.6rem 0}
-.marq.rev{animation-direction:reverse;animation-duration:50s}
-.mq-wrap:hover .marq{animation-play-state:paused}
-@keyframes mq{to{transform:translateX(-50%)}}
-.logo-t{background:var(--gl);-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%);border:1px solid var(--bd);border-radius:1.1rem;padding:0 1.2rem;display:flex;align-items:center;justify-content:flex-start;gap:.75rem;width:235px;height:70px;flex-shrink:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 6px 24px rgba(124,58,237,.22);transition:.25s}
-.logo-t:hover{transform:translateY(-3px);border-color:#C084FC;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 0 26px rgba(168,85,247,.55)}
-.logo-t img{max-height:38px;max-width:170px;object-fit:contain;background:#fff;border-radius:.6rem;padding:4px 10px;margin:0 auto}
-.wm{display:flex;align-items:center;gap:.75rem;min-width:0}
-.wm .nm{font-weight:800;font-size:.9rem;line-height:1.15;color:var(--tx)}
-.wm .nm small{display:block;font-size:.66rem;font-weight:700;color:var(--tx2);letter-spacing:.04em;text-transform:uppercase;margin-top:2px}
-.mono{width:38px;height:38px;border-radius:.85rem;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:900;flex-shrink:0;border:1px solid rgba(255,255,255,.45);box-shadow:0 0 14px var(--mc),inset 0 1px 0 rgba(255,255,255,.45)}
-.fade{opacity:0;transform:translateY(22px);transition:.7s}.fade.in{opacity:1;transform:none}
-header{position:sticky;top:0;z-index:40;background:var(--hdr);-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);border-bottom:1px solid var(--bd);box-shadow:0 4px 30px rgba(124,58,237,.25)}
-#drawer{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:.3s}
-#drawer.open{opacity:1;pointer-events:auto}
-#drawer aside{background:var(--hdr);-webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);border-right:1px solid var(--bd);width:82%;max-width:20rem;height:100%;padding:1.5rem;transform:translateX(-100%);transition:.3s;display:flex;flex-direction:column;gap:.6rem}
-#drawer.open aside{transform:none}
-#toasts{position:fixed;top:1rem;right:1rem;z-index:90;display:flex;flex-direction:column;gap:.5rem;pointer-events:none}
-#waFab{position:fixed;right:1.1rem;bottom:1.1rem;z-index:45;width:58px;height:58px;border-radius:50%;font-size:1.7rem}
-#qModal{display:none;position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.65);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1rem}
-#qModal.open{display:flex}
-@media print{body *{visibility:hidden}#qSlip,#qSlip *{visibility:visible}#qSlip{position:absolute;left:0;top:0;width:100%;background:#fff!important;color:#000!important}.no-print{display:none!important}}
-/* ===== LIGHT FROST VIOLET: high contrast + richer containers ===== */
-:root{--bg:#F8F5FF;--b1:rgba(167,139,250,.4);--b2:rgba(244,114,182,.2);--b3:rgba(125,211,252,.28);--gl:rgba(255,255,255,.88);--ins:rgba(91,33,182,.08);--fld:#fff;--hdr:rgba(255,255,255,.9);--bd:rgba(91,33,182,.4);--tx:#07011A;--tx2:#1F0E42;--brand:#5B21B6;--green:#036149;--hl:#fff;--card:linear-gradient(150deg,rgba(255,255,255,.98),rgba(240,231,255,.82));--glow:0 14px 38px rgba(91,33,182,.2);--g1:#07011A;--g2:#6D28D9;--g3:#C026D3;--opt:#fff}
-html.dark{--fld:rgba(0,0,0,.38);--hl:rgba(255,255,255,.28);--card:linear-gradient(150deg,rgba(255,255,255,.11),rgba(255,255,255,.04))}
-body{font-weight:500}
-.neu{position:relative;background:var(--card);border:1.5px solid var(--bd);box-shadow:var(--glow),inset 0 1px 0 var(--hl)}
-.neu::before{content:'';position:absolute;left:1.6rem;right:1.6rem;top:-1.5px;height:3px;border-radius:0 0 6px 6px;background:linear-gradient(90deg,#8B5CF6,#D946EF,#22D3EE)}
-.neu-s{border:1.5px solid var(--bd);box-shadow:0 6px 18px rgba(91,33,182,.16),inset 0 1px 0 var(--hl)}
-.neu-in{border:1.5px solid var(--bd)}
-.fld{background:var(--fld);border:1.5px solid var(--bd);color:var(--tx);font-weight:700}
-.fld::placeholder{color:var(--tx2);opacity:.8}
-.btn{border-width:1.5px;color:var(--tx)}
-.btn-p,.btn-g{color:#fff}
-.t2{color:var(--tx2);font-weight:600}
-.h2,.grad{letter-spacing:-.02em}
-html:not(.dark) .grad{filter:none}
-html.dark .grad{filter:drop-shadow(0 0 18px rgba(168,85,247,.45))}
-html:not(.dark) header{box-shadow:0 4px 22px rgba(91,33,182,.18)}
-.tab{white-space:nowrap;min-width:max-content}
-#waFab{width:52px;height:52px;font-size:1.5rem}
-.logo-c{width:48px;height:48px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;border:2px solid #A855F7;box-shadow:0 0 0 3px rgba(168,85,247,.22),0 0 16px rgba(168,85,247,.5);flex-shrink:0}
-.logo-c.lg{width:56px;height:56px}
-.logo-c img{width:100%;height:100%;object-fit:contain;padding:3px;border-radius:50%}
-.mono{border-radius:50%}
-html:not(.dark) .logo-t{box-shadow:0 6px 20px rgba(91,33,182,.18),inset 0 1px 0 #fff}
-/* ===== MOBILE FIX: no sideways overflow, full-width fixed header ===== */
-html,body{max-width:100%;overflow-x:clip}
-.grid>*,.sec>*{min-width:0}
-header{width:100%;left:0;right:0}
-@media(max-width:640px){
- header .logo-c.lg{width:44px;height:44px}
- header .max-w-7xl{padding-left:.75rem;padding-right:.75rem;gap:.4rem}
- header .max-w-7xl>div:first-child{gap:.5rem;min-width:0}
- header .btn.w-10{width:2.4rem;height:2.4rem}
- #langBtn{padding:0 .65rem;height:2.4rem}
- header a.btn-g{display:none}
- header .leading-none .text-lg{font-size:1rem}
- header .leading-none span.tracking-widest{font-size:7.5px;white-space:nowrap;letter-spacing:.1em}
- .sec{padding-left:1rem;padding-right:1rem}
-}
+:root{--blue:#0757a6;--navy:#092b50;--ink:#12283f;--muted:#4a6178;--pale:#eef6ff;--line:#d3e1ef;--green:#0b8a65;--sh:0 18px 50px rgba(8,48,88,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--ink);background:#fff;overflow-x:hidden}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}button{cursor:pointer}:focus-visible{outline:3px solid #6ca9e4;outline-offset:2px}
+.c{width:min(1160px,92%);margin:auto}.hide{display:none!important}
+.top{background:var(--navy);color:#dcecff;font-size:12px;padding:8px 0}.top .c{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.ni{height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:850;font-size:19px;color:var(--navy);letter-spacing:-.5px}.brand img{width:42px;height:42px;border-radius:50%;border:2px solid var(--blue);background:#fff;object-fit:contain}.brand small{display:block;font-size:9px;letter-spacing:2px;color:#4a6a88;font-weight:700}
+.links{display:flex;gap:22px;font-size:13px;font-weight:700;color:#2c4660}.links a:hover{color:var(--blue)}.act{display:flex;gap:8px;align-items:center}
+.btn{border:0;border-radius:12px;padding:12px 18px;font-weight:750;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.2s}
+.bp{background:var(--blue);color:#fff;box-shadow:0 8px 20px #0757a626}.bp:hover{background:#064785}.bo{background:#fff;border:1px solid #9db9d4;color:var(--blue)}.bg{background:var(--green);color:#fff}.bg:hover{filter:brightness(1.1)}
+.menu{display:none;background:var(--pale);border:0;border-radius:10px;padding:10px 12px;color:var(--blue);font-size:16px}
+.hero{background:radial-gradient(circle at 80% 25%,#d8ecff 0,transparent 28%),linear-gradient(115deg,#f4f9ff,#eaf4ff 58%,#f8fbff);padding:60px 0 56px}.hg{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.eb{display:inline-block;color:var(--blue);font-size:12px;font-weight:800;background:#dceeff;padding:8px 13px;border-radius:99px}
+h1{font-size:clamp(34px,5vw,56px);line-height:1.06;letter-spacing:-2.2px;color:var(--navy);margin:18px 0 14px}h1 span{color:var(--blue)}.lead{font-size:16px;line-height:1.7;color:#4a6178;max-width:540px;margin:0 0 20px}
+.vt{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.vt button{background:#fff;border:1px solid #b8cde1;border-radius:99px;padding:10px 16px;font-weight:750;font-size:12px;color:#38536e}.vt button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.rc{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;display:grid;gap:10px;max-width:520px;box-shadow:var(--sh)}
+.in{width:100%;border:1px solid #c5d6e6;border-radius:10px;padding:12px 13px;color:var(--ink);background:#fff;font-size:14px;font-weight:600}.in:focus{border-color:#6ca9e4;box-shadow:0 0 0 3px #d9edff;outline:0}
+.art{position:relative;min-height:340px;display:grid;place-items:center}.circ{width:min(340px,88%);aspect-ratio:1;border-radius:50%;background:linear-gradient(145deg,#d7eaff,#f8fcff);border:1px solid #c9e1f7;display:grid;place-items:center}.circ svg{width:52%;filter:drop-shadow(0 22px 20px #0757a633)}
+.fc{position:absolute;background:#fff;border:1px solid #dbe8f4;border-radius:14px;padding:12px 15px;box-shadow:var(--sh);font-size:12px;font-weight:800}.fc small{display:block;color:var(--muted);font-weight:500;margin-top:3px}.f1{left:0;top:50px}.f2{right:0;bottom:50px}
+.qb{margin-top:-24px;position:relative;z-index:2}.qg{background:#fff;border:1px solid var(--line);box-shadow:var(--sh);border-radius:18px;display:grid;grid-template-columns:repeat(4,1fr);overflow:hidden}.q{padding:18px;display:flex;align-items:center;gap:12px;border-right:1px solid var(--line);font-size:13px;font-weight:800}.q:last-child{border:0}.q i{font-style:normal;width:42px;height:42px;border-radius:12px;background:var(--pale);display:grid;place-items:center;font-size:19px}.q small{display:block;color:var(--muted);font-weight:500;font-size:11px;margin-top:3px}
+section{padding:72px 0}.sh{text-align:center;max-width:640px;margin:0 auto 34px}.sh h2{font-size:clamp(26px,3vw,37px);letter-spacing:-1.2px;color:var(--navy);margin:0 0 10px}.sh p{color:var(--muted);line-height:1.7;font-size:14px;margin:0}.alt{background:#f5f9fd}
+.pg{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.p{border:1px solid var(--line);border-radius:18px;padding:22px 20px;background:#fff;transition:.2s}.p:hover{transform:translateY(-4px);box-shadow:var(--sh);border-color:#b9d8f4}.p i{font-style:normal;display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:#eaf4ff;font-size:23px;margin-bottom:14px}.p h3{font-size:16px;color:var(--navy);margin:0 0 7px}.p p{font-size:12.5px;line-height:1.6;color:var(--muted);margin:0 0 14px}.p a{font-size:12px;color:var(--blue);font-weight:800}
+.mq{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}.mt{display:flex;gap:14px;width:max-content;animation:mq 50s linear infinite;padding:6px 0}.mq:hover .mt{animation-play-state:paused}@keyframes mq{to{transform:translateX(-50%)}}
+.lg{width:220px;height:64px;flex:none;background:#fff;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;gap:10px;padding:0 14px;font-weight:800;font-size:13px;color:var(--navy)}.lg b{width:34px;height:34px;border-radius:50%;color:#fff;display:grid;place-items:center;font-size:15px;flex:none}
+.cg{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;align-items:start}.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 12px 35px #173c5b0b}
+.rw{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px;font-weight:800;margin-bottom:10px}.rw output{color:var(--blue);font-size:17px}
+input[type=range]{width:100%;accent-color:var(--blue);height:8px}
+.ad{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}.ad label{display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font-size:12.5px;font-weight:700;cursor:pointer}.ad small{display:block;color:var(--muted);font-weight:500;font-size:11px}.ad input{width:18px;height:18px;accent-color:var(--blue);flex:none}
+.tot{text-align:center;font-size:36px;font-weight:900;color:var(--green);letter-spacing:-1px;margin:4px 0 12px}.bk{background:var(--pale);border-radius:12px;padding:14px;font-size:13px;font-weight:700;display:grid;gap:7px;margin-bottom:14px}.bk div{display:flex;justify-content:space-between;gap:10px}.bk span:first-child{color:var(--muted)}.note{font-size:11px;color:#5f7389;line-height:1.5;margin:10px 0 0}
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.st{border:1px solid var(--line);border-radius:17px;padding:24px;background:#fff}.st b{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:#eaf4ff;color:var(--blue);font-size:13px}.st h3{font-size:16px;color:var(--navy);margin:16px 0 8px}.st p{font-size:13px;line-height:1.7;color:var(--muted);margin:0}
+.fl{display:grid;grid-template-columns:.8fr 1.2fr;gap:34px;align-items:start}.fl h2{font-size:34px;color:var(--navy);letter-spacing:-1px;margin:0 0 12px}.fl p{color:var(--muted);line-height:1.8;font-size:14px}
+.tabs{display:flex;gap:6px;background:#eef3f9;padding:6px;border-radius:12px;margin-bottom:20px}.tabs button{flex:1;border:0;background:transparent;padding:11px 6px;border-radius:9px;color:#4a6178;font-weight:800;font-size:12px}.tabs button.on{background:#fff;color:var(--blue);box-shadow:0 2px 8px #12395a1a}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}.fd{display:flex;flex-direction:column;gap:6px}.fd.w{grid-column:1/-1}.fd label{font-size:11.5px;font-weight:800;color:#2c4660}.fd textarea{min-height:80px;resize:vertical}
+.ok{display:none;background:#e7f7f0;color:#065f43;border-radius:10px;padding:12px;font-size:13px;font-weight:700;margin-top:12px}
+.fq{display:grid;grid-template-columns:1fr 1fr;gap:12px}.fq details{border:1px solid var(--line);border-radius:13px;padding:16px;background:#fff}.fq summary{font-weight:800;font-size:13.5px;color:var(--navy);cursor:pointer}.fq p{font-size:13px;color:var(--muted);line-height:1.65;margin:10px 0 0}
+.cta{background:linear-gradient(110deg,#073d77,#0871c9);color:#fff;border-radius:24px;padding:40px 46px;display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap}.cta h2{font-size:28px;margin:0 0 8px;letter-spacing:-.8px}.cta p{margin:0;color:#d6eaff;font-size:14px}
+footer{background:#082849;color:#d7e7f7;padding:50px 0 20px}.fgd{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px}.fgd b{color:#fff;font-size:13px;display:block;margin-bottom:12px}.fgd p,.fgd a,.fgd span{display:block;font-size:12.5px;line-height:1.7;color:#b4c9dc;margin:8px 0}.fgd a:hover{color:#fff}.dis{border-top:1px solid #234361;margin-top:30px;padding-top:16px;font-size:11px;color:#9db7cd;line-height:1.7}
+#wa{position:fixed;right:16px;bottom:16px;z-index:45;width:54px;height:54px;border-radius:50%;padding:0;font-size:24px;box-shadow:0 8px 24px #0b8a6566}
+#md{display:none;position:fixed;inset:0;z-index:80;background:rgba(5,20,40,.65);align-items:center;justify-content:center;padding:16px}#md.open{display:flex}.mb{background:#fff;border-radius:18px;padding:20px;width:100%;max-width:440px;max-height:90vh;overflow:auto}
+#slip{color:#000;font-size:13px;display:grid;gap:7px}#slip div{display:flex;justify-content:space-between;gap:10px}#slip hr{width:100%;border:0;border-top:1px solid #ccc;margin:2px 0}
+@media print{body *{visibility:hidden}#slip,#slip *{visibility:visible}#slip{position:absolute;left:0;top:0;width:100%}}
+@media(prefers-reduced-motion:reduce){.mt{animation:none}html{scroll-behavior:auto}}
+@media(max-width:900px){.links{display:none;position:absolute;top:72px;left:0;right:0;background:#fff;padding:16px 4%;border-bottom:1px solid var(--line);flex-direction:column;gap:16px}.links.open{display:flex}.menu{display:block}.hd{display:none}.hg,.cg,.fl{grid-template-columns:1fr}.art{min-height:290px}.qg{grid-template-columns:1fr 1fr}.q:nth-child(2){border-right:0}.q:nth-child(-n+2){border-bottom:1px solid var(--line)}.pg{grid-template-columns:repeat(2,1fr)}.fgd{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.top .c{justify-content:center;text-align:center}.hero{padding:40px 0}h1{letter-spacing:-1.5px}.sg,.fq,.fg,.ad{grid-template-columns:1fr}.fd.w{grid-column:auto}.pg{gap:10px}.p{padding:16px 14px}.cta{padding:26px 22px}.card{padding:18px}.q{padding:13px 10px;gap:8px;font-size:12px}.q i{width:34px;height:34px;font-size:16px}.f1{left:-4px}.f2{right:-4px}section{padding:54px 0}}
 </style>
 </head>
 <body>
-<div id="toasts"></div>
+<div class="top"><div class="c"><span>✦ IRDAI Reg. Licensed Agency • India</span><span><a href="tel:+919152058250">☏ +91 91520 58250</a> &nbsp;|&nbsp; Mumbai, India</span></div></div>
+<header class="nav"><div class="c ni">
+<a class="brand" href="#home"><img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-" alt="PolicyNest logo"><span>PolicyNest Secure<small>PROTECTION MADE SIMPLE</small></span></a>
+<nav class="links" id="links"><a href="#home">Home</a><a href="#calc">Estimator</a><a href="#products">Products</a><a href="#insurers">Insurers</a><a href="#faq">FAQs</a><a href="#contact">Contact</a></nav>
+<div class="act"><a class="btn bo hd" href="crm.html">🔒 CRM Login</a><a class="btn bp hd" href="#quote">Get a Quote</a><button class="menu" id="menu" type="button" aria-label="Menu">☰</button></div>
+</div></header>
 
-<!-- DRAWER -->
-<div id="drawer" onclick="if(event.target===this)toggleDrawer()">
- <aside>
-  <div class="flex items-center justify-between mb-3">
-   <div class="flex items-center gap-2"><div class="logo-c"><img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-" alt="PolicyNest Logo"></div><b>PolicyNest Secure</b></div>
-   <button class="btn w-9 h-9" onclick="toggleDrawer()"><i class="fas fa-times"></i></button>
-  </div>
-  <a class="btn justify-start p-3 text-sm" onclick="toggleDrawer();go('home')"><i class="fas fa-car tb w-5"></i><span data-en="Motor Insurance Home" data-hi="मोटर बीमा होम">Motor Insurance Home</span></a>
-  <a class="btn justify-start p-3 text-sm" onclick="toggleDrawer();go('calc')"><i class="fas fa-calculator tg w-5"></i><span data-en="IDV & Rider Estimator" data-hi="आईडीवी और राइडर कैलकुलेटर">IDV & Rider Estimator</span></a>
-  <a href="crm.html" class="btn justify-start p-3 text-sm tb"><i class="fas fa-lock w-5"></i><span data-en="CRM Login Panel" data-hi="सीआरएम लॉगिन पैनल">CRM Login Panel</span></a>
-  <a class="btn justify-start p-3 text-sm" onclick="toggleDrawer();openQuote()"><i class="fas fa-file-pdf text-rose-600 w-5"></i><span data-en="Download Quotation Slip" data-hi="कोटेशन स्लिप डाउनलोड करें">Download Quotation Slip</span></a>
-  <div class="mt-auto text-[11px] t2"><b>PolicyNest Insurance Advisory</b><br>IRDAI Reg. Licensed Agency • India</div>
- </aside>
+<main>
+<section class="hero" id="home" style="padding-bottom:56px"><div class="c hg"><div>
+<span class="eb">15+ insurers • Instant quotes</span>
+<h1>Protect what<br>matters. <span>Drive freely.</span></h1>
+<p class="lead">Compare premiums for your car, bike or commercial vehicle. From first quote to renewal and claim help, we stay with you.</p>
+<div class="vt" id="vt"><button class="on" data-v="car" type="button">Car</button><button data-v="bike" type="button">Bike / Scooter</button><button data-v="commercial" type="button">Commercial</button></div>
+<div class="rc"><input class="in" id="reg" maxlength="10" autocomplete="off" placeholder="Vehicle number (e.g. MH01AB1234)" style="text-transform:uppercase"><input class="in" id="mdl" placeholder="Vehicle maker &amp; model"><input class="in" id="hm" inputmode="numeric" maxlength="10" placeholder="Mobile number (optional)"><button class="btn bg" id="hq" type="button">💬 <span>Get Quote on WhatsApp</span></button></div>
 </div>
+<div class="art"><div class="circ"><svg viewBox="0 0 240 260" fill="none"><path d="M120 8 215 43v72c0 66-42 111-95 137C67 226 25 181 25 115V43L120 8Z" fill="url(#g)" stroke="#7db8ed" stroke-width="4"/><path d="m78 126 28 28 59-65" stroke="#fff" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="g" x1="30" y1="10" x2="210" y2="250"><stop stop-color="#1683e8"/><stop offset="1" stop-color="#063d7a"/></linearGradient></defs></svg></div>
+<div class="fc f1">✓ Zero-Dep add-on<small>Choose cover that fits</small></div><div class="fc f2">24x7 support<small>Call or WhatsApp us</small></div></div></div></section>
 
-<!-- HEADER -->
-<header>
- <div class="px-4 md:px-8 py-1.5 flex items-center justify-between text-[11px]" style="border-bottom:1px solid var(--sd)">
-  <div class="flex items-center gap-2 t2 min-w-0">
-   <span class="tg font-extrabold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span><span data-en="IRDAI Compliant" data-hi="आईआरडीएआई अनुपालन">IRDAI Compliant</span></span>
-   <span>|</span><span class="truncate" data-en="30-Min Cashless Claim Desk" data-hi="30 मिनट कैशलेस क्लेम डेस्क">30-Min Cashless Claim Desk</span>
-  </div>
-  <div class="flex items-center gap-3 font-extrabold">
-   <a href="tel:+919152058250" class="hidden sm:flex items-center gap-1 t2"><i class="fas fa-phone"></i>+91 91520 58250</a>
-   <a href="crm.html" class="btn btn-p px-3 py-1 text-[11px]"><i class="fas fa-lock text-[9px]"></i><span data-en="CRM Login" data-hi="सीआरएम लॉगिन">CRM Login</span></a>
-  </div>
- </div>
- <div class="max-w-7xl mx-auto px-4 md:px-8 py-3 flex items-center justify-between gap-3">
-  <div class="flex items-center gap-3">
-   <button class="btn w-10 h-10 lg:hidden" onclick="toggleDrawer()" aria-label="Menu"><i class="fas fa-bars-staggered"></i></button>
-   <div class="flex items-center gap-2.5">
-    <div class="logo-c lg"><img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-" alt="PolicyNest Logo"></div>
-    <div class="leading-none"><div class="flex items-center gap-1"><span class="text-lg font-black tracking-tight">PolicyNest</span><i class="fas fa-certificate tb text-[11px]"></i></div><span class="text-[9px] font-extrabold tracking-widest tg uppercase" data-en="SECURE MOTOR DESK" data-hi="सुरक्षित मोटर डेस्क">SECURE MOTOR DESK</span></div>
-   </div>
-  </div>
-  <nav class="hidden lg:flex items-center gap-6 text-sm font-extrabold t2">
-   <a class="cursor-pointer hover:text-blue-700" onclick="go('home')" data-en="Home" data-hi="होम">Home</a>
-   <a class="cursor-pointer hover:text-blue-700" onclick="go('calc')" data-en="Estimator" data-hi="कैलकुलेटर">Estimator</a>
-   <a class="cursor-pointer hover:text-blue-700" onclick="go('why')" data-en="Why Us" data-hi="हम क्यों">Why Us</a>
-   <a class="cursor-pointer hover:text-blue-700" onclick="go('renew')" data-en="Renewal" data-hi="रिन्यूअल">Renewal</a>
-   <a class="cursor-pointer hover:text-blue-700" onclick="go('faq')" data-en="FAQ" data-hi="सवाल-जवाब">FAQ</a>
-  </nav>
-  <div class="flex items-center gap-2">
-   <button id="langBtn" class="btn px-3 h-10 text-xs" onclick="toggleLang()"><i class="fas fa-language tg text-sm"></i><span id="langLabel">हिन्दी</span></button>
-   <button class="btn w-10 h-10" onclick="toggleDark()" title="Dark / Light"><i class="fas fa-moon dark:hidden text-amber-500"></i><i class="fas fa-sun hidden dark:inline text-amber-400"></i></button>
-   <a href="https://wa.me/919152058250" target="_blank" class="btn btn-g h-10 px-4 text-xs"><i class="fab fa-whatsapp text-sm"></i><span class="hidden sm:inline">WhatsApp</span></a>
-  </div>
- </div>
-</header>
+<div class="c qb"><div class="qg"><a class="q" href="#calc"><i>▣</i><span>Estimate Premium<small>Instant calculator</small></span></a><a class="q" href="#quote" data-tab="renew"><i>↻</i><span>Renew Policy<small>Get renewal help</small></span></a><a class="q" href="#quote" data-tab="claim"><i>♧</i><span>Claim Help<small>We guide you</small></span></a><a class="q" href="#contact"><i>☏</i><span>Talk to Us<small>+91 91520 58250</small></span></a></div></div>
 
-<!-- HERO -->
-<section id="home" class="sec grid lg:grid-cols-12 gap-8 items-center pt-8 md:pt-12">
- <div class="lg:col-span-7 space-y-5">
-  <span class="neu-in inline-flex items-center gap-2 px-4 py-1.5 text-[11px] font-extrabold uppercase tracking-wide tg"><i class="fas fa-bolt"></i><span data-en="Instant Policy • 15+ Insurers" data-hi="तुरंत पॉलिसी • 15+ कंपनियाँ">Instant Policy • 15+ Insurers</span></span>
-  <h1 id="heroHeadline" class="grad text-4xl md:text-6xl font-black leading-[1.08] tracking-tight">Instant Zero-Dep Car Policy Quotes</h1>
-  <p class="t2 text-sm md:text-base max-w-xl" data-en="Compare the lowest premiums, pick add-ons and get your policy in minutes. Cashless claims at 7,500+ garages across India." data-hi="सबसे कम प्रीमियम की तुलना करें, ऐड-ऑन चुनें और मिनटों में पॉलिसी पाएँ। भारत भर में 7,500+ गैरेज पर कैशलेस क्लेम।">Compare the lowest premiums, pick add-ons and get your policy in minutes. Cashless claims at 7,500+ garages across India.</p>
-  <div class="flex gap-3 overflow-x-auto hide-sb p-2 -m-2">
-   <button id="tab-car" onclick="setVehicleClass('car')" class="tab btn active flex-1 md:flex-none md:w-48 py-3 px-4 text-xs"><i class="fas fa-car"></i><span data-en="Car (4-Wheeler)" data-hi="कार (4-पहिया)">Car (4-Wheeler)</span></button>
-   <button id="tab-bike" onclick="setVehicleClass('bike')" class="tab btn flex-1 md:flex-none md:w-48 py-3 px-4 text-xs"><i class="fas fa-motorcycle"></i><span data-en="Bike / Scooter" data-hi="बाइक / स्कूटर">Bike / Scooter</span></button>
-   <button id="tab-commercial" onclick="setVehicleClass('commercial')" class="tab btn flex-1 md:flex-none md:w-48 py-3 px-4 text-xs"><i class="fas fa-truck"></i><span data-en="Commercial Fleet" data-hi="कमर्शियल गाड़ी">Commercial Fleet</span></button>
-  </div>
-  <div class="neu p-5 space-y-3 max-w-xl">
-   <input id="regNo" oninput="handleRegInput(this)" class="fld uppercase tracking-wider" placeholder="ENTER RC (e.g. MH 01 AB 1234)">
-   <input id="vehicleModel" oninput="persistFormState()" class="fld" placeholder="Vehicle Maker & Model">
-   <input id="heroMobile" oninput="persistFormState()" inputmode="numeric" maxlength="10" class="fld" placeholder="Mobile Number (optional)">
-   <button onclick="requestQuoteWhatsApp()" class="btn btn-g w-full py-4 text-sm"><i class="fab fa-whatsapp text-lg"></i><span data-en="Get Lowest Quote on WhatsApp" data-hi="व्हाट्सएप पर सबसे कम रेट प्राप्त करें">Get Lowest Quote on WhatsApp</span></button>
-  </div>
- </div>
- <div class="lg:col-span-5 neu p-6 space-y-4">
-  <div class="flex items-center gap-3"><div class="ico"><i class="fas fa-shield-halved"></i></div><div><b data-en="Your Car. Fully Protected." data-hi="आपकी गाड़ी, पूरी सुरक्षा">Your Car. Fully Protected.</b><div class="t2 text-xs" data-en="Trusted by thousands of vehicle owners" data-hi="हज़ारों गाड़ी मालिकों का भरोसा">Trusted by thousands of vehicle owners</div></div></div>
-  <div class="grid grid-cols-2 gap-3 text-center">
-   <div class="neu-in p-4"><div class="text-2xl font-black tb">30 min</div><div class="t2 text-[11px]" data-en="Cashless claim desk" data-hi="कैशलेस क्लेम डेस्क">Cashless claim desk</div></div>
-   <div class="neu-in p-4"><div class="text-2xl font-black tg">Zero Dep</div><div class="t2 text-[11px]" data-en="Full claim cover" data-hi="पूरा क्लेम कवर">Full claim cover</div></div>
-   <div class="neu-in p-4"><div class="text-2xl font-black tb">24x7</div><div class="t2 text-[11px]" data-en="Roadside assistance" data-hi="रोडसाइड असिस्टेंस">Roadside assistance</div></div>
-   <div class="neu-in p-4"><div class="text-2xl font-black tg">15+</div><div class="t2 text-[11px]" data-en="Insurer partners" data-hi="बीमा कंपनियाँ">Insurer partners</div></div>
-  </div>
-  <div class="flex flex-wrap gap-2 text-[11px] font-extrabold t2">
-   <span class="neu-s px-3 py-1"><i class="fas fa-check tg"></i> IRDAI</span><span class="neu-s px-3 py-1"><i class="fas fa-check tg"></i> <span data-en="No hidden fees" data-hi="कोई छुपी फीस नहीं">No hidden fees</span></span><span class="neu-s px-3 py-1"><i class="fas fa-check tg"></i> <span data-en="Instant PDF" data-hi="तुरंत PDF">Instant PDF</span></span>
-  </div>
- </div>
-</section>
+<section id="insurers" style="padding-bottom:40px"><div class="c"><div class="sh"><h2>18+ insurers, one place</h2><p>Our team can help you compare options from participating insurers, subject to product availability.</p></div></div><div class="mq"><div class="mt" id="ins"></div></div></section>
 
-<!-- INSURER LOGOS -->
-<section class="fade" style="padding:2rem 0">
- <p class="text-center text-xs font-black uppercase tracking-[.25em] tb" data-en="Our Insurance Partners" data-hi="हमारे बीमा पार्टनर">Our Insurance Partners</p>
- <h2 class="h2 mt-2 px-4" data-en="18+ Top Insurers, One Place" data-hi="18+ टॉप बीमा कंपनियाँ, एक जगह">18+ Top Insurers, One Place</h2>
- <p class="sub"></p>
- <div class="mq-wrap"><div class="marq" id="insStrip"></div></div>
- <div class="mq-wrap"><div class="marq rev" id="insStrip2"></div></div>
-</section>
+<section class="alt" id="calc"><div class="c"><div class="sh"><h2>Premium estimator</h2><p>Set your IDV, pick add-ons and see an indicative premium breakup instantly.</p></div>
+<div class="cg"><div class="card"><div class="rw"><span>Insured Declared Value (IDV)</span><output id="idvo"></output></div><input type="range" id="idv" aria-label="IDV">
+<div class="ad" id="ad"></div>
+<div class="rw"><span>No Claim Bonus (NCB)</span><select class="in" id="ncb" style="width:auto"><option value="0">0%</option><option>20</option><option>25</option><option>35</option><option>45</option><option>50</option></select></div></div>
+<div class="card"><div class="note" style="margin:0;text-align:center;font-weight:800">Net annual premium (indicative)</div><div class="tot" id="tot"></div><div class="bk" id="bk"></div>
+<button class="btn bg" style="width:100%;margin-bottom:10px" id="lock" type="button">💬 Share this plan on WhatsApp</button><button class="btn bo" style="width:100%" id="slipb" type="button">⬇ Download quotation slip</button>
+<p class="note">Indicative estimate only. Final premium depends on insurer, vehicle age, city and underwriting.</p></div></div></div></section>
 
-<!-- STATS -->
-<section class="sec fade"><div id="stats" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div></section>
+<section id="products"><div class="c"><div class="sh"><h2>Protection for every part of life</h2><p>Pick a category and tell us what you need. Availability and terms depend on the insurer.</p></div><div class="pg" id="pg"></div></div></section>
 
-<!-- CALCULATOR -->
-<section id="calc" class="sec fade">
- <h2 class="h2" data-en="Premium Estimator" data-hi="प्रीमियम कैलकुलेटर">Premium Estimator</h2>
- <p class="sub" data-en="Adjust IDV, pick add-ons and see your premium breakup instantly." data-hi="IDV बदलें, ऐड-ऑन चुनें और प्रीमियम तुरंत देखें।">Adjust IDV, pick add-ons and see your premium breakup instantly.</p>
- <div class="grid lg:grid-cols-12 gap-6">
-  <div class="lg:col-span-7 neu p-6 space-y-6">
-   <div class="space-y-3">
-    <div class="flex justify-between text-sm font-extrabold"><span data-en="Insured Declared Value (IDV)" data-hi="वाहन का घोषित मूल्य (IDV)">Insured Declared Value (IDV)</span><span id="idvValDisplay" class="tb text-base font-black">₹6,00,000</span></div>
-    <input type="range" id="idvInput" min="50000" max="3000000" step="25000" value="600000" oninput="calculatePolicyBreakup()">
-   </div>
-   <div class="grid sm:grid-cols-2 gap-3" id="addons"></div>
-   <div class="flex items-center justify-between neu-in p-4"><span class="text-sm font-extrabold" data-en="No Claim Bonus (NCB)" data-hi="नो क्लेम बोनस (NCB)">No Claim Bonus (NCB)</span>
-    <select id="ncb" onchange="calculatePolicyBreakup()" class="fld" style="width:auto"><option value="0">0%</option><option value="20">20%</option><option value="25">25%</option><option value="35">35%</option><option value="45">45%</option><option value="50">50%</option></select></div>
-  </div>
-  <div class="lg:col-span-5 neu p-6 space-y-4">
-   <div class="text-center"><span class="t2 text-xs font-extrabold uppercase" data-en="Net Annual Premium" data-hi="सालाना प्रीमियम">Net Annual Premium</span><div class="text-4xl font-black tg" id="livePremiumDisplay">₹0 / yr</div></div>
-   <div id="breakup" class="neu-in p-4 space-y-2 text-sm font-bold"></div>
-   <button onclick="requestQuoteWhatsApp()" class="btn btn-p w-full py-3.5 text-sm"><i class="fab fa-whatsapp"></i><span data-en="Lock Plan" data-hi="प्लान चुनें">Lock Plan</span></button>
-   <button onclick="openQuote()" class="btn w-full py-3.5 text-sm"><i class="fas fa-file-pdf text-rose-600"></i><span data-en="Download Quotation Slip" data-hi="कोटेशन स्लिप डाउनलोड करें">Download Quotation Slip</span></button>
-   <p class="t2 text-[11px] text-center" data-en="Indicative estimate only. Final premium depends on insurer, vehicle age & city." data-hi="यह केवल अनुमान है। अंतिम प्रीमियम कंपनी, गाड़ी की उम्र और शहर पर निर्भर करता है।">Indicative estimate only. Final premium depends on insurer, vehicle age & city.</p>
-  </div>
- </div>
-</section>
+<section class="alt"><div class="c"><div class="sh"><h2>From enquiry to assistance</h2><p>Three simple steps. A policy is issued only through the insurer's authorised process.</p></div>
+<div class="sg"><div class="st"><b>1</b><h3>Tell us what you need</h3><p>Choose a category and share basic details, or send your vehicle number on WhatsApp.</p></div><div class="st"><b>2</b><h3>Compare your options</h3><p>We explain cover, add-ons and premiums from relevant insurers.</p></div><div class="st"><b>3</b><h3>Get ongoing support</h3><p>Help with renewals and guidance through the insurer's claim process.</p></div></div></div></section>
 
-<!-- HOW IT WORKS -->
-<section class="sec fade">
- <h2 class="h2" data-en="Policy in 3 Easy Steps" data-hi="3 आसान स्टेप में पॉलिसी">Policy in 3 Easy Steps</h2><p class="sub"></p>
- <div id="steps" class="grid md:grid-cols-3 gap-5"></div>
-</section>
+<section id="quote"><div class="c fl"><div><h2>How can we help?</h2><p>Send an enquiry and we will call you back or reply on WhatsApp. Please do not enter bank, card or identity numbers in this form.</p><p><b>Call:</b> <a href="tel:+919152058250">+91 91520 58250</a><br><b>WhatsApp:</b> <a href="https://wa.me/919152058250" target="_blank" rel="noopener">wa.me/919152058250</a><br><b>Location:</b> Mumbai, India</p></div>
+<div class="card"><div class="tabs" id="tabs"><button class="on" data-t="Quote" type="button">Get a Quote</button><button data-t="Renewal" type="button">Renew Policy</button><button data-t="Claim" type="button">Claim Help</button></div>
+<form id="lf"><div class="fg">
+<div class="fd"><label for="n">Full name *</label><input class="in" id="n" name="name" required autocomplete="name"></div>
+<div class="fd"><label for="m">Mobile number *</label><input class="in" id="m" name="mobile" required inputmode="numeric" maxlength="10" pattern="[6-9][0-9]{9}" title="10-digit Indian mobile number" autocomplete="tel"></div>
+<div class="fd"><label for="e">Email</label><input class="in" id="e" name="email" type="email" autocomplete="email"></div>
+<div class="fd"><label for="it">Insurance type *</label><select class="in" id="it" name="insuranceType" required><option value="">Select</option><option>Car Insurance</option><option>Two-Wheeler Insurance</option><option>Health Insurance</option><option>Life Insurance</option><option>Commercial Vehicle Insurance</option><option>Home Insurance</option><option>Travel Insurance</option><option>Business Insurance</option><option>Other</option></select></div>
+<div class="fd"><label for="ct">City *</label><input class="in" id="ct" name="city" required></div>
+<div class="fd ex hide"><label for="ci">Current insurer</label><input class="in" id="ci" name="insurer"></div>
+<div class="fd ex hide"><label for="pn">Policy number</label><input class="in" id="pn" name="policyNumber"></div>
+<div class="fd rn hide"><label for="xd">Policy expiry date</label><input class="in" id="xd" name="expiryDate" type="date"></div>
+<div class="fd w"><label for="ms">Message</label><textarea class="in" id="ms" name="message" placeholder="Optional. Do not share sensitive details."></textarea></div>
+<div class="fd w"><label style="display:flex;gap:9px;align-items:flex-start;font-weight:600"><input type="checkbox" name="consent" required style="width:auto;margin-top:3px"> I agree to be contacted by PolicyNest Secure about this enquiry.</label></div>
+<div class="fd w"><button class="btn bp" type="submit" id="sb">Send enquiry</button></div></div>
+<p class="note">This form requests a callback. It does not issue a policy. Claim decisions are made by the insurer.</p><div class="ok" id="ok" role="status"></div></form></div></div></section>
 
-<!-- WHY US -->
-<section id="why" class="sec fade">
- <h2 class="h2" data-en="Why PolicyNest?" data-hi="PolicyNest क्यों?">Why PolicyNest?</h2><p class="sub"></p>
- <div id="features" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"></div>
-</section>
+<section class="alt" id="faq"><div class="c"><div class="sh"><h2>Frequently asked questions</h2></div><div class="fq" id="fq"></div></div></section>
 
-<!-- CLAIM TIMELINE -->
-<section class="sec fade">
- <h2 class="h2" data-en="Hassle-Free Claim Process" data-hi="आसान क्लेम प्रक्रिया">Hassle-Free Claim Process</h2><p class="sub"></p>
- <div id="claims" class="grid md:grid-cols-4 gap-5"></div>
-</section>
+<section id="contact" style="padding:56px 0"><div class="c"><div class="cta"><div><h2>Let's find the right next step.</h2><p>Call or WhatsApp +91 91520 58250, or send an enquiry above.</p></div><a class="btn bg" href="https://wa.me/919152058250" target="_blank" rel="noopener">💬 Chat on WhatsApp</a></div></div></section>
+</main>
 
-<!-- RENEWAL / LEAD -->
-<section id="renew" class="sec fade">
- <div class="neu p-6 md:p-10 grid lg:grid-cols-2 gap-8 items-center">
-  <div class="space-y-3">
-   <span class="neu-in inline-block px-4 py-1.5 text-[11px] font-extrabold uppercase tg"><i class="fas fa-bell"></i> <span data-en="Renewal Reminder" data-hi="रिन्यूअल रिमाइंडर">Renewal Reminder</span></span>
-   <h2 class="text-2xl md:text-3xl font-black" data-en="Never miss your policy expiry" data-hi="पॉलिसी एक्सपायरी कभी न चूकें">Never miss your policy expiry</h2>
-   <p class="t2 text-sm" data-en="Share your details and expiry date. We'll remind you before it lapses and get you the best renewal quote." data-hi="अपनी डिटेल और एक्सपायरी डेट दें। हम पहले ही याद दिलाएँगे और सबसे अच्छा रिन्यूअल कोट देंगे।">Share your details and expiry date. We'll remind you before it lapses and get you the best renewal quote.</p>
-  </div>
-  <div class="space-y-3">
-   <input id="lName" class="fld" placeholder="Full Name">
-   <input id="lMobile" class="fld" inputmode="numeric" maxlength="10" placeholder="Mobile Number (10 digits)">
-   <input id="lReg" class="fld uppercase" placeholder="Vehicle Number (MH01AB1234)">
-   <label class="t2 text-xs block"><span data-en="Policy Expiry Date" data-hi="पॉलिसी एक्सपायरी डेट">Policy Expiry Date</span><input id="lExp" type="date" class="fld mt-1"></label>
-   <button onclick="submitLead('renewal')" class="btn btn-p w-full py-3.5 text-sm"><i class="fas fa-paper-plane"></i><span data-en="Remind Me & Get Quote" data-hi="रिमाइंड करें और कोट पाएँ">Remind Me & Get Quote</span></button>
-  </div>
- </div>
-</section>
+<footer><div class="c"><div class="fgd"><div><b style="font-size:18px">PolicyNest Secure</b><p>Insurance assistance made simpler. Quotes, renewals and claim guidance.</p></div>
+<div><b>Explore</b><a href="#calc">Estimator</a><a href="#products">Products</a><a href="#faq">FAQs</a><a href="crm.html">CRM Login</a></div>
+<div><b>Contact</b><a href="tel:+919152058250">+91 91520 58250</a><a href="https://wa.me/919152058250" target="_blank" rel="noopener">WhatsApp</a><span>Mumbai, India</span></div>
+<div><b>Legal</b><span>IRDAI Reg. Licensed Agency</span><span>Privacy Policy</span><span>Terms &amp; Conditions</span></div></div>
+<div class="dis">© <span style="display:inline" id="yr"></span> PolicyNest Insurance Advisory. Insurance is the subject matter of solicitation. PolicyNest Secure is an insurance intermediary, not an insurer. Premiums shown are indicative; coverage, underwriting, policy issuance and claim decisions rest with the insurer.</div></div></footer>
 
-<!-- TESTIMONIALS -->
-<section class="sec fade">
- <h2 class="h2" data-en="What Customers Say" data-hi="ग्राहक क्या कहते हैं">What Customers Say</h2><p class="sub"></p>
- <div id="reviews" class="grid md:grid-cols-3 gap-5"></div>
-</section>
-
-<!-- FAQ -->
-<section id="faq" class="sec fade" style="max-width:52rem">
- <h2 class="h2" data-en="Frequently Asked Questions" data-hi="अक्सर पूछे जाने वाले सवाल">Frequently Asked Questions</h2><p class="sub"></p>
- <div id="faqs" class="space-y-4"></div>
-</section>
-
-<!-- FOOTER -->
-<footer class="mt-8 pt-10 pb-6" style="background:var(--hdr);border-top:1px solid var(--bd);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)">
- <div class="max-w-7xl mx-auto px-4 md:px-8 grid md:grid-cols-4 gap-6 text-sm">
-  <div class="space-y-2"><div class="flex items-center gap-2"><div class="logo-c"><img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-" alt="PolicyNest Logo"></div><b class="text-base">PolicyNest Secure</b></div><p class="t2 text-xs" data-en="Your trusted motor insurance advisory. Instant quotes, easy claims." data-hi="आपका भरोसेमंद मोटर बीमा सलाहकार। तुरंत कोट, आसान क्लेम।">Your trusted motor insurance advisory. Instant quotes, easy claims.</p></div>
-  <div class="space-y-1 font-bold"><b class="tb" data-en="Quick Links" data-hi="क्विक लिंक">Quick Links</b><a class="block cursor-pointer t2" onclick="go('calc')" data-en="Estimator" data-hi="कैलकुलेटर">Estimator</a><a class="block cursor-pointer t2" onclick="go('renew')" data-en="Renewal" data-hi="रिन्यूअल">Renewal</a><a href="crm.html" class="block t2">CRM Login</a></div>
-  <div class="space-y-1 font-bold"><b class="tb" data-en="Contact" data-hi="संपर्क">Contact</b><a href="tel:+919152058250" class="block t2"><i class="fas fa-phone"></i> +91 91520 58250</a><a href="https://wa.me/919152058250" target="_blank" class="block t2"><i class="fab fa-whatsapp"></i> WhatsApp</a><span class="block t2"><i class="fas fa-location-dot"></i> Mumbai, India</span></div>
-  <div class="space-y-1 font-bold"><b class="tb" data-en="Legal" data-hi="कानूनी">Legal</b><span class="block t2">IRDAI Reg. Licensed Agency</span><span class="block t2">Privacy Policy</span><span class="block t2">Terms & Conditions</span></div>
- </div>
- <p class="text-center t2 text-[11px] mt-6 px-4">© <span id="yr"></span> PolicyNest Insurance Advisory. Insurance is the subject matter of solicitation. Premiums shown are indicative.</p>
-</footer>
-
-<a id="waFab" href="https://wa.me/919152058250" target="_blank" class="btn btn-g" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-
-<!-- QUOTATION MODAL -->
-<div id="qModal" onclick="if(event.target===this)closeQuote()">
- <div class="neu p-5 w-full max-w-md max-h-[90vh] overflow-y-auto">
-  <div id="qSlip" class="bg-white text-black p-5 rounded-xl text-sm space-y-2"></div>
-  <div class="flex gap-3 mt-4 no-print"><button class="btn btn-p flex-1 py-3 text-sm" onclick="window.print()"><i class="fas fa-print"></i> Print / Save PDF</button><button class="btn flex-1 py-3 text-sm" onclick="closeQuote()">Close</button></div>
- </div>
-</div>
+<a id="wa" class="btn bg" href="https://wa.me/919152058250" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+<div id="md" role="dialog" aria-modal="true"><div class="mb"><div id="slip"></div><div style="display:flex;gap:10px;margin-top:16px"><button class="btn bp" style="flex:1" onclick="print()" type="button">Print / Save PDF</button><button class="btn bo" style="flex:1" id="mc" type="button">Close</button></div></div></div>
 
 <script>
-const WA='919152058250';
-const SHEET_URL=''; // optional: paste your Google Apps Script web-app URL to save leads to a sheet
-let currentVehicleType='car',currentLang='en',calc={};
-const L=(en,hi)=>currentLang==='hi'?hi:en;
-
-const VT={
- car:{od:.016,tp:3416,min:100000,max:3000000,step:25000,val:600000,head:['Instant Zero-Dep Car Policy Quotes','सस्ती ज़ीरो-डेप कार बीमा कोटेशन'],label:'Car'},
- bike:{od:.019,tp:714,min:20000,max:400000,step:5000,val:80000,head:['Instant Two-Wheeler Policy Quotes','तुरंत बाइक / स्कूटर बीमा कोटेशन'],label:'Bike'},
- commercial:{od:.022,tp:7897,min:200000,max:5000000,step:50000,val:800000,head:['Commercial Fleet Insurance Quotes','कमर्शियल गाड़ी बीमा कोटेशन'],label:'Commercial'}
-};
-const ADD=[
- {k:'zd',en:'Zero Depreciation',hi:'ज़ीरो डेप्रिसिएशन',r:.004},
- {k:'ep',en:'Engine Protect',hi:'इंजन प्रोटेक्ट',r:.0015},
- {k:'co',en:'Consumables Cover',hi:'कंज़्यूमेबल्स कवर',r:.001},
- {k:'rsa',en:'24x7 Roadside Assistance',hi:'24x7 रोडसाइड असिस्टेंस',f:299},
- {k:'pa',en:'Personal Accident Cover',hi:'पर्सनल एक्सीडेंट कवर',f:330}
-];
-const INS=[{n:'ICICI Lombard',c:'#E8590C'},{n:'HDFC Ergo',c:'#D71920'},{n:'Bajaj Allianz',c:'#0A5FB4'},{n:'Tata AIG',c:'#0072BC'},{n:'Digit',c:'#F58220'},{n:'Reliance General',c:'#0054A6'},{n:'SBI General',c:'#1E88E5'},{n:'Royal Sundaram',c:'#0B3C8D'},{n:'Chola MS',c:'#C8102E'},{n:'Future Generali',c:'#E30613'},{n:'Kotak General',c:'#ED1C24'},{n:'Liberty General',c:'#1A4A9C'},{n:'New India Assurance',c:'#00539B'},{n:'National Insurance',c:'#006B3F'},{n:'Oriental Insurance',c:'#B5121B'},{n:'United India',c:'#1B5E20'},{n:'Zuno General',c:'#7B1FA2'},{n:'IFFCO Tokio',c:'#00796B'}];
-// To use official logos: add img:'https://your-site/logos/icici.png' to any entry above. Wordmark shows automatically if the image fails.
-const logo=i=>'<div class="logo-t">'+(i.img?'<img src="'+i.img+'" alt="'+i.n+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">':'')+'<div class="wm" style="'+(i.img?'display:none':'')+'"><span class="mono" style="background:linear-gradient(135deg,'+i.c+',#00000055);background-color:'+i.c+';--mc:'+i.c+'">'+i.n[0]+'</span><span class="nm">'+i.n+'<small>Partner Insurer</small></span></div></div>';
-const STATS=[[10000,'+','Policies Issued','पॉलिसी जारी'],[7500,'+','Cashless Garages','कैशलेस गैरेज'],[15,'+','Insurer Partners','बीमा कंपनियाँ'],[98,'%','Claim Support Rate','क्लेम सपोर्ट रेट']];
-const STEPS=[['fa-keyboard','Enter vehicle number','गाड़ी नंबर डालें','Add your RC number and model.','RC नंबर और मॉडल डालें।'],['fa-sliders','Choose your plan','प्लान चुनें','Set IDV, pick add-ons & compare.','IDV, ऐड-ऑन चुनें और तुलना करें।'],['fa-file-circle-check','Get policy instantly','पॉलिसी तुरंत पाएँ','Pay online, policy PDF on WhatsApp.','ऑनलाइन पेमेंट, पॉलिसी WhatsApp पर।']];
-const FEAT=[['fa-bolt','Instant Policy','तुरंत पॉलिसी','Policy issued in minutes, no paperwork.','मिनटों में पॉलिसी, कोई कागज़ी काम नहीं।'],['fa-wrench','Cashless Garages','कैशलेस गैरेज','7,500+ network garages across India.','पूरे भारत में 7,500+ गैरेज।'],['fa-tags','Lowest Premium','सबसे कम प्रीमियम','Compare 15+ insurers for best price.','15+ कंपनियों में सबसे सस्ता।'],['fa-headset','24x7 Support','24x7 सपोर्ट','Real people on call & WhatsApp.','कॉल और WhatsApp पर असली सपोर्ट।']];
-const CLAIM=[['fa-phone-volume','Call or WhatsApp us','हमें कॉल / WhatsApp करें'],['fa-camera','Share photos & docs','फोटो और दस्तावेज़ भेजें'],['fa-car-burst','Survey & garage approval','सर्वे और गैरेज अप्रूवल'],['fa-circle-check','Repair & settlement','मरम्मत और सेटलमेंट']];
-const REV=[['Rahul S.','Mumbai','Got my renewal done in 10 minutes and saved a good amount on premium. Very smooth.','रिन्यूअल 10 मिनट में हुआ और प्रीमियम भी बचा। बहुत आसान।'],['Priya M.','Pune','Claim support was quick. They guided me at every step till the car was repaired.','क्लेम में तुरंत मदद मिली। मरम्मत तक हर स्टेप पर गाइड किया।'],['Imran K.','Thane','Fleet insurance for my 6 trucks handled in one go. Great service and pricing.','मेरे 6 ट्रकों का बीमा एक साथ हो गया। बढ़िया सर्विस।']];
-const FAQ=[['What is IDV?','IDV क्या है?','Insured Declared Value is the maximum amount the insurer pays if your vehicle is stolen or totally damaged. It is the market value minus depreciation.','IDV वह अधिकतम रकम है जो चोरी या पूरी तरह नुकसान पर मिलती है। यह गाड़ी की बाज़ार कीमत में से डेप्रिसिएशन घटाकर तय होती है।'],['What is Zero Depreciation cover?','ज़ीरो डेप क्या है?','It pays the full cost of replaced parts at claim time without deducting depreciation. Best for new cars.','यह क्लेम में बदले गए पार्ट्स की पूरी कीमत देता है, डेप्रिसिएशन नहीं कटता। नई गाड़ियों के लिए बढ़िया।'],['What is NCB?','NCB क्या है?','No Claim Bonus is a discount of 20-50% on own-damage premium for every claim-free year. It belongs to you and moves with you if you change insurers.','हर क्लेम-फ्री साल पर own-damage प्रीमियम में 20-50% छूट मिलती है। यह आपकी है, कंपनी बदलने पर भी साथ रहती है।'],['How fast can I get my policy?','पॉलिसी कितनी जल्दी मिलेगी?','Most policies are issued within minutes of payment and sent on WhatsApp / email.','ज़्यादातर पॉलिसी पेमेंट के कुछ मिनट में WhatsApp / ईमेल पर आ जाती है।'],['How does cashless claim work?','कैशलेस क्लेम कैसे होता है?','Take your car to a network garage, we coordinate survey and approval, and the insurer pays the garage directly. You pay only the deductible.','गाड़ी नेटवर्क गैरेज ले जाएँ, सर्वे और अप्रूवल हम कराते हैं, बीमा कंपनी सीधे गैरेज को पेमेंट करती है। आप सिर्फ डिडक्टिबल देते हैं।']];
-
-function go(id){const el=document.getElementById(id);if(id==='home')window.scrollTo({top:0,behavior:'smooth'});else if(el)el.scrollIntoView({behavior:'smooth'})}
-function navigateTab(t){go({home:'home',calc:'calc',partner:'partner'}[t])}
-function triggerHaptic(d=25){if('vibrate' in navigator){try{navigator.vibrate(d)}catch(e){}}}
-function showToast(m,type='success'){triggerHaptic(30);const b=document.getElementById('toasts'),t=document.createElement('div');t.className='px-4 py-2.5 rounded-2xl text-xs font-bold flex items-center gap-2 text-white pointer-events-auto '+(type==='error'?'bg-rose-600':'bg-emerald-600');t.innerHTML='<i class="fas '+(type==='error'?'fa-circle-exclamation':'fa-circle-check')+'"></i><span>'+m+'</span>';b.appendChild(t);setTimeout(()=>t.remove(),3200)}
-function toggleDrawer(){document.getElementById('drawer').classList.toggle('open')}
-function toggleDark(){const d=document.documentElement.classList.toggle('dark');localStorage.setItem('pn_theme',d?'dark':'light');document.querySelector('meta[name=theme-color]').content=d?'#06020F':'#F7F3FF'}
-function toggleLang(){triggerHaptic();currentLang=currentLang==='en'?'hi':'en';localStorage.setItem('pn_lang',currentLang);applyLanguage(currentLang)}
-function applyLanguage(l){
- document.documentElement.lang=l;
- document.querySelectorAll('[data-en]').forEach(e=>{const t=e.getAttribute('data-'+l);if(t)e.innerText=t});
- document.getElementById('regNo').placeholder=l==='hi'?'गाड़ी नंबर दर्ज करें (उदा. MH 01 AB 1234)':'ENTER RC (e.g. MH 01 AB 1234)';
- document.getElementById('vehicleModel').placeholder=l==='hi'?'गाड़ी का नाम व मॉडल':'Vehicle Maker & Model';
- document.getElementById('langLabel').innerText=l==='hi'?'English':'हिन्दी';
- renderAll();calculatePolicyBreakup();
-}
-function handleRegInput(i){let v=i.value.toUpperCase().replace(/[^A-Z0-9]/g,'');if(v.length>10)v=v.substring(0,10);i.value=v;persistFormState()}
-function persistFormState(){try{localStorage.setItem('pn_form',JSON.stringify({reg:regNo.value,model:vehicleModel.value,mob:heroMobile.value}))}catch(e){}}
-function restoreFormState(){try{const f=JSON.parse(localStorage.getItem('pn_form')||'{}');regNo.value=f.reg||'';vehicleModel.value=f.model||'';heroMobile.value=f.mob||''}catch(e){}}
-
-function setVehicleClass(type){
- currentVehicleType=type;const v=VT[type];
- ['car','bike','commercial'].forEach(t=>document.getElementById('tab-'+t).classList.toggle('active',t===type));
- const s=idvInput;s.min=v.min;s.max=v.max;s.step=v.step;s.value=v.val;
- heroHeadline.innerText=L(v.head[0],v.head[1]);
- calculatePolicyBreakup();
-}
-function inr(n){return '₹'+Math.round(n).toLocaleString('en-IN')}
-function renderAddons(){
- const keep={};document.querySelectorAll('#addons input').forEach(i=>keep[i.dataset.k]=i.checked);
- addons.innerHTML=ADD.map(a=>'<label class="neu-in p-3 flex items-center justify-between gap-3 cursor-pointer"><span class="text-sm font-extrabold">'+L(a.en,a.hi)+'<span class="block t2 text-[11px]">'+(a.r?(a.r*100).toFixed(2)+'% of IDV':inr(a.f))+'</span></span><input type="checkbox" class="sw" data-k="'+a.k+'" '+(keep[a.k]?'checked':'')+' onchange="calculatePolicyBreakup()"></label>').join('');
-}
-function calculatePolicyBreakup(){
- const v=VT[currentVehicleType],idv=parseInt(idvInput.value);
- idvValDisplay.innerText=inr(idv).replace(/^₹/,'₹');
- const od=idv*v.od,ncbPct=parseInt(ncb.value),ncbAmt=od*ncbPct/100;
- let add=0;const chosen=[];
- document.querySelectorAll('#addons input:checked').forEach(i=>{const a=ADD.find(x=>x.k===i.dataset.k);const amt=a.r?idv*a.r:a.f;add+=amt;chosen.push(L(a.en,a.hi))});
- const tp=v.tp,net=od-ncbAmt+add,gst=(net+tp)*.18,total=net+tp+gst;
- calc={idv,od,ncbPct,ncbAmt,add,tp,gst,total,chosen,type:v.label};
- livePremiumDisplay.innerText=inr(total)+' / yr';
- const row=(a,b,c)=>'<div class="flex justify-between '+(c||'')+'"><span class="t2">'+a+'</span><span>'+b+'</span></div>';
- breakup.innerHTML=row(L('Own Damage (OD)','ओन डैमेज (OD)'),inr(od))+(ncbPct?row('NCB '+ncbPct+'%','- '+inr(ncbAmt),'tg'):'')+row(L('Add-ons','ऐड-ऑन'),inr(add))+row(L('Third Party (TP)','थर्ड पार्टी (TP)'),inr(tp))+row('GST 18%',inr(gst))+'<div class="flex justify-between text-base font-black pt-2" style="border-top:1px solid var(--sd)"><span>Total</span><span class="tg">'+inr(total)+'</span></div>';
-}
-function requestQuoteWhatsApp(){
- const reg=regNo.value.trim().toUpperCase();
- if(!reg){showToast(L('Please enter Vehicle Registration Number','कृपया गाड़ी का रजिस्ट्रेशन नंबर दर्ज करें'),'error');regNo.focus();go('home');return}
- const m='Hi PolicyNest, Vehicle No: '+reg+(vehicleModel.value?', Model: '+vehicleModel.value:'')+(heroMobile.value?', Mobile: '+heroMobile.value:'')+', Type: '+calc.type+', IDV: '+inr(calc.idv)+(calc.chosen.length?', Add-ons: '+calc.chosen.join(' + '):'')+', Est. Premium: '+inr(calc.total);
- window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(m),'_blank');
-}
-function openQuote(){
- const d=new Date().toLocaleDateString('en-IN'),r=(a,b)=>'<div class="flex justify-between"><span>'+a+'</span><b>'+b+'</b></div>';
- qSlip.innerHTML='<div class="text-center"><b class="text-lg">PolicyNest Secure</b><div class="text-xs">IRDAI Reg. Licensed Agency • Motor Insurance Quotation</div></div><hr>'+r('Date',d)+r('Vehicle No',regNo.value||'-')+r('Model',vehicleModel.value||'-')+r('Type',calc.type)+r('IDV',inr(calc.idv))+'<hr>'+r('Own Damage',inr(calc.od))+(calc.ncbPct?r('NCB '+calc.ncbPct+'%','- '+inr(calc.ncbAmt)):'')+r('Add-ons'+(calc.chosen.length?' ('+calc.chosen.join(', ')+')':''),inr(calc.add))+r('Third Party',inr(calc.tp))+r('GST 18%',inr(calc.gst))+'<hr><div class="flex justify-between text-base"><b>Net Annual Premium</b><b>'+inr(calc.total)+'</b></div><p class="text-[11px] pt-2">Indicative quotation, valid for 7 days. Final premium subject to insurer underwriting. Contact: +91 91520 58250</p>';
- qModal.classList.add('open');
-}
-function closeQuote(){qModal.classList.remove('open')}
-
-function submitLead(type){
- let o;
- if(type==='renewal')o={type,name:lName.value.trim(),mobile:lMobile.value.trim(),reg:lReg.value.trim().toUpperCase(),expiry:lExp.value};
- else return;
- if(!o.name){showToast(L('Please enter your name','कृपया अपना नाम दर्ज करें'),'error');return}
- if(!/^[6-9]\d{9}$/.test(o.mobile)){showToast(L('Enter a valid 10-digit mobile number','सही 10 अंकों का मोबाइल नंबर दर्ज करें'),'error');return}
- o.time=new Date().toISOString();
- try{const a=JSON.parse(localStorage.getItem('pn_leads')||'[]');a.push(o);localStorage.setItem('pn_leads',JSON.stringify(a))}catch(e){}
- if(SHEET_URL){try{fetch(SHEET_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(o)})}catch(e){}}
- const m=type==='renewal'?'Hi PolicyNest, Renewal request. Name: '+o.name+', Mobile: '+o.mobile+', Vehicle: '+o.reg+', Expiry: '+o.expiry:'Hi PolicyNest, I want to become a POSP Partner. Name: '+o.name+', Mobile: '+o.mobile+', City: '+o.city;
- showToast(L('Details saved! Opening WhatsApp...','डिटेल सेव हुई! WhatsApp खुल रहा है...'));
- window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(m),'_blank');
-}
-
-function renderAll(){
- const card=(i,t,d)=>'<div class="neu p-6 space-y-3"><div class="ico"><i class="fas '+i+'"></i></div><b class="block text-base">'+t+'</b><p class="t2 text-sm">'+d+'</p></div>';
- const h=currentLang==='hi';
- {const a=INS.slice(0,9).map(logo).join(''),b=INS.slice(9).map(logo).join('');insStrip.innerHTML=a+a;insStrip2.innerHTML=b+b}
- stats.innerHTML=STATS.map(s=>'<div class="neu p-5 text-center"><div class="text-3xl md:text-4xl font-black tb"><span class="cnt" data-to="'+s[0]+'">'+s[0].toLocaleString('en-IN')+'</span>'+s[1]+'</div><div class="t2 text-xs font-extrabold uppercase mt-1">'+(h?s[3]:s[2])+'</div></div>').join('');
- steps.innerHTML=STEPS.map((s,i)=>card(s[0],(i+1)+'. '+(h?s[2]:s[1]),h?s[4]:s[3])).join('');
- features.innerHTML=FEAT.map(s=>card(s[0],h?s[2]:s[1],h?s[4]:s[3])).join('');
- claims.innerHTML=CLAIM.map((s,i)=>'<div class="neu p-5 text-center space-y-3"><div class="ico mx-auto"><i class="fas '+s[0]+'"></i></div><div class="tb font-black text-xs">STEP '+(i+1)+'</div><b class="block text-sm">'+(h?s[2]:s[1])+'</b></div>').join('');
- reviews.innerHTML=REV.map(r=>'<div class="neu p-6 space-y-3"><div class="text-amber-500 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-sm font-semibold">“'+(h?r[3]:r[2])+'”</p><div class="text-xs"><b>'+r[0]+'</b> <span class="t2">• '+r[1]+'</span></div></div>').join('');
- faqs.innerHTML=FAQ.map(f=>'<div class="faq neu p-5 cursor-pointer" onclick="this.classList.toggle(\'open\')"><div class="flex justify-between items-center gap-3 font-extrabold text-sm"><span>'+(h?f[1]:f[0])+'</span><i class="fas fa-chevron-down tb"></i></div><div class="faq-a t2 text-sm pt-3">'+(h?f[3]:f[2])+'</div></div>').join('');
- renderAddons();observeFade();
-}
-function observeFade(){
- const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
- document.querySelectorAll('.fade:not(.in)').forEach(el=>io.observe(el));
-}
-
-// INIT
-(function(){
- yr.innerText=new Date().getFullYear();
- try{if(localStorage.getItem('pn_theme')==='dark'){document.documentElement.classList.add('dark');document.querySelector('meta[name=theme-color]').content='#06020F'}
-  currentLang=localStorage.getItem('pn_lang')||'en'}catch(e){}
- renderAll();restoreFormState();setVehicleClass('car');
- if(currentLang==='hi')applyLanguage('hi');
- setTimeout(()=>document.querySelectorAll('.fade').forEach(e=>{const r=e.getBoundingClientRect();if(r.top<innerHeight)e.classList.add('in')}),50);
- window.addEventListener('online',()=>showToast('Back online'));
- window.addEventListener('offline',()=>showToast('Offline: calculator still works','error'));
-})();
+const WA='919152058250',SHEET_URL='';/* paste Google Apps Script web-app URL to save enquiries to a sheet */
+const $=i=>document.getElementById(i),inr=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+const VT={car:{od:.016,tp:3416,min:100000,max:3000000,step:25000,val:600000,l:'Car'},bike:{od:.019,tp:714,min:20000,max:400000,step:5000,val:80000,l:'Bike'},commercial:{od:.022,tp:7897,min:200000,max:5000000,step:50000,val:800000,l:'Commercial'}};
+const ADD=[['Zero Depreciation',.004],['Engine Protect',.0015],['Consumables Cover',.001],['24x7 Roadside Assistance',0,299],['Personal Accident Cover',0,330]];
+const INS='ICICI Lombard|#E8590C,HDFC Ergo|#D71920,Bajaj Allianz|#0A5FB4,Tata AIG|#0072BC,Digit|#F58220,Reliance General|#0054A6,SBI General|#1E88E5,Royal Sundaram|#0B3C8D,Chola MS|#C8102E,Future Generali|#E30613,Kotak General|#ED1C24,Liberty General|#1A4A9C,New India Assurance|#00539B,National Insurance|#006B3F,Oriental Insurance|#B5121B,United India|#1B5E20,Zuno General|#7B1FA2,IFFCO Tokio|#00796B'.split(',').map(s=>s.split('|'));
+const PR=[['🚗','Car Insurance','Cover options for your car, plus renewal help.'],['🏍️','Two-Wheeler Insurance','Protection for your bike or scooter.'],['❤️','Health Insurance','Individual and family health plans.'],['🛡️','Life Insurance','Long-term financial security options.'],['🚚','Commercial Vehicle Insurance','Goods, passenger and business vehicles.'],['🏠','Home Insurance','Protect your home and belongings.'],['✈️','Travel Insurance','Domestic and international trips.'],['🏢','Business Insurance','Cover for your business and workplace.']];
+const FAQ=[['What is IDV?','Insured Declared Value is the most the insurer pays if your vehicle is stolen or totally damaged. It is the market value minus depreciation.'],['What is Zero Depreciation cover?','It pays the full cost of replaced parts at claim time without deducting depreciation. It is popular for newer cars.'],['What is NCB?','No Claim Bonus is a discount of 20-50% on own-damage premium for each claim-free year. It stays with you if you change insurers.'],['Does an enquiry buy a policy?','No. An enquiry only requests a callback. A policy is issued through the insurer\'s authorised process.'],['Can you settle my claim?','No. The insurer assesses and settles claims. We guide you through the process.'],['How do I get a motor quote fast?','Enter your vehicle number above and tap Get Quote on WhatsApp.']];
+let vt='car',tabT='Quote';
+const lg=i=>'<div class="lg"><b style="background:'+i[1]+'">'+i[0][0]+'</b>'+i[0]+'</div>';
+$('ins').innerHTML=INS.map(lg).join('')+INS.map(lg).join('');
+$('pg').innerHTML=PR.map(p=>'<div class="p"><i>'+p[0]+'</i><h3>'+p[1]+'</h3><p>'+p[2]+'</p><a href="#quote" data-p="'+p[1]+'">Get a quote →</a></div>').join('');
+$('fq').innerHTML=FAQ.map(f=>'<details><summary>'+f[0]+'</summary><p>'+f[1]+'</p></details>').join('');
+$('ad').innerHTML=ADD.map((a,i)=>'<label><span>'+a[0]+'<small>'+(a[1]?(a[1]*100).toFixed(2)+'% of IDV':inr(a[2]))+'</small></span><input type="checkbox" data-i="'+i+'"></label>').join('');
+$('yr').textContent=new Date().getFullYear();
+let C={};
+function calc(){const v=VT[vt],idv=+$('idv').value,od=idv*v.od,np=+$('ncb').value,na=od*np/100;let add=0,ch=[];
+ document.querySelectorAll('#ad input:checked').forEach(x=>{const a=ADD[x.dataset.i];add+=a[1]?idv*a[1]:a[2];ch.push(a[0])});
+ const net=od-na+add,gst=(net+v.tp)*.18,total=net+v.tp+gst;C={idv,od,np,na,add,tp:v.tp,gst,total,ch,l:v.l};
+ $('idvo').textContent=inr(idv);$('tot').textContent=inr(total)+' / yr';
+ const r=(a,b)=>'<div><span>'+a+'</span><span>'+b+'</span></div>';
+ $('bk').innerHTML=r('Own Damage',inr(od))+(np?r('NCB '+np+'%','- '+inr(na)):'')+r('Add-ons',inr(add))+r('Third Party',inr(v.tp))+r('GST 18%',inr(gst))+'<div style="border-top:1px solid #c5d6e6;padding-top:8px;font-size:15px;color:var(--navy)"><span>Total</span><span>'+inr(total)+'</span></div>'}
+function setV(t){vt=t;const v=VT[t],s=$('idv');s.min=v.min;s.max=v.max;s.step=v.step;s.value=v.val;document.querySelectorAll('#vt button').forEach(b=>b.classList.toggle('on',b.dataset.v===t));calc()}
+$('vt').onclick=e=>{if(e.target.dataset.v)setV(e.target.dataset.v)};
+$('idv').oninput=calc;$('ncb').onchange=calc;$('ad').onchange=calc;
+$('reg').oninput=e=>e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,'');
+$('hm').oninput=e=>e.target.value=e.target.value.replace(/\D/g,'');
+const wa=m=>window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(m),'_blank','noopener');
+function planMsg(){return 'Hi PolicyNest, Vehicle No: '+($('reg').value||'-')+($('mdl').value?', Model: '+$('mdl').value:'')+($('hm').value?', Mobile: '+$('hm').value:'')+', Type: '+C.l+', IDV: '+inr(C.idv)+(C.ch.length?', Add-ons: '+C.ch.join(' + '):'')+', Est. premium: '+inr(C.total)}
+$('hq').onclick=()=>{const r=$('reg').value;if(!/^[A-Z]{2}[0-9]{1,2}[A-Z]{0,3}[0-9]{4}$/.test(r)){alert('Please enter a valid vehicle number, e.g. MH01AB1234');$('reg').focus();return}wa(planMsg())};
+$('lock').onclick=()=>wa(planMsg());
+$('slipb').onclick=()=>{const r=(a,b)=>'<div><span>'+a+'</span><b>'+b+'</b></div>';
+ $('slip').innerHTML='<div style="display:block;text-align:center"><b style="font-size:17px">PolicyNest Secure</b><br>IRDAI Reg. Licensed Agency • Motor Insurance Quotation</div><hr>'+r('Date',new Date().toLocaleDateString('en-IN'))+r('Vehicle no.',$('reg').value||'-')+r('Model',$('mdl').value||'-')+r('Type',C.l)+r('IDV',inr(C.idv))+'<hr>'+r('Own Damage',inr(C.od))+(C.np?r('NCB '+C.np+'%','- '+inr(C.na)):'')+r('Add-ons'+(C.ch.length?' ('+C.ch.join(', ')+')':''),inr(C.add))+r('Third Party',inr(C.tp))+r('GST 18%',inr(C.gst))+'<hr><div style="font-size:15px"><b>Net annual premium</b><b>'+inr(C.total)+'</b></div><p style="font-size:11px;margin:6px 0 0">Indicative quotation, valid for 7 days. Final premium is subject to insurer underwriting. Contact: +91 91520 58250</p>';
+ $('md').classList.add('open')};
+$('mc').onclick=()=>$('md').classList.remove('open');$('md').onclick=e=>{if(e.target===$('md'))$('md').classList.remove('open')};
+function setT(t){tabT=t;document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));document.querySelectorAll('.ex').forEach(x=>x.classList.toggle('hide',t==='Quote'));document.querySelectorAll('.rn').forEach(x=>x.classList.toggle('hide',t!=='Renewal'));$('sb').textContent={Quote:'Send enquiry',Renewal:'Request renewal help',Claim:'Request claim help'}[t]}
+$('tabs').onclick=e=>{if(e.target.dataset.t)setT(e.target.dataset.t)};
+document.querySelectorAll('[data-tab]').forEach(a=>a.onclick=()=>setT(a.dataset.tab==='renew'?'Renewal':'Claim'));
+document.querySelectorAll('[data-p]').forEach(a=>a.onclick=()=>{setT('Quote');$('it').value=a.dataset.p});
+$('lf').onsubmit=e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target));delete d.consent;
+ const L={...d,type:tabT,createdAt:new Date().toISOString(),source:'Website'};
+ wa('Hi PolicyNest, '+tabT+' request. Name: '+d.name+', Mobile: '+d.mobile+', Insurance: '+d.insuranceType+', City: '+d.city+(d.insurer?', Insurer: '+d.insurer:'')+(d.expiryDate?', Expiry: '+d.expiryDate:'')+(d.message?', Note: '+d.message:''));
+ if(SHEET_URL)fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(L)}).catch(()=>{});
+ const o=$('ok');o.style.display='block';o.textContent='Thank you! Your enquiry is ready on WhatsApp. If it did not open, call +91 91520 58250.';e.target.reset()};
+$('menu').onclick=()=>$('links').classList.toggle('open');
+document.querySelectorAll('#links a').forEach(a=>a.addEventListener('click',()=>$('links').classList.remove('open')));
+setV('car');
 </script>
 </body>
 </html>
