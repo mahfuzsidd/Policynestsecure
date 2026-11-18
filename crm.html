@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolicyNest Secure Private Limited | Dashboard</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lightbg: '#f0fdf4',
+                        glasslight: 'rgba(255, 255, 255, 0.85)',
+                        glassborder: 'rgba(20, 184, 166, 0.25)',
+                        tealaccent: '#0d9488',
+                        goldaccent: '#d97706',
+                    },
+                    boxShadow: {
+                        'glasslight': '0 20px 40px -15px rgba(13, 148, 136, 0.12), 0 0 15px rgba(255, 255, 255, 0.9) inset',
+                        'goldglow': '0 0 20px -3px rgba(217, 119, 6, 0.3)',
+                        'tealglow': '0 0 20px -3px rgba(13, 148, 136, 0.25)',
+                        'card3d': '0 15px 35px -5px rgba(0, 0, 0, 0.06), 0 5px 15px rgba(13, 148, 136, 0.08)'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: radial-gradient(circle at 10% 10%, #e6f9f0 0%, #f1f8f5 50%, #e3ede8 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            color: #0f172a;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(20, 184, 166, 0.3);
+            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.06), 0 5px 15px rgba(13, 148, 136, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-panel:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -5px rgba(13, 148, 136, 0.12), 0 8px 20px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 1);
+        }
+        .scroll-thin::-webkit-scrollbar { width: 5px; }
+        .scroll-thin::-webkit-scrollbar-thumb { background: rgba(13,148,136,0.3); border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col md:flex-row antialiased">
+
+    <!-- Auth Protection Check -->
+    <script>
+        const currentUser = JSON.parse(localStorage.getItem('policynest_user'));
+        if (!currentUser || !currentUser.loggedIn) {
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <!-- Mobile Top Navigation Bar -->
+    <div class="md:hidden glass-panel border-b border-teal-500/20 p-4 flex items-center justify-between z-30 sticky top-0 shadow-sm">
+        <div class="flex items-center space-x-3 overflow-hidden">
+            <img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-=w200" data-s="0" alt="PolicyNest Logo" class="pn-logo w-9 h-9 rounded-xl object-cover border border-teal-600 shadow-md shrink-0" onerror="logoFallback(this)">
+            <span class="font-bold text-sm tracking-tight text-slate-900 truncate">PolicyNest Secure</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/30 text-teal-800 flex items-center justify-center text-lg active:scale-95 transition shrink-0">
+            <i class="fas fa-bars" id="mobile-menu-icon"></i>
+        </button>
+    </div>
+
+    <!-- Mobile Drawer Overlay -->
+    <div id="mobile-overlay" onclick="toggleMobileMenu()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 hidden md:hidden transition-opacity"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 w-72 glass-panel border-r border-teal-500/20 flex flex-col justify-between shrink-0 z-50 md:sticky md:top-0 md:h-screen transition-transform duration-300 ease-in-out">
+        
+        <!-- Top Brand & Scrollable Links Container -->
+        <div class="flex flex-col h-full overflow-hidden">
+            <!-- Brand Header with Logo -->
+            <div class="p-6 border-b border-teal-500/20 flex items-center justify-between shrink-0">
+                <div class="flex items-center space-x-3.5 overflow-hidden">
+                    <img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-=w200" data-s="0" alt="PolicyNest Logo" class="pn-logo w-11 h-11 rounded-2xl object-cover border border-teal-600 shadow-goldglow shrink-0" onerror="logoFallback(this)">
+                    <div class="overflow-hidden">
+                        <h1 class="font-extrabold text-sm tracking-tight text-slate-900 truncate">PolicyNest Secure</h1>
+                        <p class="text-[10px] text-teal-700 font-extrabold tracking-wide">Private Limited</p>
+                    </div>
+                </div>
+                <button onclick="toggleMobileMenu()" class="md:hidden text-slate-600 hover:text-slate-900 p-2 shrink-0">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Scrollable Navigation Links -->
+            <nav class="p-4 space-y-2 overflow-y-auto scroll-thin flex-1">
+                <a href="crm.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all bg-teal-600 text-white shadow-tealglow">
+                    <i class="fas fa-home w-5 text-center text-sm"></i>
+                    <span>HOME</span>
+                </a>
+                <a href="sales-entry.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900">
+                    <i class="fas fa-file-invoice-dollar w-5 text-center text-sm"></i>
+                    <span>SALES ENTRY</span>
+                </a>
+                <a href="reports.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900">
+                    <i class="fas fa-table w-5 text-center text-sm"></i>
+                    <span>REPORTS & DATA</span>
+                </a>
+                <a href="analytics.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900">
+                    <i class="fas fa-chart-line w-5 text-center text-sm"></i>
+                    <span>ANALYTICS</span>
+                </a>
+                <a href="payouts.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900">
+                    <i class="fas fa-wallet w-5 text-center text-sm"></i>
+                    <span>PAYOUTS</span>
+                </a>
+                <a href="agents.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900">
+                    <i class="fas fa-users-cog w-5 text-center text-sm"></i>
+                    <span>AGENTS</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- User Footer with Profile & Logout Button (Fixed at Bottom) -->
+        <div class="p-4 border-t border-teal-500/20 space-y-2 shrink-0 bg-white/40 backdrop-blur-md">
+            <div class="flex items-center justify-between p-3.5 rounded-2xl bg-white/70 border border-teal-500/20 shadow-sm overflow-hidden">
+                <div class="flex items-center space-x-3 overflow-hidden">
+                    <img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-=w200" data-s="0" alt="Logo" class="pn-logo w-9 h-9 rounded-xl object-cover border border-teal-600 shadow-md shrink-0" onerror="logoFallback(this)">
+                    <div class="overflow-hidden">
+                        <p id="user-display-name" class="text-xs font-extrabold text-slate-900 truncate">PolicyNest User</p>
+                        <p class="text-[10px] text-teal-700 font-bold flex items-center gap-1.5"><i class="fas fa-shield text-teal-600"></i> CRM Suite</p>
+                    </div>
+                </div>
+            </div>
+            <button onclick="logout()" class="w-full py-2.5 px-4 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-extrabold flex items-center justify-center gap-2 transition shadow-sm">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content Canvas -->
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 min-h-screen space-y-6 max-w-full">
+        
+        <!-- Header -->
+        <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-5 border-b border-teal-500/20 gap-4">
+            <div class="overflow-hidden">
+                <h2 class="text-lg sm:text-2xl font-extrabold tracking-tight text-slate-900 flex items-center gap-3 truncate">
+                    <i class="fas fa-home text-teal-700 shrink-0"></i> <span class="truncate">Command Center Dashboard</span>
+                </h2>
+                <p class="text-xs font-medium text-slate-600 mt-1">PolicyNest Secure Private Limited CRM Suite.</p>
+            </div>
+            <a href="sales-entry.html" class="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 text-white font-extrabold rounded-xl text-xs hover:from-amber-600 transition shadow-goldglow flex items-center gap-2 shrink-0">
+                <i class="fas fa-plus-circle"></i> New Sales Entry
+            </a>
+        </header>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+            <div class="glass-panel p-6 rounded-3xl flex flex-col justify-between">
+                <p class="text-[11px] font-bold tracking-wider text-slate-600 uppercase mb-3">Total Sales Volume</p>
+                <h3 id="kpi-total-sales" class="text-base sm:text-lg font-extrabold text-slate-900 whitespace-nowrap tracking-tight">₹0</h3>
+            </div>
+            <div class="glass-panel p-6 rounded-3xl flex flex-col justify-between">
+                <p class="text-[11px] font-bold tracking-wider text-slate-600 uppercase mb-3">Total Profit Generated</p>
+                <h3 id="kpi-total-profit" class="text-base sm:text-lg font-extrabold text-slate-900 whitespace-nowrap tracking-tight">₹0</h3>
+            </div>
+            <div class="glass-panel p-6 rounded-3xl flex flex-col justify-between">
+                <p class="text-[11px] font-bold tracking-wider text-slate-600 uppercase mb-3">Active CBAs (Agents)</p>
+                <h3 id="kpi-active-agents" class="text-base sm:text-lg font-extrabold text-slate-900 whitespace-nowrap tracking-tight">0</h3>
+            </div>
+            <div class="glass-panel p-6 rounded-3xl flex flex-col justify-between">
+                <p class="text-[11px] font-bold tracking-wider text-slate-600 uppercase mb-3">Total Policies</p>
+                <h3 id="kpi-total-policies" class="text-base sm:text-lg font-extrabold text-slate-900 whitespace-nowrap tracking-tight">0</h3>
+            </div>
+        </div>
+
+        <!-- Recent Sales Activity Ticker -->
+        <div class="glass-panel p-6 sm:p-7 rounded-3xl space-y-4">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                <h4 class="text-sm font-extrabold text-slate-900 flex items-center gap-2">
+                    <i class="fas fa-wave-square text-teal-700"></i> Recent Sales Activity Ticker
+                </h4>
+            </div>
+            
+            <div id="home-activity-feed" class="space-y-3 max-h-[350px] overflow-y-auto pr-1">
+                <!-- 1% to 100% Counter Loading Animation -->
+                <div id="loading-container" class="flex flex-col items-center justify-center py-16 space-y-3">
+                    <div class="relative w-20 h-20 flex items-center justify-center">
+                        <div class="absolute inset-0 border-4 border-teal-500/20 rounded-full"></div>
+                        <div class="absolute inset-0 border-4 border-teal-600 border-t-transparent rounded-full animate-spin"></div>
+                        <span id="loading-percentage" class="text-sm font-extrabold text-teal-800">1%</span>
+                    </div>
+                    <p class="text-xs font-bold text-slate-600 tracking-wide">Loading records...</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwSn2GzZ4qOz5GOS9CNZpfB1BbweL3GkW8h7lUzrVSjcmwzCfWgyTfw0VaRyIW40Uml/exec";
+
+        const LOGO_ID = "1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-";
+        const LOGO_SRCS = [
+          "https://lh3.googleusercontent.com/d/"+LOGO_ID+"=w200",
+          "https://drive.google.com/thumbnail?id="+LOGO_ID+"&sz=w200",
+          "https://drive.google.com/uc?export=view&id="+LOGO_ID,
+          "https://via.placeholder.com/44?text=PN"
+        ];
+        function logoFallback(img){
+          let i=(parseInt(img.dataset.s)||0)+1;
+          if(i>=LOGO_SRCS.length){img.onerror=null;return;}
+          img.dataset.s=i;img.src=LOGO_SRCS[i];
+        }
+
+        // Display Logged-in User Name
+        if (currentUser && currentUser.name) {
+            document.getElementById('user-display-name').textContent = currentUser.name;
+        }
+
+        // Logout Function
+        function logout() {
+            localStorage.removeItem('policynest_user');
+            window.location.href = 'login.html';
+        }
+
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-overlay');
+            const icon = document.getElementById('mobile-menu-icon');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+            icon.className = sidebar.classList.contains('-translate-x-full') ? 'fas fa-bars' : 'fas fa-times';
+        }
+
+        function formatINR(amt) {
+            return '₹' + Number(amt || 0).toLocaleString('en-IN');
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return 'N/A';
+            if (dateStr.includes('T') || dateStr.includes('-')) {
+                try {
+                    let d = new Date(dateStr);
+                    if (!isNaN(d.getTime())) {
+                        let day = String(d.getDate()).padStart(2, '0');
+                        let month = String(d.getMonth() + 1).padStart(2, '0');
+                        let year = d.getFullYear();
+                        return `${day}/${month}/${year}`;
+                    }
+                } catch (e) { }
+            }
+            return dateStr;
+        }
+
+        function parseVal(val) {
+            if (!val) return 0;
+            if (typeof val === 'number') return val;
+            let cleaned = String(val).replace(/[^0-9.-]+/g, "");
+            let num = parseFloat(cleaned);
+            return isNaN(num) ? 0 : num;
+        }
+
+        // Smart Loader: Smoothly counts up to 90%, holds until data arrives, then flies to 100%
+        let progressInterval = null;
+        function initLoader() {
+            let percentEl = document.getElementById('loading-percentage');
+            if (!percentEl) return;
+            let current = 1;
+            progressInterval = setInterval(() => {
+                if (current < 90) {
+                    current += Math.floor(Math.random() * 5) + 2;
+                    if (current > 90) current = 90;
+                    percentEl.textContent = current + '%';
+                }
+            }, 50);
+        }
+
+        function finishLoader(onDone) {
+            let percentEl = document.getElementById('loading-percentage');
+            if (!percentEl) {
+                if (onDone) onDone();
+                return;
+            }
+            if (progressInterval) clearInterval(progressInterval);
+            let current = parseInt(percentEl.textContent) || 90;
+            let fastInterval = setInterval(() => {
+                current += 2;
+                if (current >= 100) {
+                    current = 100;
+                    percentEl.textContent = '100%';
+                    clearInterval(fastInterval);
+                    setTimeout(() => {
+                        if (onDone) onDone();
+                    }, 250);
+                } else {
+                    percentEl.textContent = current + '%';
+                }
+            }, 15);
+        }
+
+        async function fetchSheetData() {
+            initLoader();
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const result = await response.json();
+                finishLoader(() => {
+                    if (result.result === 'success' && result.data) {
+                        renderDashboard(result.data);
+                    } else {
+                        loadLocalStorageFallback();
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching sheet data:', error);
+                finishLoader(() => {
+                    loadLocalStorageFallback();
+                });
+            }
+        }
+
+        function loadLocalStorageFallback() {
+            let sales = JSON.parse(localStorage.getItem('policynest_sales')) || [];
+            renderDashboard(sales);
+        }
+
+        function renderDashboard(sales) {
+            let totalSales = sales.reduce((sum, i) => sum + parseVal(i.grossPremium), 0);
+            let totalProfit = sales.reduce((sum, i) => sum + parseVal(i.profitInAmt), 0);
+
+            let uniqueCBAs = new Set(sales.map(i => i.cbaName).filter(name => name && String(name).trim() !== ''));
+            let activeAgentsCount = uniqueCBAs.size > 0 ? uniqueCBAs.size : 6;
+
+            document.getElementById('kpi-total-sales').textContent = formatINR(totalSales);
+            document.getElementById('kpi-total-profit').textContent = formatINR(totalProfit);
+            document.getElementById('kpi-total-policies').textContent = sales.length;
+            document.getElementById('kpi-active-agents').textContent = activeAgentsCount;
+
+            let feed = document.getElementById('home-activity-feed');
+            feed.innerHTML = '';
+            if(sales.length === 0) {
+                feed.innerHTML = '<p class="text-xs text-slate-500 text-center py-6">No sales entries recorded yet.</p>';
+                return;
+            }
+
+            sales.slice(-10).reverse().forEach(s => {
+                let cleanDate = formatDate(s.date);
+                let grossVal = parseVal(s.grossPremium);
+                let profitVal = parseVal(s.profitInAmt);
+                let cbaLabel = s.cbaName ? `CBA: ${s.cbaName}` : '';
+
+                feed.innerHTML += `
+                    <div class="p-3.5 bg-white/70 rounded-2xl text-xs flex flex-col sm:flex-row justify-between items-start sm:items-center border border-teal-500/20 gap-2 shadow-sm">
+                        <div class="overflow-hidden pr-2">
+                            <span class="font-bold text-slate-900 truncate block">${s.clientName || 'N/A'} <span class="text-slate-500 font-normal text-[11px]">(${s.insuranceCompany || 'N/A'})</span></span>
+                            <div class="text-[10px] text-teal-800 font-semibold truncate">${cbaLabel} • Date: ${cleanDate} • Policy: ${s.policyNo || 'N/A'}</div>
+                        </div>
+                        <div class="text-left sm:text-right shrink-0">
+                            <div class="font-extrabold text-amber-700">${formatINR(grossVal)}</div>
+                            <span class="text-[10px] text-emerald-700 font-bold">Profit: ${formatINR(profitVal)}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        window.onload = fetchSheetData;
+    </script>
+</body>
+</html>

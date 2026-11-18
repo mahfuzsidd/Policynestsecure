@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payouts & Settlements - PolicyNest Secure Private Limited</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    boxShadow: {
+                        'goldglow': '0 0 20px -3px rgba(217, 119, 6, 0.3)',
+                        'tealglow': '0 0 20px -3px rgba(13, 148, 136, 0.25)'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 10% 10%, #e6f9f0 0%, #f1f8f5 50%, #e3ede8 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            color: #0f172a;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(20, 184, 166, 0.3);
+            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.06), 0 5px 15px rgba(13, 148, 136, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+        .glass-input {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(13, 148, 136, 0.3);
+            color: #0f172a;
+        }
+        .glass-input:focus {
+            border-color: #0d9488;
+            box-shadow: 0 0 15px rgba(13, 148, 136, 0.2);
+            outline: none;
+        }
+        th[data-sort] { cursor: pointer; user-select: none; }
+        th[data-sort]:hover { background: rgba(13, 148, 136, 0.12); }
+        button:focus-visible, a:focus-visible, th:focus-visible { outline: 2px solid #0d9488; outline-offset: 2px; }
+        .scroll-thin::-webkit-scrollbar { width: 5px; height: 5px; }
+        .scroll-thin::-webkit-scrollbar-thumb { background: rgba(13,148,136,.35); border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col md:flex-row antialiased">
+
+    <!-- Auth Protection Check -->
+    <script>
+        const currentUser = JSON.parse(localStorage.getItem('policynest_user'));
+        if (!currentUser || !currentUser.loggedIn) {
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-[70] transform translate-y-28 opacity-0 transition-all duration-300 px-5 py-3.5 rounded-2xl shadow-2xl flex items-center space-x-3 text-sm font-semibold border border-teal-500/30 bg-white/95 text-slate-900">
+        <i id="toast-icon" class="fas fa-check-circle text-emerald-600 text-lg"></i>
+        <span id="toast-msg">Success message</span>
+    </div>
+
+    <!-- Mobile top bar -->
+    <div class="md:hidden glass-panel border-b border-teal-500/20 p-4 flex items-center justify-between z-30 sticky top-0 shadow-sm">
+        <div class="flex items-center space-x-3 overflow-hidden">
+            <img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-=w200" data-s="0" alt="PolicyNest Logo" class="w-9 h-9 rounded-xl object-cover border border-teal-600 shadow-md shrink-0" onerror="logoFallback(this)">
+            <span class="font-bold text-sm tracking-tight text-slate-900 truncate">PolicyNest Secure</span>
+        </div>
+        <button onclick="toggleMobileMenu()" aria-label="Open menu" class="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/30 text-teal-800 flex items-center justify-center text-lg active:scale-95 transition shrink-0">
+            <i class="fas fa-bars" id="mobile-menu-icon"></i>
+        </button>
+    </div>
+
+    <div id="mobile-overlay" onclick="toggleMobileMenu()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 hidden md:hidden transition-opacity"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 w-72 glass-panel border-r border-teal-500/20 flex flex-col justify-between shrink-0 z-50 md:sticky md:top-0 md:h-screen transition-transform duration-300 ease-in-out">
+        <div class="flex flex-col h-full overflow-hidden">
+            <div class="p-6 border-b border-teal-500/20 flex items-center justify-between shrink-0">
+                <div class="flex items-center space-x-3.5 overflow-hidden">
+                    <img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-=w200" data-s="0" alt="PolicyNest Logo" class="w-11 h-11 rounded-2xl object-cover border border-teal-600 shadow-goldglow shrink-0" onerror="logoFallback(this)">
+                    <div class="overflow-hidden">
+                        <h1 class="font-extrabold text-sm tracking-tight text-slate-900 truncate">PolicyNest Secure</h1>
+                        <p class="text-[10px] text-teal-700 font-extrabold tracking-wide">Private Limited</p>
+                    </div>
+                </div>
+                <button onclick="toggleMobileMenu()" aria-label="Close menu" class="md:hidden text-slate-600 hover:text-slate-900 p-2 shrink-0">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+            <nav class="p-4 space-y-2 overflow-y-auto scroll-thin flex-1">
+                <a href="crm.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900"><i class="fas fa-home w-5 text-center text-sm"></i><span>HOME</span></a>
+                <a href="sales-entry.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900"><i class="fas fa-file-invoice-dollar w-5 text-center text-sm"></i><span>SALES ENTRY</span></a>
+                <a href="reports.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900"><i class="fas fa-table w-5 text-center text-sm"></i><span>REPORTS & DATA</span></a>
+                <a href="analytics.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900"><i class="fas fa-chart-line w-5 text-center text-sm"></i><span>ANALYTICS</span></a>
+                <a href="payouts.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all bg-teal-600 text-white shadow-tealglow"><i class="fas fa-wallet w-5 text-center text-sm"></i><span>PAYOUTS</span></a>
+                <a href="agents.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900"><i class="fas fa-users-cog w-5 text-center text-sm"></i><span>AGENTS</span></a>
+            </nav>
+        </div>
+        <div class="p-4 border-t border-teal-500/20 space-y-2 shrink-0 bg-white/40 backdrop-blur-md">
+            <div class="flex items-center justify-between p-3.5 rounded-2xl bg-white/70 border border-teal-500/20 shadow-sm overflow-hidden">
+                <div class="flex items-center space-x-3 overflow-hidden">
+                    <img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-=w200" data-s="0" alt="Logo" class="w-9 h-9 rounded-xl object-cover border border-teal-600 shadow-md shrink-0" onerror="logoFallback(this)">
+                    <div class="overflow-hidden">
+                        <p id="user-display-name" class="text-xs font-extrabold text-slate-900 truncate">PolicyNest User</p>
+                        <p class="text-[10px] text-teal-700 font-bold flex items-center gap-1.5"><i class="fas fa-shield text-teal-600"></i> CRM Suite</p>
+                    </div>
+                </div>
+            </div>
+            <button onclick="logout()" class="w-full py-2.5 px-4 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-extrabold flex items-center justify-center gap-2 transition shadow-sm">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 min-h-screen space-y-6 max-w-full">
+
+        <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-5 border-b border-teal-500/20 gap-4">
+            <div class="overflow-hidden">
+                <h2 class="text-lg sm:text-2xl font-extrabold tracking-tight text-slate-900 flex items-center gap-3 truncate">
+                    <i class="fas fa-wallet text-amber-600 shrink-0"></i> <span class="truncate">Payouts & Agent Settlements</span>
+                </h2>
+                <p class="text-xs font-medium text-slate-600 mt-1">PolicyNest Secure Private Limited CRM Suite.</p>
+            </div>
+            <button id="btn-refresh" class="px-4 py-2.5 rounded-xl bg-white border border-teal-500/30 text-teal-800 text-xs font-extrabold hover:bg-teal-50 transition shadow-sm">
+                <i class="fas fa-rotate mr-1.5"></i> Refresh
+            </button>
+        </header>
+
+        <!-- Stale / offline banner -->
+        <div id="stale-banner" class="hidden rounded-2xl border border-amber-500/40 bg-amber-50 text-amber-900 px-4 py-3 text-xs font-bold flex items-start gap-3" role="alert">
+            <i class="fas fa-triangle-exclamation mt-0.5"></i>
+            <span id="stale-msg"></span>
+        </div>
+
+        <!-- Filters -->
+        <div class="glass-panel p-4 sm:p-5 rounded-3xl grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+            <label class="block">
+                <span class="text-[11px] font-bold text-slate-600 uppercase tracking-wider">Month</span>
+                <select id="f-month" class="glass-input w-full mt-1.5 px-3 py-2.5 rounded-xl text-xs font-semibold"></select>
+            </label>
+            <label class="block">
+                <span class="text-[11px] font-bold text-slate-600 uppercase tracking-wider">Search CBA</span>
+                <input id="f-search" type="search" placeholder="Name search..." class="glass-input w-full mt-1.5 px-3 py-2.5 rounded-xl text-xs font-semibold">
+            </label>
+            <div class="flex items-end">
+                <button id="btn-export" class="w-full px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-white text-xs font-extrabold hover:opacity-95 transition shadow-sm">
+                    <i class="fas fa-file-csv mr-1.5"></i> Export CSV
+                </button>
+            </div>
+        </div>
+
+        <!-- Top 3 Agents Payout Container -->
+        <div class="glass-panel p-5 rounded-3xl space-y-3">
+            <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+                <i class="fas fa-trophy text-amber-500"></i> Top 3 Agents Payout Distribution
+            </h3>
+            <div id="top-agents-container" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <!-- Dynamically injected -->
+            </div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+            <div class="glass-panel p-4 sm:p-5 rounded-3xl"><p class="text-[11px] font-bold tracking-wider text-slate-600 uppercase mb-2">Gross Payout</p><h3 id="k-gross" class="text-xl font-extrabold text-slate-900 whitespace-nowrap">₹0</h3></div>
+            <div class="glass-panel p-4 sm:p-5 rounded-3xl"><p class="text-[11px] font-bold tracking-wider text-slate-600 uppercase mb-2">Net Paid</p><h3 id="k-net" class="text-xl font-extrabold text-teal-800 whitespace-nowrap">₹0</h3></div>
+            <div class="glass-panel p-4 sm:p-5 rounded-3xl"><p class="text-[11px] font-bold tracking-wider text-slate-600 uppercase mb-2">Profit Retained</p><h3 id="k-profit" class="text-xl font-extrabold text-emerald-700 whitespace-nowrap">₹0</h3><p id="k-margin" class="text-[11px] font-bold text-slate-500 mt-1"></p></div>
+        </div>
+
+        <!-- Ledger -->
+        <div class="glass-panel p-4 sm:p-6 rounded-3xl space-y-4 overflow-hidden">
+            <div class="flex justify-between items-center pb-3 border-b border-teal-500/20">
+                <h3 class="text-sm font-extrabold text-slate-900 flex items-center gap-2">
+                    <i class="fas fa-users-rectangle text-teal-700"></i> CBA-wise Payout Ledger
+                </h3>
+                <span id="cba-count" class="text-[11px] font-bold text-slate-500"></span>
+            </div>
+
+            <!-- Desktop table -->
+            <div class="hidden md:block overflow-x-auto rounded-2xl border border-teal-500/20 bg-white/80">
+                <table class="w-full text-left border-collapse text-xs min-w-[800px]">
+                    <thead>
+                        <tr class="bg-teal-900/10 text-slate-800 border-b border-teal-500/20 font-extrabold uppercase tracking-wider text-[11px]">
+                            <th class="p-3.5" data-sort="cba" tabindex="0">CBA Name <i class="fas fa-sort text-slate-400"></i></th>
+                            <th class="p-3.5" data-sort="count" tabindex="0">Policies <i class="fas fa-sort text-slate-400"></i></th>
+                            <th class="p-3.5" data-sort="sales" tabindex="0">Gross Sales <i class="fas fa-sort text-slate-400"></i></th>
+                            <th class="p-3.5" data-sort="payout" tabindex="0">Payout <i class="fas fa-sort text-slate-400"></i></th>
+                            <th class="p-3.5" data-sort="net" tabindex="0">Net Paid <i class="fas fa-sort text-slate-400"></i></th>
+                            <th class="p-3.5" data-sort="profit" tabindex="0">Profit (%) <i class="fas fa-sort text-slate-400"></i></th>
+                            <th class="p-3.5 text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="payoutsTableBody" class="divide-y divide-teal-500/10 font-medium">
+                        <tr><td colspan="7" class="p-10 text-center text-slate-500 font-semibold"><i class="fas fa-spinner fa-spin mr-2"></i> Calculating payouts...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mobile cards -->
+            <div id="payoutsCards" class="md:hidden space-y-3"></div>
+        </div>
+    </main>
+
+    <!-- Modal (details) -->
+    <div id="modal" class="fixed inset-0 z-[60] hidden items-end sm:items-center justify-center p-0 sm:p-4" role="dialog" aria-modal="true">
+        <div id="modal-backdrop" class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm"></div>
+        <div class="relative glass-panel w-full sm:max-w-2xl max-h-[92vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-5 sm:p-7" style="background:rgba(255,255,255,0.98)">
+            <div class="flex items-start justify-between gap-4 mb-4">
+                <h3 id="modal-title" class="text-base font-extrabold text-slate-900"></h3>
+                <button id="modal-close" aria-label="Close" class="text-slate-500 hover:text-slate-900 p-1"><i class="fas fa-times text-lg"></i></button>
+            </div>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwSn2GzZ4qOz5GOS9CNZpfB1BbweL3GkW8h7lUzrVSjcmwzCfWgyTfw0VaRyIW40Uml/exec";
+        const API_TOKEN = "CHANGE_ME_SECRET";
+
+        // Display Logged-in User Name
+        if (currentUser && currentUser.name) {
+            document.getElementById('user-display-name').textContent = currentUser.name;
+        }
+
+        // Logout Function
+        function logout() {
+            localStorage.removeItem('policynest_user');
+            window.location.href = 'login.html';
+        }
+
+        const LOGO_ID = "1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-";
+        const LOGO_SRCS = [
+          "https://lh3.googleusercontent.com/d/"+LOGO_ID+"=w200",
+          "https://drive.google.com/thumbnail?id="+LOGO_ID+"&sz=w200",
+          "https://drive.google.com/uc?export=view&id="+LOGO_ID,
+          "https://via.placeholder.com/44?text=PN"
+        ];
+        function logoFallback(img){
+          let i=(parseInt(img.dataset.s)||0)+1;
+          if(i>=LOGO_SRCS.length){img.onerror=null;return;}
+          img.dataset.s=i;img.src=LOGO_SRCS[i];
+        }
+
+        const DATE_KEYS = ['saleDate', 'date', 'policyDate', 'issueDate', 'startDate', 'timestamp', 'createdAt'];
+
+        function esc(s) {
+            return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+        function round2(n) { return Math.round((Number(n) + Number.EPSILON) * 100) / 100; }
+        function formatINR(amt) {
+            return '₹' + round2(amt || 0).toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+        }
+        function parseVal(val) {
+            if (!val) return 0;
+            if (typeof val === 'number') return val;
+            const num = parseFloat(String(val).replace(/[^0-9.-]+/g, ''));
+            return isNaN(num) ? 0 : num;
+        }
+        function monthKeyFromDate(raw) {
+            if (!raw) return '';
+            let d;
+            if (raw instanceof Date) d = raw;
+            else {
+                const s = String(raw).trim();
+                const m = s.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})/);
+                if (m) d = new Date(+m[3], +m[2] - 1, +m[1]);
+                else d = new Date(s);
+            }
+            if (isNaN(d.getTime())) return '';
+            return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+        }
+        function saleMonth(s) {
+            for (const k of DATE_KEYS) { if (s[k]) { const mk = monthKeyFromDate(s[k]); if (mk) return mk; } }
+            return '';
+        }
+        function monthLabel(key) {
+            if (!key) return 'No date';
+            const [y, m] = key.split('-');
+            return new Date(+y, +m - 1, 1).toLocaleString('en-IN', { month: 'long', year: 'numeric' });
+        }
+        function cbaOf(s) { return s.cbaName ? String(s.cbaName).trim().toUpperCase() : 'UNASSIGNED'; }
+
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-overlay');
+            const icon = document.getElementById('mobile-menu-icon');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+            icon.className = sidebar.classList.contains('-translate-x-full') ? 'fas fa-bars' : 'fas fa-times';
+        }
+        let toastTimer;
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = message;
+            document.getElementById('toast-icon').className = type === 'success'
+                ? 'fas fa-check-circle text-emerald-600 text-lg' : 'fas fa-exclamation-circle text-red-600 text-lg';
+            toast.classList.remove('translate-y-28', 'opacity-0');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.add('translate-y-28', 'opacity-0'), 3500);
+        }
+        function lsGet(k, fallback) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : fallback; } catch (e) { return fallback; } }
+        function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } }
+
+        const state = {
+            sales: [],
+            month: '', search: '',
+            sortKey: 'sales', sortDir: 'desc',
+            salesLive: false,
+            rows: []
+        };
+
+        async function apiGet(params) {
+            const qs = new URLSearchParams(Object.assign({ token: API_TOKEN }, params || {})).toString();
+            const res = await fetch(SCRIPT_URL + '?' + qs);
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const json = await res.json();
+            if (json.result !== 'success') throw new Error(json.message || 'API error');
+            return json.data || [];
+        }
+
+        async function loadAll() {
+            try {
+                const salesRes = await apiGet();
+                state.sales = salesRes; state.salesLive = true;
+                lsSet('policynest_sales', state.sales);
+            } catch (error) {
+                console.error('Sales fetch failed:', error);
+                state.sales = lsGet('policynest_sales', []); state.salesLive = false;
+            }
+            updateBanner();
+            buildMonthOptions();
+            render();
+        }
+
+        function updateBanner() {
+            const b = document.getElementById('stale-banner');
+            if (!state.salesLive) {
+                document.getElementById('stale-msg').textContent = 'Sales data server se load nahi hui. Purana saved data dikh raha hai.';
+                b.classList.remove('hidden'); b.classList.add('flex');
+            } else { b.classList.add('hidden'); b.classList.remove('flex'); }
+        }
+
+        function buildMonthOptions() {
+            const sel = document.getElementById('f-month');
+            const keys = new Set(state.sales.map(saleMonth).filter(Boolean));
+            const sorted = Array.from(keys).sort().reverse();
+            const cur = state.month;
+            sel.innerHTML = '<option value="">All months</option>' +
+                sorted.map(k => `<option value="${esc(k)}">${esc(monthLabel(k))}</option>`).join('');
+            if (!cur && sorted.length) state.month = sorted[0];
+            sel.value = state.month;
+        }
+
+        function compute() {
+            const map = {};
+            const sales = state.month ? state.sales.filter(s => saleMonth(s) === state.month) : state.sales;
+
+            sales.forEach(s => {
+                const cba = cbaOf(s);
+                const m = map[cba] || (map[cba] = { cba, count: 0, sales: 0, payout: 0, profit: 0, policies: [] });
+                m.count += 1;
+                m.sales += parseVal(s.grossPremium);
+                m.payout += parseVal(s.payoutPremium);
+                m.profit += parseVal(s.profitInAmt);
+                m.policies.push(s);
+            });
+
+            return Object.values(map).map(m => {
+                m.sales = round2(m.sales); 
+                m.payout = round2(m.payout); 
+                m.profit = round2(m.profit);
+                m.net = m.payout; // Net paid is equal to payout
+                m.margin = m.sales > 0 ? (m.profit / m.sales) * 100 : 0;
+                return m;
+            });
+        }
+
+        function renderTopAgents(rows) {
+            const container = document.getElementById('top-agents-container');
+            const sorted = [...rows].sort((a, b) => b.payout - a.payout).slice(0, 3);
+
+            if (!sorted.length) {
+                container.innerHTML = `<p class="col-span-3 text-center text-xs text-slate-500 py-3">Koi agent data uplabdh nahi hai.</p>`;
+                return;
+            }
+
+            const badges = ['text-amber-600 bg-amber-50 border-amber-300', 'text-slate-600 bg-slate-100 border-slate-300', 'text-amber-800 bg-amber-100/60 border-amber-400/40'];
+            const icons = ['fa-crown', 'fa-medal', 'fa-award'];
+
+            container.innerHTML = sorted.map((r, i) => `
+                <div class="rounded-2xl border border-teal-500/20 bg-white/80 p-3.5 flex items-center justify-between gap-3 shadow-sm">
+                    <div class="flex items-center space-x-3 overflow-hidden">
+                        <div class="w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 font-extrabold text-xs ${badges[i] || 'text-teal-800 bg-teal-50 border-teal-200'}">
+                            <i class="fas ${icons[i] || 'fa-star'}"></i>
+                        </div>
+                        <div class="overflow-hidden">
+                            <p class="text-xs font-extrabold text-slate-900 truncate">${esc(r.cba)}</p>
+                            <p class="text-[10px] text-slate-500 font-semibold">${r.count} policies</p>
+                        </div>
+                    </div>
+                    <div class="text-right shrink-0">
+                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Payout Given</p>
+                        <p class="text-xs font-extrabold text-teal-800">${formatINR(r.payout)}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function render() {
+            let rows = compute();
+            const q = state.search.trim().toUpperCase();
+            if (q) rows = rows.filter(r => r.cba.includes(q));
+
+            const k = state.sortKey, dir = state.sortDir === 'asc' ? 1 : -1;
+            rows.sort((a, b) => (k === 'cba' ? a.cba.localeCompare(b.cba) : (a[k] - b[k])) * dir);
+            state.rows = rows;
+
+            renderTopAgents(rows);
+
+            const sum = key => round2(rows.reduce((t, r) => t + r[key], 0));
+            const tSales = sum('sales'), tProfit = sum('profit');
+            
+            document.getElementById('k-gross').textContent = formatINR(sum('payout'));
+            document.getElementById('k-net').textContent = formatINR(sum('net'));
+            document.getElementById('k-profit').textContent = formatINR(tProfit);
+            document.getElementById('k-margin').textContent = tSales > 0 ? ((tProfit / tSales) * 100).toFixed(1) + '% of gross sales' : '';
+            document.getElementById('cba-count').textContent = rows.length + ' CBA' + (rows.length === 1 ? '' : 's');
+
+            const tbody = document.getElementById('payoutsTableBody');
+            const cards = document.getElementById('payoutsCards');
+
+            if (!rows.length) {
+                const empty = 'Is filter ke liye koi payout record nahi mila.';
+                tbody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-500 font-semibold">${empty}</td></tr>`;
+                cards.innerHTML = `<p class="p-6 text-center text-slate-500 font-semibold text-xs">${empty}</p>`;
+                return;
+            }
+
+            tbody.innerHTML = rows.map(r => `
+                <tr class="hover:bg-teal-500/10 transition">
+                    <td class="p-3.5 font-bold text-slate-900"><button data-action="details" data-cba="${esc(r.cba)}" class="text-left hover:underline">${esc(r.cba)}</button></td>
+                    <td class="p-3.5">${r.count}</td>
+                    <td class="p-3.5 font-extrabold text-amber-700">${formatINR(r.sales)}</td>
+                    <td class="p-3.5 font-bold">${formatINR(r.payout)}</td>
+                    <td class="p-3.5 font-extrabold text-teal-800">${formatINR(r.net)}</td>
+                    <td class="p-3.5 font-extrabold text-emerald-700">${formatINR(r.profit)} <span class="text-[11px] text-slate-500">(${r.margin.toFixed(1)}%)</span></td>
+                    <td class="p-3.5 text-center">
+                        <button data-action="details" data-cba="${esc(r.cba)}" class="px-3 py-1.5 bg-white border border-teal-500/40 text-teal-800 font-extrabold rounded-xl text-xs hover:bg-teal-50 transition shadow-sm"><i class="fas fa-list mr-1"></i> Details</button>
+                    </td>
+                </tr>`).join('');
+
+            cards.innerHTML = rows.map(r => `
+                <div class="rounded-2xl border border-teal-500/20 bg-white/90 p-4 space-y-3 shadow-sm">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="min-w-0"><p class="font-extrabold text-sm text-slate-900 truncate">${esc(r.cba)}</p><p class="text-[11px] text-slate-500 font-semibold">${r.count} policies</p></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div><p class="text-[10px] text-slate-500 font-bold uppercase">Gross sales</p><p class="font-extrabold text-amber-700">${formatINR(r.sales)}</p></div>
+                        <div><p class="text-[10px] text-slate-500 font-bold uppercase">Payout</p><p class="font-bold">${formatINR(r.payout)}</p></div>
+                        <div class="col-span-2"><p class="text-[10px] text-slate-500 font-bold uppercase">Net Paid</p><p class="font-extrabold text-teal-800">${formatINR(r.net)}</p></div>
+                        <div class="col-span-2"><p class="text-[10px] text-slate-500 font-bold uppercase">Profit</p><p class="font-extrabold text-emerald-700">${formatINR(r.profit)} <span class="text-[11px] text-slate-500">(${r.margin.toFixed(1)}%)</span></p></div>
+                    </div>
+                    <button data-action="details" data-cba="${esc(r.cba)}" class="w-full px-3 py-2 bg-white border border-teal-500/40 text-teal-800 font-extrabold rounded-xl text-xs hover:bg-teal-50 transition shadow-sm"><i class="fas fa-list mr-1"></i> View Details</button>
+                </div>`).join('');
+        }
+
+        function openModal(title, html) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-body').innerHTML = html;
+            const m = document.getElementById('modal');
+            m.classList.remove('hidden'); m.classList.add('flex');
+        }
+        function closeModal() {
+            const m = document.getElementById('modal');
+            m.classList.add('hidden'); m.classList.remove('flex');
+        }
+
+        function showDetails(cba) {
+            const r = state.rows.find(x => x.cba === cba);
+            if (!r) return;
+            const polRows = r.policies.map(p => `
+                <tr class="border-t border-teal-500/10">
+                    <td class="p-2">${esc(p.policyNumber || p.policyNo || '-')}</td>
+                    <td class="p-2">${esc(p.customerName || p.clientName || p.name || '-')}</td>
+                    <td class="p-2 text-right">${formatINR(parseVal(p.grossPremium))}</td>
+                    <td class="p-2 text-right">${formatINR(parseVal(p.payoutPremium))}</td>
+                    <td class="p-2 text-right">${formatINR(parseVal(p.profitInAmt))}</td>
+                </tr>`).join('') || '<tr><td colspan="5" class="p-3 text-center text-slate-500">Koi policy nahi</td></tr>';
+            
+            openModal(r.cba + ' · ' + (state.month ? monthLabel(state.month) : 'All months'), `
+                <div class="space-y-5 text-xs">
+                    <div>
+                        <h4 class="font-extrabold mb-2">Policies (${r.count})</h4>
+                        <div class="overflow-x-auto rounded-xl border border-teal-500/20"><table class="w-full min-w-[480px]">
+                            <thead class="bg-teal-900/10 font-extrabold"><tr><th class="p-2 text-left">Policy no.</th><th class="p-2 text-left">Customer</th><th class="p-2 text-right">Gross</th><th class="p-2 text-right">Payout</th><th class="p-2 text-right">Profit</th></tr></thead>
+                            <tbody>${polRows}</tbody></table></div>
+                    </div>
+                </div>`);
+        }
+
+        function exportCSV() {
+            if (!state.rows.length) return showToast('Export ke liye data nahi hai', 'error');
+            const head = ['CBA', 'Policies', 'Gross Sales', 'Payout', 'Net Paid', 'Profit', 'Profit %'];
+            const cell = v => '"' + String(v).replace(/"/g, '""') + '"';
+            const lines = [head.map(cell).join(',')].concat(state.rows.map(r =>
+                [r.cba, r.count, r.sales, r.payout, r.net, r.profit, r.margin.toFixed(2)].map(cell).join(',')));
+            const blob = new Blob(['\ufeff' + lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'payouts-' + (state.month || 'all') + '.csv';
+            document.body.appendChild(a); a.click(); a.remove();
+            setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+        }
+
+        document.addEventListener('click', e => {
+            const btn = e.target.closest('[data-action]');
+            if (btn && !btn.disabled) {
+                const cba = btn.getAttribute('data-cba');
+                if (btn.dataset.action === 'details') showDetails(cba);
+                return;
+            }
+            const th = e.target.closest('th[data-sort]');
+            if (th) sortBy(th.dataset.sort);
+        });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeModal();
+            if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('th[data-sort]')) { e.preventDefault(); sortBy(e.target.dataset.sort); }
+        });
+        function sortBy(key) {
+            if (state.sortKey === key) state.sortDir = state.sortDir === 'asc' ? 'desc' : 'asc';
+            else { state.sortKey = key; state.sortDir = key === 'cba' ? 'asc' : 'desc'; }
+            render();
+        }
+
+        document.getElementById('modal-close').onclick = closeModal;
+        document.getElementById('modal-backdrop').onclick = closeModal;
+        document.getElementById('f-month').addEventListener('change', e => { state.month = e.target.value; render(); });
+        document.getElementById('f-search').addEventListener('input', e => { state.search = e.target.value; render(); });
+        document.getElementById('btn-export').onclick = exportCSV;
+        document.getElementById('btn-refresh').onclick = () => { showToast('Refreshing...'); loadAll(); };
+
+        window.onload = function() {
+            initLogos();
+            loadAll();
+        };
+    </script>
+</body>
+</html>
