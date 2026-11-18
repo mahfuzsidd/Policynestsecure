@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytics & Insights - PolicyNest Secure Private Limited</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{lightbg:'#f0fdf4',glasslight:'rgba(255,255,255,0.85)',glassborder:'rgba(20,184,166,0.25)',tealaccent:'#0d9488',goldaccent:'#d97706'},boxShadow:{'glasslight':'0 20px 40px -15px rgba(13,148,136,0.12), 0 0 15px rgba(255,255,255,0.9) inset','goldglow':'0 0 20px -3px rgba(217,119,6,0.3)','tealglow':'0 0 20px -3px rgba(13,148,136,0.25)','card3d':'0 15px 35px -5px rgba(0,0,0,0.06), 0 5px 15px rgba(13,148,136,0.08)'}}}}
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Inter',sans-serif;background:radial-gradient(circle at 10% 10%,#e6f9f0 0%,#f1f8f5 50%,#e3ede8 100%);background-attachment:fixed;overflow-x:hidden;color:#0f172a}
+.glass-panel{background:rgba(255,255,255,.88);backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px);border:1px solid rgba(20,184,166,.3);box-shadow:0 15px 35px -5px rgba(0,0,0,.06),0 5px 15px rgba(13,148,136,.08),inset 0 1px 0 rgba(255,255,255,.9);transition:all .3s cubic-bezier(.16,1,.3,1)}
+.glass-input{background:rgba(255,255,255,.95);border:1px solid rgba(13,148,136,.3);color:#0f172a}
+.glass-input:focus{border-color:#0d9488;box-shadow:0 0 15px rgba(13,148,136,.2);outline:none}
+.chip{padding:8px 14px;border-radius:12px;font-size:12px;font-weight:800;border:1px solid rgba(20,184,166,.25);background:rgba(255,255,255,.85);color:#334155;transition:.2s}
+.chip.on{background:#0d9488;color:#fff;border-color:#0d9488}
+.sens{transition:filter .25s}
+body.privacy .sens{filter:blur(8px);user-select:none}
+.tog{width:44px;height:24px;border-radius:9999px;background:#cbd5e1;position:relative;transition:.25s;flex-shrink:0}
+.tog::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:.25s}
+body.privacy .tog{background:#0d9488}
+body.privacy .tog::after{left:23px}
+.bar{height:100%;border-radius:9999px;transition:width .9s cubic-bezier(.16,1,.3,1)}
+.empty{font-size:12px;color:#475569;text-align:center;padding:24px 0;font-weight:600}
+th.sortable{cursor:pointer}th.sortable:hover{color:#0d9488}
+@media print{aside,.noprint,#toast,.md\:hidden{display:none!important}main{padding:0!important}body{background:#fff}}
+</style>
+</head>
+<body class="min-h-screen flex flex-col md:flex-row antialiased">
+
+<div id="toast" class="fixed bottom-6 right-6 z-[60] transform translate-y-28 opacity-0 transition-all duration-300 px-5 py-3.5 rounded-2xl shadow-2xl flex items-center space-x-3 text-sm font-semibold border border-teal-500/30 bg-white/95 text-slate-900"><i id="toast-icon" class="fas fa-check-circle text-emerald-600 text-lg"></i><span id="toast-msg"></span></div>
+
+<div class="md:hidden glass-panel border-b border-teal-500/20 p-4 flex items-center justify-between z-30 sticky top-0 shadow-sm">
+<div class="flex items-center space-x-3 overflow-hidden">
+<img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-=w200" data-s="0" alt="PolicyNest Logo" class="w-9 h-9 rounded-xl object-cover border border-teal-600 shadow-md shrink-0" onerror="logoFallback(this)">
+<span class="font-bold text-sm tracking-tight text-slate-900 truncate">PolicyNest Secure</span>
+</div>
+<button onclick="toggleMobileMenu()" class="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/30 text-teal-800 flex items-center justify-center text-lg active:scale-95 transition shrink-0"><i class="fas fa-bars" id="mobile-menu-icon"></i></button>
+</div>
+<div id="mobile-overlay" onclick="toggleMobileMenu()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 hidden md:hidden transition-opacity"></div>
+
+<aside id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 w-72 glass-panel border-r border-teal-500/20 flex flex-col justify-between shrink-0 z-50 md:sticky md:top-0 md:h-screen transition-transform duration-300 ease-in-out">
+<div>
+<div class="p-6 border-b border-teal-500/20 flex items-center justify-between">
+<div class="flex items-center space-x-3.5 overflow-hidden">
+<img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-=w200" data-s="0" alt="PolicyNest Logo" class="w-11 h-11 rounded-2xl object-cover border border-teal-600 shadow-goldglow shrink-0" onerror="logoFallback(this)">
+<div class="overflow-hidden"><h1 class="font-extrabold text-sm tracking-tight text-slate-900 truncate">PolicyNest Secure</h1><p class="text-[10px] text-teal-700 font-extrabold tracking-wide">Private Limited</p></div>
+</div>
+<button onclick="toggleMobileMenu()" class="md:hidden text-slate-600 hover:text-slate-900 p-2 shrink-0"><i class="fas fa-times text-lg"></i></button>
+</div>
+<nav class="p-4 space-y-2">
+<a href="index.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900"><i class="fas fa-home w-5 text-center text-sm"></i><span>HOME</span></a>
+<a href="sales-entry.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900"><i class="fas fa-file-invoice-dollar w-5 text-center text-sm"></i><span>SALES ENTRY</span></a>
+<a href="reports.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900"><i class="fas fa-table w-5 text-center text-sm"></i><span>REPORTS & DATA</span></a>
+<a href="analytics.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all bg-teal-600 text-white shadow-tealglow"><i class="fas fa-chart-line w-5 text-center text-sm"></i><span>ANALYTICS</span></a>
+<a href="payouts.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900"><i class="fas fa-wallet w-5 text-center text-sm"></i><span>PAYOUTS</span></a>
+<a href="agents.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900"><i class="fas fa-users-cog w-5 text-center text-sm"></i><span>AGENTS</span></a>
+</nav>
+</div>
+<div class="p-4 border-t border-teal-500/20">
+<div class="flex items-center justify-between p-3.5 rounded-2xl bg-white/70 border border-teal-500/20 shadow-sm overflow-hidden">
+<div class="flex items-center space-x-3 overflow-hidden">
+<img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-=w200" data-s="0" alt="Logo" class="w-9 h-9 rounded-xl object-cover border border-teal-600 shadow-md shrink-0" onerror="logoFallback(this)">
+<div class="overflow-hidden"><p class="text-xs font-extrabold text-slate-900 truncate">PolicyNest Admin</p><p class="text-[10px] text-teal-700 font-bold flex items-center gap-1.5"><i class="fas fa-shield text-teal-600"></i> CRM Suite</p></div>
+</div>
+</div>
+</div>
+</aside>
+
+<main class="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 min-h-screen space-y-6 max-w-full min-w-0">
+
+<header class="flex flex-col lg:flex-row justify-between items-start lg:items-center pb-5 border-b border-teal-500/20 gap-4">
+<div class="overflow-hidden">
+<h2 class="text-lg sm:text-2xl font-extrabold tracking-tight text-slate-900 flex items-center gap-3 truncate"><i class="fas fa-chart-line text-teal-700 shrink-0"></i> <span class="truncate">Business Analytics & Insights</span></h2>
+<p class="text-xs font-medium text-slate-600 mt-1">PolicyNest Secure Private Limited CRM Suite.</p>
+</div>
+<div class="noprint flex flex-wrap items-center gap-2.5">
+<button onclick="togglePrivacy()" class="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/80 border border-teal-500/30 text-xs font-extrabold text-slate-900 shadow-sm"><i class="fas fa-eye-slash text-teal-700"></i>Privacy<span class="tog"></span></button>
+<button onclick="window.print()" class="px-4 py-2.5 bg-white/80 border border-teal-500/30 text-slate-900 font-extrabold rounded-xl text-xs flex items-center gap-2"><i class="fas fa-print text-teal-700"></i> Print</button>
+<button onclick="exportCSV()" class="px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-extrabold rounded-xl text-xs shadow-tealglow flex items-center gap-2"><i class="fas fa-file-csv"></i> Export CSV</button>
+</div>
+</header>
+
+<div id="src-note" class="glass-panel rounded-2xl px-4 py-2.5 text-xs font-bold hidden"></div>
+
+<!-- Date filter -->
+<div class="noprint glass-panel p-4 rounded-2xl flex flex-wrap items-center gap-2.5">
+<button id="r-all" onclick="setRange('all')" class="chip on">All Time</button>
+<button id="r-month" onclick="setRange('month')" class="chip">This Month</button>
+<button id="r-last" onclick="setRange('last')" class="chip">Last Month</button>
+<button id="r-year" onclick="setRange('year')" class="chip">This Year</button>
+<span class="text-xs font-bold text-slate-700 ml-2">From</span><input type="date" id="fFrom" onchange="setRange('custom')" class="glass-input rounded-xl px-3 py-1.5 text-xs">
+<span class="text-xs font-bold text-slate-700">To</span><input type="date" id="fTo" onchange="setRange('custom')" class="glass-input rounded-xl px-3 py-1.5 text-xs">
+<span id="rangeLabel" class="ml-auto text-xs font-extrabold text-teal-800"></span>
+</div>
+
+<div id="loading" class="flex flex-col items-center justify-center py-16 space-y-3">
+<div class="relative w-20 h-20 flex items-center justify-center"><div class="absolute inset-0 border-4 border-teal-500/20 rounded-full"></div><div class="absolute inset-0 border-4 border-teal-600 border-t-transparent rounded-full animate-spin"></div><span id="loading-percentage" class="text-sm font-extrabold text-teal-800">1%</span></div>
+<p class="text-xs font-bold text-slate-600 tracking-wide">Loading analytics...</p>
+</div>
+
+<div id="content" class="hidden space-y-6">
+
+<!-- KPIs -->
+<div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+<div class="glass-panel p-5 rounded-3xl"><p class="text-[11px] font-bold tracking-wider text-slate-700 uppercase mb-2">Total Sales Volume</p><h3 id="ana-total-sales" class="sens text-base sm:text-lg font-extrabold text-slate-900 whitespace-nowrap">₹0</h3></div>
+<div class="glass-panel p-5 rounded-3xl"><p class="text-[11px] font-bold tracking-wider text-slate-700 uppercase mb-2">Total Net Profit</p><h3 id="ana-total-profit" class="sens text-base sm:text-lg font-extrabold text-emerald-800 whitespace-nowrap">₹0</h3></div>
+<div class="glass-panel p-5 rounded-3xl"><p class="text-[11px] font-bold tracking-wider text-slate-700 uppercase mb-2">Total Policies</p><h3 id="ana-total-policies" class="text-base sm:text-lg font-extrabold text-slate-900">0</h3></div>
+<div class="glass-panel p-5 rounded-3xl"><p class="text-[11px] font-bold tracking-wider text-slate-700 uppercase mb-2">Avg Ticket Size</p><h3 id="ana-avg-ticket" class="sens text-base sm:text-lg font-extrabold text-amber-800 whitespace-nowrap">₹0</h3></div>
+<div class="glass-panel p-5 rounded-3xl col-span-2 lg:col-span-1"><p class="text-[11px] font-bold tracking-wider text-slate-700 uppercase mb-2">Profit Margin</p><h3 id="ana-margin" class="sens text-base sm:text-lg font-extrabold text-teal-800">0%</h3></div>
+</div>
+
+<!-- Insights + Trend -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+<div class="glass-panel p-6 rounded-3xl xl:col-span-2 space-y-3">
+<div class="flex flex-wrap justify-between items-center gap-2"><h3 class="text-sm font-extrabold text-slate-900 flex items-center gap-2"><i class="fas fa-chart-column text-teal-700"></i> Monthly Trend (last 12 months, all data)</h3><span id="growthTag"></span></div>
+<div id="trend" class="sens"></div>
+<div class="flex gap-4 text-[11px] font-bold text-slate-700"><span><i class="fas fa-square text-teal-600 mr-1"></i>Premium</span><span><i class="fas fa-minus text-amber-600 mr-1"></i>Profit</span></div>
+</div>
+<div class="glass-panel p-6 rounded-3xl space-y-3"><h3 class="text-sm font-extrabold text-slate-900 flex items-center gap-2"><i class="fas fa-lightbulb text-amber-600"></i> Smart Insights</h3><div id="insights" class="space-y-2.5"></div></div>
+</div>
+
+<!-- Renewal pipeline -->
+<div class="glass-panel p-6 rounded-3xl space-y-3">
+<h3 class="text-sm font-extrabold text-slate-900 flex items-center gap-2"><i class="fas fa-hourglass-half text-teal-700"></i> Renewal Pipeline (policy end dates, all data)</h3>
+<div id="renewals" class="grid grid-cols-2 lg:grid-cols-4 gap-3"></div>
+</div>
+
+<!-- Company + Policy type -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<div class="glass-panel p-6 sm:p-7 rounded-3xl space-y-4"><h3 class="text-sm font-extrabold text-slate-900 flex items-center gap-2"><i class="fas fa-building-shield text-teal-700"></i> Insurance Company Business Share</h3><div id="insurer-breakdown-container" class="space-y-3"></div></div>
+<div class="glass-panel p-6 sm:p-7 rounded-3xl space-y-4"><h3 class="text-sm font-extrabold text-slate-900 flex items-center gap-2"><i class="fas fa-shield-halved text-teal-700"></i> Policy Type Breakdown</h3><div id="type-container" class="space-y-3"></div></div>
+<div class="glass-panel p-6 sm:p-7 rounded-3xl space-y-4"><h3 class="text-sm font-extrabold text-slate-900 flex items-center gap-2"><i class="fas fa-car text-teal-700"></i> Vehicle Type Breakdown</h3><div id="veh-container" class="space-y-3"></div></div>
+<div class="glass-panel p-6 sm:p-7 rounded-3xl space-y-4"><h3 class="text-sm font-extrabold text-slate-900 flex items-center gap-2"><i class="fas fa-handshake text-teal-700"></i> Broker-wise Business</h3><div id="broker-container" class="space-y-3"></div></div>
+</div>
+
+<!-- CBA table -->
+<div class="glass-panel p-6 sm:p-7 rounded-3xl space-y-4">
+<h3 class="text-sm font-extrabold text-slate-900 flex items-center gap-2"><i class="fas fa-trophy text-amber-600"></i> Top Performing CBAs (Agents)</h3>
+<div class="overflow-x-auto rounded-2xl border border-teal-500/20 bg-white/80">
+<table class="w-full text-left text-xs min-w-[640px]">
+<thead><tr class="bg-teal-900/10 text-slate-900 font-extrabold uppercase text-[11px]" id="cbaHead"></tr></thead>
+<tbody id="cba-leaderboard-container" class="divide-y divide-teal-500/10 font-medium"></tbody>
+</table>
+</div>
+</div>
+
+</div>
+</main>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxBYrrOKng_GGu0v1Md72X2UskTAkRLnpqdhqsxZOb7jsqGvgLogzJHd25pv97JZ0Dl/exec";
+
+/* Logo */
+const LOGO_ID="1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-";
+const LOGO_SRCS=["https://lh3.googleusercontent.com/d/"+LOGO_ID+"=w200","https://drive.google.com/thumbnail?id="+LOGO_ID+"&sz=w200","https://drive.google.com/uc?export=view&id="+LOGO_ID,"https://via.placeholder.com/44?text=PN"];
+function logoFallback(img){let i=(parseInt(img.dataset.s)||0)+1;if(i>=LOGO_SRCS.length){img.onerror=null;return;}img.dataset.s=i;img.src=LOGO_SRCS[i];}
+
+/* Helpers */
+const esc=s=>String(s===undefined||s===null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function toggleMobileMenu(){const sb=document.getElementById('sidebar'),ov=document.getElementById('mobile-overlay'),ic=document.getElementById('mobile-menu-icon');sb.classList.toggle('-translate-x-full');ov.classList.toggle('hidden');ic.className=sb.classList.contains('-translate-x-full')?'fas fa-bars':'fas fa-times';}
+function showToast(m,t='success'){const el=document.getElementById('toast');document.getElementById('toast-msg').textContent=m;document.getElementById('toast-icon').className=t==='success'?'fas fa-check-circle text-emerald-600 text-lg':'fas fa-exclamation-circle text-red-600 text-lg';el.classList.remove('translate-y-28','opacity-0');setTimeout(()=>el.classList.add('translate-y-28','opacity-0'),3500);}
+const formatINR=a=>'₹'+Number(a||0).toLocaleString('en-IN');
+const pct=(a,b)=>b>0?(a/b*100):0;
+function parseVal(v){if(!v)return 0;if(typeof v==='number')return v;const n=parseFloat(String(v).replace(/[^0-9.-]+/g,''));return isNaN(n)?0:n;}
+function parseDate(s){
+  if(s===null||s===undefined||s==='')return null;
+  if(typeof s==='number'&&s>20000&&s<80000)return new Date(Math.round((s-25569)*86400000));
+  const m=String(s).trim().match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})/);
+  if(m){let y=+m[3];if(y<100)y+=2000;return new Date(y,+m[2]-1,+m[1]);}
+  const d=new Date(s);return isNaN(d.getTime())?null:d;
+}
+const MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const mkey=d=>d.getFullYear()*12+d.getMonth();
+function togglePrivacy(){document.body.classList.toggle('privacy');try{localStorage.setItem('pn_privacy',document.body.classList.contains('privacy')?'1':'0');}catch(e){}}
+try{if(localStorage.getItem('pn_privacy')==='1')document.body.classList.add('privacy');}catch(e){}
+
+/* Column-name mapping (sheet headers may differ) */
+const KM={date:'date',entrydate:'date',saledate:'date',grosspremium:'grossPremium',gross:'grossPremium',profitinamt:'profitInAmt',profit:'profitInAmt',insurancecompny:'insuranceCompany',insurancecompany:'insuranceCompany',company:'insuranceCompany',cbaname:'cbaName',cba:'cbaName',policytype:'policyType',vehicletype:'vehicleType',brokername:'brokerName',broker:'brokerName',policyenddate:'policyEndDate',enddate:'policyEndDate'};
+function canon(o){const r={};for(const k in o){r[KM[String(k).toLowerCase().replace(/[^a-z0-9]/g,'')]||k]=o[k];}return r;}
+
+/* Loader */
+let pi=null;
+function initLoader(){const el=document.getElementById('loading-percentage');if(!el)return;let c=1;pi=setInterval(()=>{if(c<90){c+=Math.floor(Math.random()*5)+2;if(c>90)c=90;el.textContent=c+'%';}},50);}
+function finishLoader(done){const el=document.getElementById('loading-percentage');if(pi)clearInterval(pi);let c=parseInt(el.textContent)||90;const f=setInterval(()=>{c+=2;if(c>=100){el.textContent='100%';clearInterval(f);setTimeout(done,200);}else el.textContent=c+'%';},15);}
+
+/* Fetch */
+let ALL=[],src='sheet',errMsg='';
+async function fetchAnalyticsData(){
+  initLoader();
+  try{
+    const res=await fetch(SCRIPT_URL),result=await res.json();
+    finishLoader(()=>{
+      let d=result&&result.data!==undefined?result.data:(Array.isArray(result)?result:null);
+      if(d&&!Array.isArray(d))d=Object.values(d);
+      if(d){src='sheet';ALL=d;}else{src='local';errMsg=(result&&(result.message||result.error))||'unexpected response';loadLocal();}
+      start();
+    });
+  }catch(e){console.error(e);errMsg=e&&e.message?e.message:'network error';finishLoader(()=>{src='local';loadLocal();start();});}
+}
+function loadLocal(){try{ALL=JSON.parse(localStorage.getItem('policynest_sales'))||[];}catch(e){ALL=[];}}
+function start(){
+  ALL=ALL.map(canon).map(s=>({s,d:parseDate(s.date),g:parseVal(s.grossPremium),p:parseVal(s.profitInAmt),end:parseDate(s.policyEndDate)}));
+  const sn=document.getElementById('src-note'),ok=src==='sheet';
+  sn.className='glass-panel rounded-2xl px-4 py-2.5 text-xs font-bold '+(ok?'text-emerald-800':'text-red-700');
+  sn.innerHTML='<i class="fas fa-database mr-2"></i>'+(ok?'Sheet se '+ALL.length+' records load hue':'Sheet se data nahi aaya ('+esc(errMsg)+'). Local backup: '+ALL.length+' records');
+  document.getElementById('loading').classList.add('hidden');document.getElementById('content').classList.remove('hidden');
+  setRange('all');
+}
+
+/* Range */
+let range='all',data=[],cbaSort={c:'volume',d:'desc'};
+function setRange(r){
+  range=r;
+  ['all','month','last','year'].forEach(x=>document.getElementById('r-'+x).className='chip'+(x===r?' on':''));
+  if(r!=='custom'){document.getElementById('fFrom').value='';document.getElementById('fTo').value='';}
+  const now=new Date();let lbl='All time';
+  if(r==='all')data=ALL;
+  else if(r==='month'){data=ALL.filter(x=>x.d&&mkey(x.d)===mkey(now));lbl=MN[now.getMonth()]+' '+now.getFullYear();}
+  else if(r==='last'){const l=new Date(now.getFullYear(),now.getMonth()-1,1);data=ALL.filter(x=>x.d&&mkey(x.d)===mkey(l));lbl=MN[l.getMonth()]+' '+l.getFullYear();}
+  else if(r==='year'){data=ALL.filter(x=>x.d&&x.d.getFullYear()===now.getFullYear());lbl=String(now.getFullYear());}
+  else{
+    const f=document.getElementById('fFrom').value,t=document.getElementById('fTo').value;
+    const from=f?new Date(f+'T00:00:00'):null,to=t?new Date(t+'T23:59:59'):null;
+    data=ALL.filter(x=>x.d&&(!from||x.d>=from)&&(!to||x.d<=to));lbl=(f||'...')+' to '+(t||'...');
+  }
+  document.getElementById('rangeLabel').textContent=lbl+' • '+data.length+' policies';
+  renderAll();
+}
+
+/* Grouping */
+function group(keyFn){const m={};data.forEach(x=>{const k=keyFn(x.s);if(!k)return;const o=m[k]=m[k]||{v:0,p:0,c:0};o.v+=x.g;o.p+=x.p;o.c++;});return Object.entries(m).sort((a,b)=>b[1].v-a[1].v);}
+const norm=v=>v?String(v).trim().toUpperCase():'';
+function barList(id,entries,total,empty){
+  const el=document.getElementById(id);
+  if(!entries.length){el.innerHTML='<p class="empty">'+empty+'</p>';return;}
+  el.innerHTML=entries.map(([n,o])=>{const sh=pct(o.v,total);return `<div class="space-y-1 bg-white/70 p-3 rounded-2xl border border-teal-500/20 shadow-sm"><div class="flex justify-between gap-2 text-xs font-bold"><span class="text-slate-900 truncate">${esc(n)}</span><span class="text-teal-900 shrink-0"><span class="sens">${formatINR(o.v)}</span> (${sh.toFixed(1)}%)</span></div><div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden border border-teal-500/20"><div class="bar sens bg-gradient-to-r from-teal-600 to-emerald-500" style="width:${sh}%"></div></div><div class="text-[10px] font-bold text-slate-700">${o.c} policies • Margin <span class="sens">${pct(o.p,o.v).toFixed(1)}%</span></div></div>`;}).join('');
+}
+
+/* Render */
+function renderAll(){
+  const tg=data.reduce((a,x)=>a+x.g,0),tp=data.reduce((a,x)=>a+x.p,0),n=data.length;
+  document.getElementById('ana-total-sales').textContent=formatINR(tg);
+  document.getElementById('ana-total-profit').textContent=formatINR(tp);
+  document.getElementById('ana-total-policies').textContent=n;
+  document.getElementById('ana-avg-ticket').textContent=formatINR(n?tg/n:0);
+  document.getElementById('ana-margin').textContent=pct(tp,tg).toFixed(1)+'%';
+
+  const comps=group(s=>norm(s.insuranceCompany)||'OTHER');
+  barList('insurer-breakdown-container',comps,tg,'No data available.');
+  barList('type-container',group(s=>norm(s.policyType)),tg,'Policy type data not available.');
+  barList('veh-container',group(s=>norm(s.vehicleType)),tg,'Vehicle type data not available.');
+  barList('broker-container',group(s=>norm(s.brokerName)),tg,'Broker data not available.');
+  renderCBA();
+  const tr=renderTrend();
+  renderRenewals();
+  renderInsights(comps,tg,tr);
+}
+
+function cbaRows(){
+  const m={};data.forEach(x=>{const k=norm(x.s.cbaName)||'UNASSIGNED';const o=m[k]=m[k]||{name:k,count:0,volume:0,profit:0};o.count++;o.volume+=x.g;o.profit+=x.p;});
+  const a=Object.values(m).map(o=>({...o,avg:o.count?o.volume/o.count:0,margin:pct(o.profit,o.volume)}));
+  const c=cbaSort.c,d=cbaSort.d==='asc'?1:-1;
+  return a.sort((x,y)=>(typeof x[c]==='string'?x[c].localeCompare(y[c]):x[c]-y[c])*d);
+}
+function sortCBA(c){cbaSort=cbaSort.c===c?{c,d:cbaSort.d==='asc'?'desc':'asc'}:{c,d:'desc'};renderCBA();}
+function renderCBA(){
+  const H=[['name','CBA'],['count','Policies'],['volume','Volume'],['profit','Profit'],['avg','Avg Ticket'],['margin','Margin']];
+  document.getElementById('cbaHead').innerHTML='<th class="p-3.5">#</th>'+H.map(h=>`<th class="p-3.5 sortable" onclick="sortCBA('${h[0]}')">${h[1]} <i class="fas fa-sort ml-1"></i></th>`).join('');
+  const rows=cbaRows(),el=document.getElementById('cba-leaderboard-container');
+  el.innerHTML=rows.length?rows.map((r,i)=>`<tr><td class="p-3.5 font-extrabold text-teal-800">#${i+1}</td><td class="p-3.5 font-extrabold text-slate-900">${esc(r.name)}</td><td class="p-3.5">${r.count}</td><td class="p-3.5 font-extrabold text-amber-800"><span class="sens">${formatINR(r.volume)}</span></td><td class="p-3.5 font-extrabold text-emerald-800"><span class="sens">${formatINR(r.profit)}</span></td><td class="p-3.5"><span class="sens">${formatINR(r.avg)}</span></td><td class="p-3.5 font-bold"><span class="sens">${r.margin.toFixed(1)}%</span></td></tr>`).join(''):'<tr><td colspan="7" class="empty">No CBA records available.</td></tr>';
+}
+
+function renderTrend(){
+  const el=document.getElementById('trend'),tag=document.getElementById('growthTag');
+  const ds=ALL.filter(x=>x.d);
+  if(!ds.length){el.innerHTML='<p class="empty">No dated records available.</p>';tag.innerHTML='';return null;}
+  const last=new Date(Math.max(...ds.map(x=>x.d.getTime()))),ms=[];
+  for(let i=11;i>=0;i--){const d=new Date(last.getFullYear(),last.getMonth()-i,1),k=mkey(d),r=ds.filter(x=>mkey(x.d)===k);ms.push({l:MN[d.getMonth()]+" '"+String(d.getFullYear()).slice(2),v:r.reduce((a,x)=>a+x.g,0),p:r.reduce((a,x)=>a+x.p,0),n:r.length});}
+  const W=640,H=210,pd=30,max=Math.max(...ms.map(m=>m.v),1),bw=(W-2*pd)/12,y=v=>H-pd-v/max*(H-2*pd);
+  const bars=ms.map((m,i)=>`<rect x="${pd+i*bw+bw*.15}" y="${y(m.v)}" width="${bw*.7}" height="${H-pd-y(m.v)}" rx="5" fill="#0d9488" opacity=".85"><title>${m.l}: ${formatINR(m.v)} • ${m.n} policies</title></rect><text x="${pd+i*bw+bw/2}" y="${H-10}" text-anchor="middle" font-size="9.5" font-weight="700" fill="#334155">${m.l}</text>`).join('');
+  const line=ms.map((m,i)=>(pd+i*bw+bw/2)+','+y(m.p)).join(' ');
+  const dots=ms.map((m,i)=>`<circle cx="${pd+i*bw+bw/2}" cy="${y(m.p)}" r="3.5" fill="#fff" stroke="#d97706" stroke-width="2"><title>${m.l} profit: ${formatINR(m.p)}</title></circle>`).join('');
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" class="w-full">${bars}<polyline points="${line}" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linejoin="round"/>${dots}</svg>`;
+  const a=ms[11],b=ms[10],g=b.v>0?(a.v-b.v)/b.v*100:null;
+  tag.innerHTML=g===null?'':`<span class="text-[11px] font-extrabold px-3 py-1 rounded-full ${g>=0?'bg-emerald-100 text-emerald-800':'bg-red-100 text-red-800'}"><i class="fas fa-arrow-${g>=0?'up':'down'}"></i> ${Math.abs(g).toFixed(1)}% ${a.l} vs ${b.l}</span>`;
+  return {ms,g};
+}
+
+function renderRenewals(){
+  const t=new Date();t.setHours(0,0,0,0);
+  const B=[['Expired',x=>x<0,'#e11d48'],['Next 30 days',x=>x>=0&&x<=30,'#d97706'],['31–60 days',x=>x>30&&x<=60,'#0ea5e9'],['61–90 days',x=>x>60&&x<=90,'#16a34a']];
+  const rows=ALL.filter(x=>x.end).map(x=>({dl:Math.round((x.end-t)/86400000),g:x.g}));
+  if(!rows.length){document.getElementById('renewals').innerHTML='<p class="empty col-span-full">Policy End Date data not available.</p>';return;}
+  document.getElementById('renewals').innerHTML=B.map(b=>{const r=rows.filter(x=>b[1](x.dl));return `<div class="p-4 rounded-2xl bg-white/70 border border-teal-500/20"><p class="text-[11px] font-bold uppercase text-slate-700">${b[0]}</p><p class="text-xl font-extrabold mt-1" style="color:${b[2]}">${r.length}</p><p class="text-[11px] font-bold text-slate-800 sens">${formatINR(r.reduce((a,x)=>a+x.g,0))} premium</p></div>`;}).join('');
+}
+
+function renderInsights(comps,tg,tr){
+  const I=[],cbas=cbaRows().slice().sort((a,b)=>b.volume-a.volume);
+  if(comps.length)I.push(['fa-building','#0d9488',`${comps[0][0]} is the top company with ${pct(comps[0][1].v,tg).toFixed(1)}% of business.`]);
+  const bm=comps.filter(c=>c[1].c>=2&&c[1].v>0).sort((a,b)=>pct(b[1].p,b[1].v)-pct(a[1].p,a[1].v))[0];
+  if(bm)I.push(['fa-percent','#16a34a',`${bm[0]} gives the best margin (${pct(bm[1].p,bm[1].v).toFixed(1)}%).`]);
+  if(cbas.length&&cbas[0].name!=='UNASSIGNED')I.push(['fa-trophy','#d97706',`${cbas[0].name} is the top CBA with ${cbas[0].count} policies.`]);
+  if(tr){
+    if(tr.g!==null)I.push([tr.g>=0?'fa-arrow-trend-up':'fa-arrow-trend-down',tr.g>=0?'#16a34a':'#e11d48',`Latest month premium is ${Math.abs(tr.g).toFixed(1)}% ${tr.g>=0?'higher':'lower'} than the month before.`]);
+    const w=tr.ms.filter(m=>m.n>0).sort((a,b)=>a.v-b.v)[0];
+    if(w)I.push(['fa-triangle-exclamation','#e11d48',`${w.l} was the weakest month in this period (${w.n} policies).`]);
+  }
+  const t=new Date();t.setHours(0,0,0,0);
+  const due=ALL.filter(x=>x.end&&Math.round((x.end-t)/86400000)>=0&&Math.round((x.end-t)/86400000)<=30).length;
+  if(due)I.push(['fa-hourglass-half','#d97706',`${due} policies are due for renewal in the next 30 days.`]);
+  document.getElementById('insights').innerHTML=I.length?I.map(i=>`<div class="flex gap-3 p-3 rounded-2xl bg-white/70 border border-teal-500/20 text-xs font-semibold text-slate-900"><i class="fas ${i[0]} mt-0.5" style="color:${i[1]}"></i><span>${esc(i[2])}</span></div>`).join(''):'<p class="empty">Insights will appear once data is available.</p>';
+}
+
+/* CSV */
+function exportCSV(){
+  if(!data.length){showToast('No data available to export.','error');return;}
+  const q=v=>'"'+String(v).replace(/"/g,'""')+'"';
+  let c='CBA Summary\n'+['CBA','Policies','Volume','Profit','Avg Ticket','Margin %'].map(q).join(',')+'\n';
+  cbaRows().forEach(r=>{c+=[r.name,r.count,r.volume.toFixed(2),r.profit.toFixed(2),r.avg.toFixed(2),r.margin.toFixed(1)].map(q).join(',')+'\n';});
+  c+='\nCompany Summary\n'+['Company','Policies','Volume','Profit','Margin %'].map(q).join(',')+'\n';
+  group(s=>norm(s.insuranceCompany)||'OTHER').forEach(([n,o])=>{c+=[n,o.c,o.v.toFixed(2),o.p.toFixed(2),pct(o.p,o.v).toFixed(1)].map(q).join(',')+'\n';});
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+c],{type:'text/csv;charset=utf-8;'}));a.download='PolicyNest_Analytics.csv';document.body.appendChild(a);a.click();document.body.removeChild(a);
+  showToast('CSV exported successfully!');
+}
+
+window.onload=fetchAnalyticsData;
+</script>
+</body>
+</html>

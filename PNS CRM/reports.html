@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reports & Data - PolicyNest Secure Private Limited</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{lightbg:'#f0fdf4',glasslight:'rgba(255,255,255,0.85)',glassborder:'rgba(20,184,166,0.25)',tealaccent:'#0d9488',goldaccent:'#d97706'},boxShadow:{'glasslight':'0 20px 40px -15px rgba(13,148,136,0.12), 0 0 15px rgba(255,255,255,0.9) inset','goldglow':'0 0 20px -3px rgba(217,119,6,0.3)','tealglow':'0 0 20px -3px rgba(13,148,136,0.25)','card3d':'0 15px 35px -5px rgba(0,0,0,0.06), 0 5px 15px rgba(13,148,136,0.08)'}}}}
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Inter',sans-serif;background:radial-gradient(circle at 10% 10%,#e6f9f0 0%,#f1f8f5 50%,#e3ede8 100%);background-attachment:fixed;overflow-x:hidden;color:#0f172a}
+.glass-panel{background:rgba(255,255,255,.90);backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px);border:1px solid rgba(20,184,166,.3);box-shadow:0 15px 35px -5px rgba(0,0,0,.06),0 5px 15px rgba(13,148,136,.08),inset 0 1px 0 rgba(255,255,255,.9);transition:all .3s cubic-bezier(.16,1,.3,1)}
+.glass-input{background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border:1px solid rgba(13,148,136,.3);color:#0f172a}
+.glass-input:focus{border-color:#0d9488;box-shadow:0 0 15px rgba(13,148,136,.2);outline:none}
+tr.clickable-row{cursor:pointer}
+tr.clickable-row:hover td{background-color:#ecfdf5}
+.tw{max-height:68vh;overflow:auto}
+thead th{position:sticky;top:0;z-index:20;background:#d5ebe5;white-space:nowrap}
+td,th{white-space:nowrap}
+.c-clientName{position:sticky;left:0;z-index:10;background:#fff}
+thead th.c-clientName{z-index:30;background:#d5ebe5}
+.sens{transition:filter .25s}
+body.privacy .sens{filter:blur(8px);user-select:none}
+.tog{width:44px;height:24px;border-radius:9999px;background:#cbd5e1;position:relative;transition:.25s;flex-shrink:0}
+.tog::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:.25s}
+body.privacy .tog{background:#0d9488}
+body.privacy .tog::after{left:23px}
+.badge{display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:9999px;margin-left:6px}
+.chip{padding:8px 14px;border-radius:12px;font-size:12px;font-weight:800;border:1px solid rgba(20,184,166,.25);background:rgba(255,255,255,.85);color:#334155;transition:.2s}
+.chip.on{background:#0d9488;color:#fff;border-color:#0d9488}
+@media print{aside,.noprint,#toast,.md\:hidden{display:none!important}.tw{max-height:none;overflow:visible}main{padding:0!important}body{background:#fff}}
+</style>
+<style id="colstyle"></style>
+</head>
+<body class="min-h-screen flex flex-col md:flex-row antialiased">
+
+<div id="toast" class="fixed bottom-6 right-6 z-[60] transform translate-y-28 opacity-0 transition-all duration-300 px-5 py-3.5 rounded-2xl shadow-2xl flex items-center space-x-3 text-sm font-semibold border border-teal-500/30 bg-white/95 backdrop-blur-2xl text-slate-900">
+<i id="toast-icon" class="fas fa-check-circle text-emerald-600 text-lg"></i><span id="toast-msg">Success message</span>
+</div>
+
+<div class="md:hidden glass-panel border-b border-teal-500/20 p-4 flex items-center justify-between z-30 sticky top-0 shadow-sm">
+<div class="flex items-center space-x-3 overflow-hidden">
+<img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-=w200" data-s="0" alt="PolicyNest Logo" class="w-9 h-9 rounded-xl object-cover border border-teal-600 shadow-md shrink-0" onerror="logoFallback(this)">
+<span class="font-bold text-sm tracking-tight text-slate-900 truncate">PolicyNest Secure</span>
+</div>
+<button onclick="toggleMobileMenu()" class="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/30 text-teal-800 flex items-center justify-center text-lg active:scale-95 transition shrink-0"><i class="fas fa-bars" id="mobile-menu-icon"></i></button>
+</div>
+<div id="mobile-overlay" onclick="toggleMobileMenu()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 hidden md:hidden transition-opacity"></div>
+
+<aside id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 w-72 glass-panel border-r border-teal-500/20 flex flex-col justify-between shrink-0 z-50 md:sticky md:top-0 md:h-screen transition-transform duration-300 ease-in-out">
+<div>
+<div class="p-6 border-b border-teal-500/20 flex items-center justify-between">
+<div class="flex items-center space-x-3.5 overflow-hidden">
+<img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-=w200" data-s="0" alt="PolicyNest Logo" class="w-11 h-11 rounded-2xl object-cover border border-teal-600 shadow-goldglow shrink-0" onerror="logoFallback(this)">
+<div class="overflow-hidden"><h1 class="font-extrabold text-sm tracking-tight text-slate-900 truncate">PolicyNest Secure</h1><p class="text-[10px] text-teal-700 font-extrabold tracking-wide">Private Limited</p></div>
+</div>
+<button onclick="toggleMobileMenu()" class="md:hidden text-slate-600 hover:text-slate-900 p-2 shrink-0"><i class="fas fa-times text-lg"></i></button>
+</div>
+<nav class="p-4 space-y-2">
+<a href="index.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900"><i class="fas fa-home w-5 text-center text-sm"></i><span>HOME</span></a>
+<a href="sales-entry.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900"><i class="fas fa-file-invoice-dollar w-5 text-center text-sm"></i><span>SALES ENTRY</span></a>
+<a href="reports.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all bg-teal-600 text-white shadow-tealglow"><i class="fas fa-table w-5 text-center text-sm"></i><span>REPORTS & DATA</span></a>
+<a href="analytics.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900"><i class="fas fa-chart-line w-5 text-center text-sm"></i><span>ANALYTICS</span></a>
+<a href="payouts.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900"><i class="fas fa-wallet w-5 text-center text-sm"></i><span>PAYOUTS</span></a>
+<a href="agents.html" class="flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all text-slate-700 hover:bg-teal-500/10 hover:text-teal-900"><i class="fas fa-users-cog w-5 text-center text-sm"></i><span>AGENTS</span></a>
+</nav>
+</div>
+<div class="p-4 border-t border-teal-500/20">
+<div class="flex items-center justify-between p-3.5 rounded-2xl bg-white/70 border border-teal-500/20 shadow-sm overflow-hidden">
+<div class="flex items-center space-x-3 overflow-hidden">
+<img src="https://lh3.googleusercontent.com/d/1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-=w200" data-s="0" alt="Logo" class="w-9 h-9 rounded-xl object-cover border border-teal-600 shadow-md shrink-0" onerror="logoFallback(this)">
+<div class="overflow-hidden"><p class="text-xs font-extrabold text-slate-900 truncate">PolicyNest Admin</p><p class="text-[10px] text-teal-700 font-bold flex items-center gap-1.5"><i class="fas fa-shield text-teal-600"></i> CRM Suite</p></div>
+</div>
+</div>
+</div>
+</aside>
+
+<main class="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 min-h-screen space-y-5 max-w-full min-w-0">
+
+<header class="flex flex-col lg:flex-row justify-between items-start lg:items-center pb-5 border-b border-teal-500/20 gap-4">
+<div class="overflow-hidden">
+<h2 class="text-lg sm:text-2xl font-extrabold tracking-tight text-slate-900 flex items-center gap-3 truncate"><i class="fas fa-table text-teal-700 shrink-0"></i> <span class="truncate">Reports & Data Ledger</span></h2>
+<p class="text-xs font-medium text-slate-600 mt-1">PolicyNest Secure Private Limited CRM Suite.</p>
+</div>
+<div class="noprint flex flex-wrap items-center gap-2.5">
+<button onclick="togglePrivacy()" class="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/80 border border-teal-500/30 text-xs font-extrabold text-slate-900 shadow-sm"><i class="fas fa-eye-slash text-teal-700"></i>Privacy<span class="tog"></span></button>
+<button onclick="printReport()" class="px-4 py-2.5 bg-white/80 border border-teal-500/30 text-slate-900 font-extrabold rounded-xl text-xs flex items-center gap-2"><i class="fas fa-print text-teal-700"></i> Print</button>
+<button onclick="exportToCSV()" class="px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-extrabold rounded-xl text-xs hover:opacity-95 transition shadow-tealglow flex items-center gap-2"><i class="fas fa-file-csv"></i> Export to CSV</button>
+</div>
+</header>
+
+<div id="src-note" class="glass-panel rounded-2xl px-4 py-2.5 text-xs font-bold hidden"></div>
+
+<!-- Summary -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3" id="summary"></div>
+
+<!-- Filters -->
+<div class="noprint glass-panel p-4 rounded-2xl space-y-3">
+<div class="flex flex-wrap gap-2">
+<button onclick="filterByDateRange('all')" id="btn-all" class="chip on">All</button>
+<button onclick="filterByDateRange('today')" id="btn-today" class="chip">Today</button>
+<button onclick="filterByDateRange('week')" id="btn-week" class="chip">This Week</button>
+<button onclick="filterByDateRange('month')" id="btn-month" class="chip">This Month</button>
+<button onclick="filterByDateRange('year')" id="btn-year" class="chip">This Year</button>
+<button onclick="toggleExp()" id="btn-exp" class="chip"><i class="fas fa-hourglass-half mr-1"></i>Expiring ≤30d</button>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-6 gap-2.5">
+<div class="relative col-span-2 lg:col-span-2"><i class="fas fa-search absolute left-4 top-3 text-slate-400 text-xs"></i><input type="text" id="reportSearch" oninput="debSearch()" placeholder="Search client, policy no, company, CBA, veh no..." class="w-full glass-input rounded-xl pl-10 pr-4 py-2 text-xs font-medium"></div>
+<select id="fComp" onchange="applyFilters()" class="glass-input rounded-xl px-3 py-2 text-xs font-bold"></select>
+<select id="fCba" onchange="applyFilters()" class="glass-input rounded-xl px-3 py-2 text-xs font-bold"></select>
+<select id="fType" onchange="applyFilters()" class="glass-input rounded-xl px-3 py-2 text-xs font-bold"></select>
+<div class="relative">
+<button onclick="document.getElementById('colPanel').classList.toggle('hidden')" class="w-full glass-input rounded-xl px-3 py-2 text-xs font-bold text-left"><i class="fas fa-columns mr-1.5 text-teal-700"></i>Columns</button>
+<div id="colPanel" class="hidden absolute right-0 mt-2 w-56 max-h-72 overflow-y-auto bg-white border border-teal-500/30 rounded-2xl shadow-2xl p-3 z-40 space-y-1.5"></div>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3 text-xs font-bold text-slate-700">
+<span>From</span><input type="date" id="fFrom" onchange="customRange()" class="glass-input rounded-xl px-3 py-1.5 text-xs">
+<span>To</span><input type="date" id="fTo" onchange="customRange()" class="glass-input rounded-xl px-3 py-1.5 text-xs">
+<button onclick="clearFilters()" class="chip">Clear</button>
+<span class="ml-auto">Records: <span id="record-count" class="text-teal-800 font-extrabold">0</span></span>
+</div>
+</div>
+
+<!-- Cards (mobile) -->
+<div id="cards" class="md:hidden space-y-3"></div>
+
+<!-- Table -->
+<div class="hidden md:block glass-panel p-4 sm:p-6 rounded-3xl space-y-4 overflow-hidden">
+<div class="tw rounded-2xl border border-teal-500/20 bg-white/80">
+<table class="w-full text-left border-collapse text-xs">
+<thead><tr id="theadRow" class="text-slate-900 border-b border-teal-500/20 font-extrabold uppercase tracking-wider text-[11px]"></tr></thead>
+<tbody id="reportsTableBody" class="divide-y divide-teal-500/10 font-medium">
+<tr><td colspan="22" class="p-12 text-center"><div class="flex flex-col items-center justify-center space-y-3">
+<div class="relative w-16 h-16 flex items-center justify-center"><div class="absolute inset-0 border-4 border-teal-500/20 rounded-full"></div><div class="absolute inset-0 border-4 border-teal-600 border-t-transparent rounded-full animate-spin"></div><span id="loading-percentage" class="text-xs font-extrabold text-teal-800">1%</span></div>
+<p class="text-xs font-bold text-slate-600">Loading records...</p></div></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- Pagination -->
+<div class="noprint flex flex-wrap items-center justify-between gap-3 text-xs font-bold text-slate-800">
+<div class="flex items-center gap-2">Rows <select id="pageSize" onchange="pageSize=+this.value;page=1;render()" class="glass-input rounded-lg px-2 py-1"><option>25</option><option>50</option><option>100</option></select></div>
+<div class="flex items-center gap-2"><button onclick="goPage(-1)" class="chip">‹ Prev</button><span id="pageInfo"></span><button onclick="goPage(1)" class="chip">Next ›</button></div>
+</div>
+</main>
+
+<!-- Detail Modal -->
+<div id="detailModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+<div class="glass-panel p-6 sm:p-8 rounded-3xl max-w-3xl w-full space-y-6 bg-white/95 border-2 border-teal-500/40 shadow-2xl relative my-8">
+<div class="flex justify-between items-center pb-4 border-b border-teal-500/20">
+<h3 class="text-lg font-extrabold text-slate-900 flex items-center gap-2.5"><i class="fas fa-file-shield text-teal-700 text-xl"></i> Policy Complete Details</h3>
+<button onclick="closeDetailModal()" class="w-9 h-9 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-800 flex items-center justify-center font-bold text-sm transition"><i class="fas fa-times"></i></button>
+</div>
+<div id="modalFieldsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[60vh] overflow-y-auto pr-2 text-xs"></div>
+<div class="flex flex-wrap justify-end gap-3 pt-4 border-t border-teal-500/20">
+<button id="modalDelBtn" class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white font-extrabold rounded-xl text-xs flex items-center gap-2"><i class="fas fa-trash"></i> Delete</button>
+<button id="modalEditBtn" class="px-5 py-2.5 bg-teal-700 hover:bg-teal-800 text-white font-extrabold rounded-xl text-xs transition shadow-tealglow flex items-center gap-2"><i class="fas fa-pen-to-square"></i> Edit Record</button>
+<button id="modalPdfBtn" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-extrabold rounded-xl text-xs transition shadow-goldglow flex items-center gap-2"><i class="fas fa-file-pdf"></i> Download Policy Copy</button>
+</div>
+</div>
+</div>
+
+<!-- Edit Modal -->
+<div id="editModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+<div class="glass-panel p-6 rounded-3xl max-w-4xl w-full space-y-4 bg-white border-2 border-teal-500/40 my-8">
+<h3 class="text-base font-extrabold text-slate-900"><i class="fas fa-pen-to-square mr-2 text-teal-700"></i> Edit Policy Record (all fields)</h3>
+<input type="hidden" id="editIndex">
+<div id="editGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[60vh] overflow-y-auto pr-2"></div>
+<div class="flex justify-end space-x-3 pt-3">
+<button onclick="closeEditModal()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-xl text-xs font-bold transition">Cancel</button>
+<button onclick="saveEditedRecord()" class="px-5 py-2 bg-teal-700 hover:bg-teal-800 text-white rounded-xl text-xs font-bold transition shadow-tealglow">Save Changes</button>
+</div>
+</div>
+</div>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxBYrrOKng_GGu0v1Md72X2UskTAkRLnpqdhqsxZOb7jsqGvgLogzJHd25pv97JZ0Dl/exec";
+
+/* ---------- Logo ---------- */
+const LOGO_ID="1HyN_g5ZtfrzaU8zG07VqR2EFDvMV2v0-";
+const LOGO_SRCS=["https://lh3.googleusercontent.com/d/"+LOGO_ID+"=w200","https://drive.google.com/thumbnail?id="+LOGO_ID+"&sz=w200","https://drive.google.com/uc?export=view&id="+LOGO_ID,"https://via.placeholder.com/44?text=PN"];
+function logoFallback(img){let i=(parseInt(img.dataset.s)||0)+1;if(i>=LOGO_SRCS.length){img.onerror=null;return;}img.dataset.s=i;img.src=LOGO_SRCS[i];}
+
+/* ---------- Fields ---------- */
+const F=[['date','Date','date'],['clientName','Client Name','text'],['policyNo','Policy No','text'],['insuranceCompany','Insurance Compny','text'],['vehNo','Veh NO','text'],['policyStartDate','Start Date','date'],['policyEndDate','End Date','date'],['brokerName','Broker name','text'],['policyType','Policy Type','text'],['vehicleType','Vehicle Type','text'],['sodPremium','Sod Premium','money'],['tpPremium','Tp Premium','money'],['gstNetPremium','GstNet Premium','money'],['netPremium','Net Premium','money'],['grossPremium','Gross Premium','money'],['payoutPremium','Payout Premium','money'],['recvPayoutIC','Recv Payout IC %','pct'],['cbaPayoutPct','CBA Payout %','pct'],['profitInAmt','Profit in Amt','money'],['cbaName','Cba Name','text']];
+const KEYMAP={};F.forEach(f=>KEYMAP[f[0].toLowerCase()]=f[0]);
+Object.assign(KEYMAP,{insurancecompny:'insuranceCompany',insurancecompany:'insuranceCompany',recvpayoutfromic:'recvPayoutIC',recivedpayoutfromic:'recvPayoutIC',pdflink:'pdfLink',pdf:'pdfLink',vehno:'vehNo'});
+function canon(o){const r={};for(const k in o){const n=String(k).toLowerCase().replace(/[^a-z0-9]/g,'');r[KEYMAP[n]||k]=o[k];}return r;}
+
+let globalSalesData=[],filtered=[],sortCol=null,sortDir='desc',dateFilter='all',expOnly=false,page=1,pageSize=25,hiddenCols=new Set();
+try{hiddenCols=new Set(JSON.parse(localStorage.getItem('pn_rep_cols'))||[]);}catch(e){}
+
+/* ---------- Helpers ---------- */
+const esc=s=>String(s===undefined||s===null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function toggleMobileMenu(){const sb=document.getElementById('sidebar'),ov=document.getElementById('mobile-overlay'),ic=document.getElementById('mobile-menu-icon');sb.classList.toggle('-translate-x-full');ov.classList.toggle('hidden');ic.className=sb.classList.contains('-translate-x-full')?'fas fa-bars':'fas fa-times';}
+function showToast(m,t='success'){const el=document.getElementById('toast');document.getElementById('toast-msg').textContent=m;document.getElementById('toast-icon').className=t==='success'?'fas fa-check-circle text-emerald-600 text-lg':'fas fa-exclamation-circle text-red-600 text-lg';el.classList.remove('translate-y-28','opacity-0');setTimeout(()=>el.classList.add('translate-y-28','opacity-0'),4000);}
+const formatINR=a=>'₹'+Number(a||0).toLocaleString('en-IN');
+function parseVal(v){if(!v)return 0;if(typeof v==='number')return v;const n=parseFloat(String(v).replace(/[^0-9.-]+/g,''));return isNaN(n)?0:n;}
+function parseDate(s){
+  if(s===null||s===undefined||s==='')return null;
+  if(typeof s==='number'&&s>20000&&s<80000)return new Date(Math.round((s-25569)*86400000));
+  const m=String(s).trim().match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})/);
+  if(m){let y=+m[3];if(y<100)y+=2000;return new Date(y,+m[2]-1,+m[1]);}
+  const d=new Date(s);return isNaN(d.getTime())?null:d;
+}
+function fmtDate(s){const d=parseDate(s);if(!d)return s?esc(s):'N/A';return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();}
+function toISO(s){const d=parseDate(s);if(!d)return '';return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function daysLeft(s){const d=parseDate(s);if(!d)return null;const t=new Date();t.setHours(0,0,0,0);return Math.round((d-t)/86400000);}
+function togglePrivacy(){document.body.classList.toggle('privacy');try{localStorage.setItem('pn_privacy',document.body.classList.contains('privacy')?'1':'0');}catch(e){}}
+try{if(localStorage.getItem('pn_privacy')==='1')document.body.classList.add('privacy');}catch(e){}
+
+/* ---------- Loader (same behaviour) ---------- */
+let progressInterval=null;
+function initLoader(){const el=document.getElementById('loading-percentage');if(!el)return;let c=1;progressInterval=setInterval(()=>{if(c<90){c+=Math.floor(Math.random()*5)+2;if(c>90)c=90;el.textContent=c+'%';}},50);}
+function finishLoader(done){const el=document.getElementById('loading-percentage');if(!el){if(done)done();return;}if(progressInterval)clearInterval(progressInterval);let c=parseInt(el.textContent)||90;const f=setInterval(()=>{c+=2;if(c>=100){c=100;el.textContent='100%';clearInterval(f);setTimeout(()=>{if(done)done();},200);}else el.textContent=c+'%';},15);}
+
+/* ---------- Fetch ---------- */
+let src='sheet',errMsg='';
+async function fetchReportsData(){
+  buildHead();initLoader();
+  try{
+    const res=await fetch(SCRIPT_URL),result=await res.json();
+    finishLoader(()=>{
+      let d=result&&result.data!==undefined?result.data:(Array.isArray(result)?result:null);
+      if(d&&!Array.isArray(d))d=Object.values(d);
+      if(d){src='sheet';globalSalesData=d;}
+      else{src='local';errMsg=(result&&(result.message||result.error))||'unexpected response';loadLocal();}
+      afterLoad();
+    });
+  }catch(e){
+    console.error(e);errMsg=e&&e.message?e.message:'network error';
+    finishLoader(()=>{src='local';loadLocal();afterLoad();});
+  }
+}
+function loadLocal(){try{globalSalesData=JSON.parse(localStorage.getItem('policynest_sales'))||[];}catch(e){globalSalesData=[];}}
+function afterLoad(){
+  globalSalesData=globalSalesData.map(canon);
+  const sn=document.getElementById('src-note'),ok=src==='sheet';
+  sn.className='glass-panel rounded-2xl px-4 py-2.5 text-xs font-bold '+(ok?'text-emerald-800':'text-red-700');
+  sn.innerHTML='<i class="fas fa-database mr-2"></i>'+(ok?'Sheet se '+globalSalesData.length+' records load hue':'Sheet se data nahi aaya ('+esc(errMsg)+'). Local backup: '+globalSalesData.length+' records');
+  fillSelect('fComp','insuranceCompany','All Companies');fillSelect('fCba','cbaName','All CBA');fillSelect('fType','policyType','All Policy Types');
+  applyFilters();
+}
+function fillSelect(id,key,label){
+  const v=[...new Set(globalSalesData.map(s=>String(s[key]||'').trim()).filter(Boolean))].sort();
+  document.getElementById(id).innerHTML='<option value="">'+label+'</option>'+v.map(x=>'<option>'+esc(x)+'</option>').join('');
+}
+
+/* ---------- Table head / columns ---------- */
+function buildHead(){
+  document.getElementById('theadRow').innerHTML=F.map(f=>`<th class="p-3.5 c-${f[0]} cursor-pointer hover:text-teal-700" onclick="sortTable('${f[0]}')">${f[1]} <i class="fas fa-sort ml-1"></i></th>`).join('')+'<th class="p-3.5 text-center noprint">Actions</th>';
+  document.getElementById('colPanel').innerHTML=F.map(f=>`<label class="flex items-center gap-2 text-xs font-bold text-slate-800"><input type="checkbox" ${hiddenCols.has(f[0])?'':'checked'} onchange="toggleCol('${f[0]}',this.checked)">${f[1]}</label>`).join('');
+  colCss();
+}
+function toggleCol(k,on){on?hiddenCols.delete(k):hiddenCols.add(k);try{localStorage.setItem('pn_rep_cols',JSON.stringify([...hiddenCols]));}catch(e){}colCss();}
+function colCss(){document.getElementById('colstyle').textContent=[...hiddenCols].map(k=>'.c-'+k+'{display:none}').join('');}
+
+/* ---------- Filters ---------- */
+let dt=null;function debSearch(){clearTimeout(dt);dt=setTimeout(applyFilters,250);}
+function filterByDateRange(r){
+  dateFilter=r;document.getElementById('fFrom').value='';document.getElementById('fTo').value='';
+  ['all','today','week','month','year'].forEach(x=>document.getElementById('btn-'+x).className='chip'+(x===r?' on':''));
+  applyFilters();
+}
+function customRange(){dateFilter='custom';['all','today','week','month','year'].forEach(x=>document.getElementById('btn-'+x).className='chip');applyFilters();}
+function toggleExp(){expOnly=!expOnly;document.getElementById('btn-exp').className='chip'+(expOnly?' on':'');applyFilters();}
+function clearFilters(){document.getElementById('reportSearch').value='';['fComp','fCba','fType'].forEach(i=>document.getElementById(i).value='');expOnly=false;document.getElementById('btn-exp').className='chip';sortCol=null;filterByDateRange('all');}
+
+function applyFilters(){
+  const q=document.getElementById('reportSearch').value.toLowerCase().trim();
+  const fc=document.getElementById('fComp').value,fb=document.getElementById('fCba').value,ft=document.getElementById('fType').value;
+  const from=document.getElementById('fFrom').value?new Date(document.getElementById('fFrom').value+'T00:00:00'):null;
+  const to=document.getElementById('fTo').value?new Date(document.getElementById('fTo').value+'T23:59:59'):null;
+  const now=new Date(),today0=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  filtered=globalSalesData.filter(s=>{
+    if(q&&![s.clientName,s.policyNo,s.insuranceCompany,s.cbaName,s.vehNo].some(v=>String(v||'').toLowerCase().includes(q)))return false;
+    if(fc&&String(s.insuranceCompany||'').trim()!==fc)return false;
+    if(fb&&String(s.cbaName||'').trim()!==fb)return false;
+    if(ft&&String(s.policyType||'').trim()!==ft)return false;
+    if(expOnly){const dl=daysLeft(s.policyEndDate);if(dl===null||dl<0||dl>30)return false;}
+    if(dateFilter!=='all'){
+      const d=parseDate(s.date);if(!d)return false;
+      if(dateFilter==='today'&&d.toDateString()!==now.toDateString())return false;
+      if(dateFilter==='week'&&!(d>=new Date(today0.getTime()-6*86400000)&&d<=now))return false;
+      if(dateFilter==='month'&&!(d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear()))return false;
+      if(dateFilter==='year'&&d.getFullYear()!==now.getFullYear())return false;
+      if(dateFilter==='custom'){if(from&&d<from)return false;if(to&&d>to)return false;}
+    }
+    return true;
+  });
+  if(sortCol)sortData();else filtered.reverse();
+  page=1;render();
+}
+
+/* ---------- Sorting ---------- */
+function sortTable(c){if(sortCol===c)sortDir=sortDir==='asc'?'desc':'asc';else{sortCol=c;sortDir='desc';}sortData();render();}
+function sortData(){
+  const t=(F.find(f=>f[0]===sortCol)||[])[2];
+  const val=s=>t==='date'?(parseDate(s[sortCol])||0).valueOf():(t==='money'||t==='pct')?parseVal(s[sortCol]):String(s[sortCol]||'').toLowerCase();
+  filtered.sort((a,b)=>{const x=val(a),y=val(b);return x<y?(sortDir==='asc'?-1:1):x>y?(sortDir==='asc'?1:-1):0;});
+}
+
+/* ---------- Render ---------- */
+function cell(s,f){
+  const k=f[0],t=f[2],v=s[k];
+  if(t==='date')return fmtDate(v);
+  if(t==='money'){const c=k==='grossPremium'?'font-extrabold text-amber-800':k==='profitInAmt'?'font-extrabold text-emerald-800':k==='netPremium'?'font-bold':'';return `<span class="sens ${c}">${formatINR(parseVal(v))}</span>`;}
+  if(t==='pct')return (v||0)+'%';
+  const e=esc(v);
+  if(k==='clientName')return `<span class="font-extrabold text-slate-900">${e||'N/A'}</span>`;
+  if(k==='cbaName')return `<span class="font-bold text-teal-800">${e||'N/A'}</span>`;
+  return e||'-';
+}
+function badges(s,dups){
+  let b='';const dl=daysLeft(s.policyEndDate);
+  if(dl!==null){if(dl<0)b+='<span class="badge bg-red-100 text-red-800">Expired</span>';else if(dl<=30)b+=`<span class="badge bg-amber-100 text-amber-800">Expiring ${dl}d</span>`;}
+  if(s.policyNo&&dups[String(s.policyNo).trim()]>1)b+='<span class="badge bg-purple-100 text-purple-800" title="Duplicate policy number">Duplicate</span>';
+  return b;
+}
+function render(){
+  const total=filtered.length,pages=Math.max(1,Math.ceil(total/pageSize));if(page>pages)page=pages;
+  document.getElementById('record-count').textContent=total;
+  document.getElementById('pageInfo').textContent='Page '+page+' / '+pages;
+  const dups={};globalSalesData.forEach(s=>{const p=String(s.policyNo||'').trim();if(p)dups[p]=(dups[p]||0)+1;});
+  // summary
+  const tg=filtered.reduce((a,s)=>a+parseVal(s.grossPremium),0),tp=filtered.reduce((a,s)=>a+parseVal(s.profitInAmt),0),ex=filtered.filter(s=>{const d=daysLeft(s.policyEndDate);return d!==null&&d>=0&&d<=30;}).length;
+  document.getElementById('summary').innerHTML=[['Records',total,'fa-file-lines','#0d9488',0],['Total Gross Premium',formatINR(tg),'fa-indian-rupee-sign','#d97706',1],['Total Profit',formatINR(tp),'fa-sack-dollar','#16a34a',1],['Expiring in 30 days',ex,'fa-hourglass-half','#e11d48',0]].map(k=>`<div class="glass-panel p-4 rounded-2xl flex items-center justify-between gap-2"><div><p class="text-[11px] font-bold uppercase text-slate-700">${k[0]}</p><p class="text-lg font-extrabold text-slate-900 mt-1 ${k[4]?'sens':''}">${k[1]}</p></div><i class="fas ${k[2]} text-xl" style="color:${k[3]}"></i></div>`).join('');
+  const tb=document.getElementById('reportsTableBody'),cards=document.getElementById('cards');
+  if(!total){tb.innerHTML='<tr><td colspan="22" class="p-8 text-center text-slate-600 font-semibold">No records found.</td></tr>';cards.innerHTML='<p class="text-center text-xs font-semibold text-slate-600 py-8">No records found.</p>';return;}
+  const rows=filtered.slice((page-1)*pageSize,page*pageSize);
+  let h='',c='';
+  rows.forEach(s=>{
+    const i=globalSalesData.indexOf(s),bd=badges(s,dups),hasPdf=!!s.pdfLink;
+    h+=`<tr class="clickable-row" onclick="openDetailModal(${i})">`+F.map(f=>`<td class="p-3.5 c-${f[0]}${f[0]==='clientName'?'':''}">${cell(s,f)}${f[0]==='policyNo'?bd:''}</td>`).join('')+
+    `<td class="p-3.5 text-center space-x-1.5 whitespace-nowrap noprint" onclick="event.stopPropagation()">
+<button onclick="openEditModal(${i})" class="px-2.5 py-1.5 bg-teal-600 hover:bg-teal-700 text-white rounded-lg shadow" title="Edit"><i class="fas fa-pen text-[10px]"></i></button>
+<button onclick="downloadPolicyPDF(${i})" class="px-2.5 py-1.5 ${hasPdf?'bg-amber-600 hover:bg-amber-700':'bg-slate-400'} text-white rounded-lg shadow" title="${hasPdf?'Open policy PDF':'PDF not attached'}"><i class="fas fa-file-pdf text-[10px]"></i></button>
+<button onclick="deleteRecord(${i})" class="px-2.5 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow" title="Delete"><i class="fas fa-trash text-[10px]"></i></button></td></tr>`;
+    c+=`<div class="glass-panel p-4 rounded-2xl space-y-1.5" onclick="openDetailModal(${i})"><div class="flex justify-between gap-2"><span class="font-extrabold text-slate-900 text-sm">${esc(s.clientName)||'N/A'}</span><span class="text-[11px] font-bold text-slate-700">${fmtDate(s.date)}</span></div><div class="text-xs font-semibold text-slate-800">${esc(s.policyNo)||'N/A'} • ${esc(s.insuranceCompany)||'N/A'}${bd}</div><div class="flex justify-between text-xs"><span class="font-extrabold text-amber-800 sens">${formatINR(parseVal(s.grossPremium))}</span><span class="font-extrabold text-emerald-800 sens">Profit ${formatINR(parseVal(s.profitInAmt))}</span></div><div class="text-[11px] font-bold text-teal-800">CBA: ${esc(s.cbaName)||'N/A'} • Ends ${fmtDate(s.policyEndDate)}</div></div>`;
+  });
+  tb.innerHTML=h;cards.innerHTML=c;
+}
+function goPage(d){const pages=Math.max(1,Math.ceil(filtered.length/pageSize));page=Math.min(pages,Math.max(1,page+d));render();}
+function printReport(){const ps=pageSize;pageSize=1e9;render();window.print();pageSize=ps;render();}
+
+/* ---------- Detail / Edit / Delete ---------- */
+function openDetailModal(i){
+  const s=globalSalesData[i];if(!s)return;
+  document.getElementById('modalFieldsGrid').innerHTML=F.map(f=>{
+    const g=f[0]==='grossPremium',p=f[0]==='profitInAmt',m=f[2]==='money';
+    return `<div class="p-3 rounded-xl border ${g?'bg-amber-50 border-amber-500/30':p?'bg-emerald-50 border-emerald-500/30':'bg-slate-100 border-teal-500/20'}"><span class="block text-[10px] uppercase font-bold text-slate-600">${f[1]}</span><span class="font-extrabold text-slate-900 text-sm ${m?'sens':''}">${cell(s,f)}</span></div>`;}).join('');
+  document.getElementById('modalEditBtn').onclick=()=>{closeDetailModal();openEditModal(i);};
+  document.getElementById('modalPdfBtn').onclick=()=>downloadPolicyPDF(i);
+  document.getElementById('modalDelBtn').onclick=()=>{closeDetailModal();deleteRecord(i);};
+  document.getElementById('detailModal').classList.remove('hidden');
+}
+function closeDetailModal(){document.getElementById('detailModal').classList.add('hidden');}
+function openEditModal(i){
+  const s=globalSalesData[i];if(!s)return;
+  document.getElementById('editIndex').value=i;
+  document.getElementById('editGrid').innerHTML=F.map(f=>{
+    const ro=(f[0]==='netPremium'||f[0]==='profitInAmt');
+    const ty=f[2]==='date'?'date':(f[2]==='money'||f[2]==='pct')?'number':'text';
+    const v=f[2]==='date'?toISO(s[f[0]]):(ty==='number'?parseVal(s[f[0]]):(s[f[0]]||''));
+    return `<div><label class="block text-xs font-bold text-slate-800 mb-1">${f[1]}${ro?' (Auto)':''}</label><input type="${ty}" ${ty==='number'?'step="0.01"':''} id="e_${f[0]}" value="${esc(v)}" ${ro?'readonly':''} class="w-full ${ro?'bg-slate-100 border border-slate-300':'glass-input'} rounded-xl px-3 py-2 text-xs font-bold text-slate-900"></div>`;}).join('');
+  document.getElementById('editModal').classList.remove('hidden');
+}
+document.addEventListener('input',e=>{
+  if(!e.target.id||!e.target.id.startsWith('e_'))return;
+  const g=k=>parseFloat(document.getElementById('e_'+k).value)||0;
+  if(['sodPremium','tpPremium','gstNetPremium'].includes(e.target.id.slice(2)))document.getElementById('e_netPremium').value=(g('sodPremium')+g('tpPremium')+g('gstNetPremium')).toFixed(2);
+  if(['payoutPremium','cbaPayoutPct'].includes(e.target.id.slice(2)))document.getElementById('e_profitInAmt').value=(g('payoutPremium')-g('payoutPremium')*g('cbaPayoutPct')/100).toFixed(2);
+});
+function closeEditModal(){document.getElementById('editModal').classList.add('hidden');}
+function persistLocal(){try{localStorage.setItem('policynest_sales',JSON.stringify(globalSalesData));}catch(e){}}
+async function postSheet(body){
+  try{await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});return true;}catch(e){console.error(e);return false;}
+}
+async function saveEditedRecord(){
+  const i=+document.getElementById('editIndex').value,s=globalSalesData[i];if(!s)return;
+  const orig={policyNo:s.policyNo,clientName:s.clientName},data={};
+  F.forEach(f=>{let v=document.getElementById('e_'+f[0]).value;data[f[0]]=v;});
+  if(!data.clientName.trim()||!data.policyNo.trim()){showToast('Client Name aur Policy No zaroori hai','error');return;}
+  Object.assign(s,data);persistLocal();closeEditModal();applyFilters();
+  const ok=await postSheet({action:'update',policyNo:orig.policyNo,clientName:orig.clientName,data});
+  showToast(ok?'Record updated. Sheet ko update request bhej di gayi.':'Saved locally, sheet sync failed!',ok?'success':'error');
+}
+async function deleteRecord(i){
+  const s=globalSalesData[i];if(!s)return;
+  if(!confirm('Delete record?\n'+(s.clientName||'N/A')+' • '+(s.policyNo||'N/A')+'\nYe sheet se bhi hat jayega.'))return;
+  const body={action:'delete',policyNo:s.policyNo,clientName:s.clientName};
+  globalSalesData.splice(i,1);persistLocal();applyFilters();
+  const ok=await postSheet(body);
+  showToast(ok?'Record deleted. Sheet ko request bhej di gayi.':'Deleted locally, sheet sync failed!',ok?'success':'error');
+}
+function downloadPolicyPDF(i){
+  const s=globalSalesData[i];
+  if(!s||!s.pdfLink||!/^https?:\/\//i.test(String(s.pdfLink).trim())){showToast('Policy PDF attached nahi hai / link nahi mila','error');return;}
+  window.open(String(s.pdfLink).trim(),'_blank','noopener');
+}
+
+/* ---------- CSV ---------- */
+function exportToCSV(){
+  if(!filtered.length){showToast('No data available to export.','error');return;}
+  const q=v=>'"'+String(v===undefined||v===null?'':v).replace(/"/g,'""')+'"';
+  let csv=F.map(f=>q(f[1])).join(',')+',"PDF Link"\n';
+  filtered.forEach(s=>{csv+=F.map(f=>q(f[2]==='date'?fmtDate(s[f[0]]).replace('N/A',''):s[f[0]])).join(',')+','+q(s.pdfLink)+'\n';});
+  const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'}),a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='PolicyNest_Sales_Report.csv';document.body.appendChild(a);a.click();document.body.removeChild(a);
+  showToast('CSV report exported successfully!');
+}
+
+window.onload=fetchReportsData;
+</script>
+</body>
+</html>
